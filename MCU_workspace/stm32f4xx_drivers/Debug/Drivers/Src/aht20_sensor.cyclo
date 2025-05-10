@@ -1,0 +1,2 @@
+../Drivers/Src/aht20_sensor.c:13:6:AHT20_Init	2
+../Drivers/Src/aht20_sensor.c:30:6:AHT20_ReadData	2

@@ -1,0 +1,14 @@
+22:27:06 **** Incremental Build of configuration Debug for project i2c_test ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "i2c_test.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\MCU_workspace\i2c_test\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c_test.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: ./Core/Src/main.o: in function `main':
+D:/MCU_workspace/i2c_test/Debug/../Core/Src/main.c:97: undefined reference to `hi2c1'
+C:/ST/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: ./Core/Src/main.o: in function `MX_I2C1_Init':
+D:/MCU_workspace/i2c_test/Debug/../Core/Src/main.c:179: undefined reference to `hi2c1'
+collect2.exe: error: ld returned 1 exit status
+make: *** [makefile:64: i2c_test.elf] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+
+22:27:07 Build Failed. 3 errors, 0 warnings. (took 1s.187ms)
+

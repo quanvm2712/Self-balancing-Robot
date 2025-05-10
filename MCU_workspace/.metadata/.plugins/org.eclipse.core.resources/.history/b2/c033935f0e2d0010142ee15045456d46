@@ -1,0 +1,51 @@
+/*
+ * aht20_sensor.c
+ *
+ *  Created on: Feb 23, 2025
+ *      Author: nhduong
+ */
+
+#include "aht20_sensor.h"
+extern I2C_HandleTypeDef I2C1_Handle;
+extern uint8_t data[6];
+extern float actualTemperature;
+extern float actualHumidity;
+void AHT20_Init(){
+	delay_ms(10);
+	//Send Init command to AHT20
+
+
+	uint8_t status;
+	I2C_Master_Receive(&I2C1_Handle, &status, 1, AHT20_I2C_ADDRESS, I2C_SR_DISABLE);
+
+	if (!(status & (1 << 3)))
+	{
+		uint8_t init_command[] = {0xBE, 0x08, 0x00};
+		I2C_Master_Transmit(&I2C1_Handle, init_command, 3, AHT20_I2C_ADDRESS, I2C_SR_DISABLE);
+		delay_ms(2);
+	}
+
+}
+
+void AHT20_ReadData() {
+    uint8_t cmd[] = {0xAC, 0x33, 0x00};
+
+    // Send measurement command
+    I2C_Master_Transmit(&I2C1_Handle, cmd, 3, AHT20_I2C_ADDRESS, I2C_SR_DISABLE);
+    delay_ms(20); // Wait for measurement
+
+    uint8_t status;
+    I2C_Master_Receive(&I2C1_Handle, &status, 1, AHT20_I2C_ADDRESS, I2C_SR_DISABLE);
+
+
+    if (!(status & 0x80)) {
+        I2C_Master_Receive(&I2C1_Handle, data, 6, AHT20_I2C_ADDRESS, I2C_SR_DISABLE);
+        float humidity = ((uint32_t)data[1] << 12) | ((uint32_t)data[2] << 4) | (data[3] >> 4);
+        float temperature = ((uint32_t)(data[3] & 0x0F) << 16) | ((uint32_t)data[4] << 8) | data[5];
+
+        actualTemperature = (temperature * 200.0 / 1048576.0) - 50.0;
+        actualHumidity = (humidity * 100.0 / 1048576.0);
+
+    }
+}
+

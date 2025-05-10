@@ -1,0 +1,10 @@
+20:32:28 **** Incremental Build of configuration Debug for project aht20_sensorTest ****
+make -j8 all 
+arm-none-eabi-size  aht20_sensorTest.elf 
+   text	   data	    bss	    dec	    hex	filename
+  13360	     12	   1668	  15040	   3ac0	aht20_sensorTest.elf
+Finished building: default.size.stdout
+ 
+
+20:32:29 Build Finished. 0 errors, 0 warnings. (took 816ms)
+
