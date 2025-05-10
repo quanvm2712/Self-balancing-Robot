@@ -1,0 +1,10 @@
+17:19:16 **** Incremental Build of configuration Debug for project test_i2c1 ****
+make -j8 all 
+arm-none-eabi-size  test_i2c1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  13384	     12	   1668	  15064	   3ad8	test_i2c1.elf
+Finished building: default.size.stdout
+ 
+
+17:19:16 Build Finished. 0 errors, 0 warnings. (took 565ms)
+
