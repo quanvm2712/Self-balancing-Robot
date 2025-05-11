@@ -164,6 +164,8 @@ void USART_PeriClockControl(USART_RegDef_t *pUSARTx, uint8_t state);
 /*
  * Init and De-init
  */
+void USART_SetParam(USART_HandleTypeDef *USART_Handle, USART_RegDef_t *BaseAddress, uint8_t USART_TX_RX_Mode, uint8_t NoOfStopBits, uint8_t WordLength, uint8_t ParityMode, uint32_t BaudRate);
+void USART_InitGPIO(USART_RegDef_t *BaseAddress);
 void USART_Init(USART_HandleTypeDef *husart);
 void USART_DeInit(USART_RegDef_t *pUSARTx);
 

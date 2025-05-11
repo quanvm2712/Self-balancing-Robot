@@ -3,6 +3,10 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
+		<item value="gpio"/>
+		<item value="usart_pe"/>
+		<item value="init"/>
+		<item value="usart"/>
 		<item value="APB1PERIPH_BASE"/>
 		<item value="SPI2"/>
 	</list>

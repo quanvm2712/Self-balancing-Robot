@@ -57,6 +57,8 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t clockState)
     }
 }
 
+
+
 /**
   * @brief  Initializes the GPIO peripheral according to the specified parameters
   * 		in the GPIO_InitTypeDef and initialize the associated handle.

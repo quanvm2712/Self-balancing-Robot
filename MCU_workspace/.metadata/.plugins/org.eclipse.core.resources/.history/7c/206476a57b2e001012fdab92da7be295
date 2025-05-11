@@ -1,0 +1,52 @@
+/*
+ * 010i2c_master_tx_testing.c
+ *
+ *  Created on: Feb 24, 2019
+ *      Author: admin
+ */
+
+
+
+#include "stm32f407xx.h"
+
+USART_HandleTypeDef USART2_Handle;
+char msg[1024] = "UART Tx testing...\n";
+
+void delay(void)
+{
+	for(uint32_t i = 0 ; i < 500000/2 ; i ++);
+}
+
+
+
+//int main(void)
+//{
+//	//Init USART Parameter
+//	memset(&USART2_Handle, 0, sizeof(USART2_Handle));
+////	USART_InitGPIO(USART2);
+////	USART2_Inits();
+//	USART_SetParam(&USART2_Handle, USART2, USART_MODE_TX, USART_STOPBITS_1, USART_WORDLENGTH_8BITS, USART_PARITY_NONE, USART_BAUDRATE_9600);
+//
+//
+//	USART_PeripheralControl(USART2, ENABLE);
+//
+//	while (1)
+//	{
+//		USART_Transmit(&USART2_Handle,(uint8_t*)msg,strlen(msg));
+//		delay();
+//
+//	}
+//
+//}
+
+
+
+
+int main(void){
+	//Init UART Parameters
+	USART_SetParam(&USART2_Handle, USART2, USART_MODE_RX, USART_STOPBITS_1, USART_WORDLENGTH_8BITS, USART_PARITY_NONE, 9600)
+
+
+
+	return 0;
+}
