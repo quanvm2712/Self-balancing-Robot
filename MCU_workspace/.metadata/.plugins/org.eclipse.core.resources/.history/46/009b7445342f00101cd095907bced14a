@@ -1,0 +1,27 @@
+/*
+ * stm32f407xx_usart.h
+ *
+ *  Created on: May 11, 2025
+ *      Author: quanvm198
+ */
+#ifndef INC_STM32F407XX_SystemClock_H_
+#define INC_STM32F407XX_SystemClock_H_
+
+#include "stm32f407xx.h"
+
+
+
+//Define Cortex-M4 SysTick base address
+#define SYSTICK_BASEADDRESS		((volatile uint32_t*)0xE000E010)
+
+
+//Struct to hold Systick Register
+typedef struct{
+	volatile uint32_t STK_CTRL;
+	volatile uint32_t STK_LOAD;
+	volatile uint32_t STK_VAL;
+	volatile uint32_t STK_CALIB;
+}STK;
+
+
+

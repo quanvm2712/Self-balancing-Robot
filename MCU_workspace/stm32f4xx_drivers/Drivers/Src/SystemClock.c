@@ -1,4 +1,3 @@
-#include "SystemClock.h"
 
 /** STEP
  * Use RCC_CR reg to enable HSI (TURN ON), and check for ready flag of HSI
@@ -6,4 +5,16 @@
  * Set RCC_CFGR reg to configure AHB Prescaler: Divided by 1
  * Set RCC_CFGR reg to configure APB1 Prescaler: Divided by 4
  * Set RCC_CFGR reg to configure APB2 Prescaler: Divided by 2
- * /
+ *
+ */
+
+
+#include "SystemClock.h"
+
+
+void RCC_EnableHSI(void){
+	//Turn HSI OSC On
+	RCC->CR |= (1 << 0);
+
+
+}

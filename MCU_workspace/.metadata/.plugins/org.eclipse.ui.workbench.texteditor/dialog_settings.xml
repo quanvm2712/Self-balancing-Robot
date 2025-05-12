@@ -3,6 +3,9 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
+		<item value="systick"/>
+		<item value="RCC"/>
+		<item value="rcc"/>
 		<item value="gpio"/>
 		<item value="usart_pe"/>
 		<item value="init"/>

@@ -635,5 +635,6 @@ typedef struct
 #include "stm32f407xx_rcc.h"
 #include "delay.h"
 #include "aht20_sensor.h"
+#include "SysTick.h"
 
 #endif /* INC_STM32F407XX_H_ */

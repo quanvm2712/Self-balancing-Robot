@@ -41,6 +41,9 @@
 
 /********************************************************************************/
 USART_HandleTypeDef USART2_Handle;  //USART2 Handler for Asynchronous RX function
+
+GPIO_HandleTypeDef GPIOD_Handle;
+
 char rData[2]; //Array to store received data
 
 void delay(void)
@@ -49,15 +52,29 @@ void delay(void)
 }
 
 
+void GPIO_Initialize(void){
+	GPIOD_Handle.pGPIOx = GPIOD;
+	GPIOD_Handle.Init.Pin = 13;
+	GPIOD_Handle.Init.Mode = GPIO_MODE_OUTPUT;
+	GPIOD_Handle.Init.OPType = GPIO_OPTYPE_PP;
+	GPIO_Init(&GPIOD_Handle);
+}
+
 int main(void){
 	//Init UART Parameters
-	USART_SetParam(&USART2_Handle, USART2, USART_MODE_RX, USART_STOPBITS_1, USART_WORDLENGTH_8BITS, USART_PARITY_NONE, 9600);
+	//USART_SetParam(&USART2_Handle, USART2, USART_MODE_RX, USART_STOPBITS_1, USART_WORDLENGTH_8BITS, USART_PARITY_NONE, 9600);
+
+	//Init SysTick timer
+	SysTick_Init();
+	GPIO_Initialize();
 
 
 	while(1){
-		USART_Receive(&USART2_Handle, (uint8_t*) rData, 2);
-		delay();
+		//USART_Receive(&USART2_Handle, (uint8_t*) rData, 2);
+		//delay();
 
+		GPIO_TogglePin(GPIOD, GPIO_PIN_13);
+		Delay_ms(1000);
 
 	}
 
