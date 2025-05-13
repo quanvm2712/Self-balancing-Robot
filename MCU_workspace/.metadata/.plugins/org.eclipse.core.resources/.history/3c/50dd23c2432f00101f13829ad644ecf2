@@ -177,7 +177,7 @@ uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx , uint32_t FlagName)
   * @param  Length amount of data to be sent
   * @retval None
   */
-void SPI_Transmit(SPI_RegDef_t *pSPIx,uint8_t *pTxBuffer, uint32_t Len)
+void SPI_Transmit(SPI_RegDef_t *pSPIx, const uint8_t *pTxBuffer, uint32_t Len)
 {
 	SPI_PeripheralControl(SPI2,ENABLE);
 	while (Len > 0)
@@ -194,7 +194,7 @@ void SPI_Transmit(SPI_RegDef_t *pSPIx,uint8_t *pTxBuffer, uint32_t Len)
 			pTxBuffer += 2;
 		}else {
 			// 8 bit in DFF
-			pSPIx->DR = *pTxBuffer;
+			pSPIx->DR = *((const uint8_t *)pTxBuffer);
 			Len--;
 			pTxBuffer++;
 		}
@@ -202,7 +202,31 @@ void SPI_Transmit(SPI_RegDef_t *pSPIx,uint8_t *pTxBuffer, uint32_t Len)
 	while( SPI_GetFlagStatus(SPI2,SPI_FLAG_BSY) );
 	SPI_PeripheralControl(SPI2,DISABLE);
 }
+void SPI_Transmit1(SPI_RegDef_t *pSPIx, const uint8_t *pTxBuffer, uint32_t Len)
+{
+	SPI_PeripheralControl(pSPIx, ENABLE);
+	while (Len > 0)
+	{
+		// wait until TXE is set
+		while (SPI_GetFlagStatus(pSPIx, SPI_FLAG_TXE) == FLAG_RESET);
 
+		// check the data size
+		if (pSPIx->CR1 & (1 << SPI_CR1_DFF)) {
+			// 16 bit in CR1
+			// load data into the DR
+			pSPIx->DR = *((const uint16_t *)pTxBuffer);
+			Len -= 2;
+			pTxBuffer += 2;
+		}else {
+			// 8 bit in DFF
+			*((__vo uint8_t *)&pSPIx->DR) = *((const uint8_t *)pTxBuffer);
+			Len--;
+			pTxBuffer++;
+		}
+	}
+	while( SPI_GetFlagStatus(pSPIx,SPI_FLAG_BSY) );
+	SPI_PeripheralControl(pSPIx,DISABLE);
+}
 /**
   * @brief  Receive an amount of data in blocking mode.
   * @param  hspi pointer to a SPI_HandleTypeDef structure that contains
@@ -228,6 +252,30 @@ void SPI_Receive(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Len)
 		}else {
 			// 8 bit
 			*pRxBuffer = pSPIx->DR;
+			Len--;
+			pRxBuffer++;
+		}
+	}
+	while (SPI_GetFlagStatus(pSPIx, SPI_FLAG_BSY));
+	SPI_PeripheralControl(pSPIx, DISABLE);
+}
+void SPI_Receive1(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Len)
+{
+	SPI_PeripheralControl(pSPIx, ENABLE);
+	while (Len > 0) {
+		// wait until RXNE is set
+		while (SPI_GetFlagStatus(pSPIx, SPI_FLAG_RXNE));
+
+		// Check the data size
+		if (pSPIx->CR1 & (1 << SPI_CR1_DFF)) {
+			// 16 bit in CR1
+			// load data from DR to pRxbuffer
+			*((uint16_t*)pRxBuffer) = pSPIx->DR;
+			Len -= 2;
+			pRxBuffer += 2;
+		}else {
+			// 8 bit
+			(* (uint8_t *)pRxBuffer) = *(__vo uint8_t *)&pSPIx->DR;
 			Len--;
 			pRxBuffer++;
 		}
@@ -264,15 +312,15 @@ void SPI_TransmitReceive(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint8_t *pRxBu
         else
         {
             // 8-bit mode
-            pSPIx->DR = *pTxBuffer;
-
+        	*((__vo uint8_t *)&pSPIx->DR) = *((const uint8_t *)pTxBuffer);
+        	 while (SPI_GetFlagStatus(pSPIx, SPI_FLAG_RXNE) == FLAG_RESET);
+            pTxBuffer++;
             // Wait until RXNE is set
-            while (SPI_GetFlagStatus(pSPIx, SPI_FLAG_RXNE) == FLAG_RESET);
 
-            *pRxBuffer = pSPIx->DR;
+
+            (* (uint8_t *)pRxBuffer) = *(__vo uint8_t *)&pSPIx->DR;
 
             Len--;
-            pTxBuffer++;
             pRxBuffer++;
         }
     }

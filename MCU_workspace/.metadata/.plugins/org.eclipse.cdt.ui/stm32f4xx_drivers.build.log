@@ -1,10 +1,25 @@
-02:53:03 **** Incremental Build of configuration Debug for project stm32f4xx_drivers ****
+23:08:30 **** Incremental Build of configuration Debug for project stm32f4xx_drivers ****
 make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -include"D:/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -include"D:/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -include"D:/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/sysmem.o"
+arm-none-eabi-gcc "../Drivers/Src/delay.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -include"D:/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/delay.d" -MT"Drivers/Src/delay.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Src/delay.o"
+arm-none-eabi-gcc "../Drivers/Src/stm32f407xx_gpio.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -include"D:/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32f407xx_gpio.d" -MT"Drivers/Src/stm32f407xx_gpio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Src/stm32f407xx_gpio.o"
+arm-none-eabi-gcc "../Drivers/Src/stm32f407xx_i2c.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -include"D:/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32f407xx_i2c.d" -MT"Drivers/Src/stm32f407xx_i2c.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Src/stm32f407xx_i2c.o"
+arm-none-eabi-gcc "../Drivers/Src/stm32f407xx_rcc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -include"D:/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32f407xx_rcc.d" -MT"Drivers/Src/stm32f407xx_rcc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Src/stm32f407xx_rcc.o"
+arm-none-eabi-gcc "../Drivers/Src/stm32f407xx_spi.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -include"D:/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32f407xx_spi.d" -MT"Drivers/Src/stm32f407xx_spi.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Src/stm32f407xx_spi.o"
+arm-none-eabi-gcc "../Drivers/Src/stm32f407xx_usart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -include"D:/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32f407xx_usart.d" -MT"Drivers/Src/stm32f407xx_usart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Src/stm32f407xx_usart.o"
+arm-none-eabi-gcc -o "stm32f4xx_drivers.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\MCU_workspace\stm32f4xx_drivers\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32f4xx_drivers.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: stm32f4xx_drivers.elf
+ 
 arm-none-eabi-size  stm32f4xx_drivers.elf 
+arm-none-eabi-objdump -h -S stm32f4xx_drivers.elf  > "stm32f4xx_drivers.list"
    text	   data	    bss	    dec	    hex	filename
-  26600	    476	   1968	  29044	   7174	stm32f4xx_drivers.elf
+  26232	    480	   1944	  28656	   6ff0	stm32f4xx_drivers.elf
 Finished building: default.size.stdout
  
+Finished building: stm32f4xx_drivers.list
+ 
 
-02:53:03 Build Finished. 0 errors, 0 warnings. (took 419ms)
+23:08:33 Build Finished. 0 errors, 0 warnings. (took 2s.213ms)
 
