@@ -3,6 +3,7 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
+		<item value="TIM2_BASEADDR"/>
 		<item value="APB1PERIPH_BASE"/>
 		<item value="SPI2"/>
 	</list>

@@ -9,7 +9,32 @@
 
 #include "stm32f407xx.h"
 
+TIM_HandleTypeDef htim;
+
+void delay()
+{
+	for (uint32_t i = 0; i < 500000; i++);
+}
 int main()
 {
-	return 0;
+//	TIM_PWM_Init(&htim);
+//	uint32_t duty = 0;
+//	uint8_t step = 100;
+//
+//	while(1)
+//	{
+//		duty += step;
+//		TIM_Base_SetConfig(TIM2, 15, 999, duty);
+//				  if (duty >= 999)
+//				  {
+//					  duty  = 999;
+//					  step = -10;
+//				  }else if (duty <= 0)
+//				  {
+//					  duty = 0;
+//					  step = 10;
+//				  }
+//				  delay();
+//	}
+
 }
