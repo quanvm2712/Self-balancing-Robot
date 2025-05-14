@@ -3,7 +3,18 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
-		<item value="TIM2_BASEADDR"/>
+		<item value="systick"/>
+		<item value="sys"/>
+		<item value="rcc_"/>
+		<item value="rcc_cr"/>
+		<item value="rcc_rc"/>
+		<item value="RCC_RegDef_t"/>
+		<item value="rcc"/>
+		<item value="RCC"/>
+		<item value="gpio"/>
+		<item value="usart_pe"/>
+		<item value="init"/>
+		<item value="usart"/>
 		<item value="APB1PERIPH_BASE"/>
 		<item value="SPI2"/>
 	</list>

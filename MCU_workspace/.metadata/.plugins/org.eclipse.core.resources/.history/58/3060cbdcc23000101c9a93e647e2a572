@@ -1,0 +1,146 @@
+/*
+ * stm32f407xx_tim.h
+ *
+ *  Created on: May 12, 2025
+ *      Author: nhduong
+ */
+
+#ifndef INC_STM32F407XX_TIM_H_
+#define INC_STM32F407XX_TIM_H_
+
+#include "stm32f407xx.h"
+
+/**
+  * @brief  TIM Time base Configuration Structure definition
+  */
+typedef struct
+{
+  uint32_t Prescaler;         /*!< Specifies the prescaler value used to divide the TIM clock.
+                                   This parameter can be a number between Min_Data = 0x0000 and Max_Data = 0xFFFF */
+
+  uint32_t CounterMode;       /*!< Specifies the counter mode.
+                                     This parameter can be a value of @ref TIM_Counter_Mode */
+
+
+  uint32_t Period;            /*!< Specifies the period value to be loaded into the active
+                                   Auto-Reload Register at the next update event.
+                                   This parameter can be a number between Min_Data = 0x0000 and Max_Data = 0xFFFF.  */
+
+  uint32_t ClockDivision;     /*!< Specifies the clock division.
+                                   This parameter can be a value of @ref TIM_ClockDivision */
+
+} TIM_Base_InitTypeDef;
+
+/**
+  * @brief  TIM Output Compare Configuration Structure definition
+  */
+typedef struct
+{
+  uint32_t OCMode;        /*!< Specifies the TIM mode.
+                               This parameter can be a value of @ref TIM_Output_Compare_and_PWM_modes */
+
+  uint32_t Pulse;         /*!< Specifies the pulse value to be loaded into the Capture Compare Register.
+                               This parameter can be a number between Min_Data = 0x0000 and Max_Data = 0xFFFF */
+
+  uint32_t OCPolarity;    /*!< Specifies the output polarity.
+                               This parameter can be a value of @ref TIM_Output_Compare_Polarity */
+
+} TIM_OC_InitTypeDef;
+
+/**
+  * @brief  TIM Input Capture Configuration Structure definition
+  */
+typedef struct
+{
+  uint32_t  ICPolarity;  /*!< Specifies the active edge of the input signal.
+                              This parameter can be a value of @ref TIM_Input_Capture_Polarity */
+
+  uint32_t ICSelection;  /*!< Specifies the input.
+                              This parameter can be a value of @ref TIM_Input_Capture_Selection */
+
+  uint32_t ICPrescaler;  /*!< Specifies the Input Capture Prescaler.
+                              This parameter can be a value of @ref TIM_Input_Capture_Prescaler */
+
+  uint32_t ICFilter;     /*!< Specifies the input capture filter.
+                              This parameter can be a number between Min_Data = 0x0 and Max_Data = 0xF */
+} TIM_IC_InitTypeDef;
+
+
+/**
+  * @brief  TIM Encoder Configuration Structure definition
+  */
+typedef struct
+{
+  uint32_t EncoderMode;   /*!< Specifies the active edge of the input signal.
+                               This parameter can be a value of @ref TIM_Encoder_Mode */
+
+  uint32_t IC1Polarity;   /*!< Specifies the active edge of the input signal.
+                               This parameter can be a value of @ref TIM_Encoder_Input_Polarity */
+  uint32_t IC1Selection;  /*!< Specifies the input.
+                                 This parameter can be a value of @ref TIM_Input_Capture_Selection */
+
+    uint32_t IC1Prescaler;  /*!< Specifies the Input Capture Prescaler.
+                                 This parameter can be a value of @ref TIM_Input_Capture_Prescaler */
+
+    uint32_t IC1Filter;     /*!< Specifies the input capture filter.
+                                 This parameter can be a number between Min_Data = 0x0 and Max_Data = 0xF */
+
+    uint32_t IC2Polarity;   /*!< Specifies the active edge of the input signal.
+                                 This parameter can be a value of @ref TIM_Encoder_Input_Polarity */
+
+    uint32_t IC2Selection;  /*!< Specifies the input.
+                                This parameter can be a value of @ref TIM_Input_Capture_Selection */
+
+    uint32_t IC2Prescaler;  /*!< Specifies the Input Capture Prescaler.
+                                 This parameter can be a value of @ref TIM_Input_Capture_Prescaler */
+
+    uint32_t IC2Filter;     /*!< Specifies the input capture filter.
+                                 This parameter can be a number between Min_Data = 0x0 and Max_Data = 0xF */
+  } TIM_Encoder_InitTypeDef;
+
+  /**
+    * @brief  TIM Time Base Handle Structure definition
+    */
+  typedef struct
+  {
+    TIM_RegDef_t                       *pTIMx;         /*!< Register base address                             */
+
+    TIM_Base_InitTypeDef               Init;              /*!< TIM Time Base required parameters                 */
+
+  } TIM_HandleTypeDef;
+
+  /*
+   * TIM Counter Mode
+   */
+  #define TIM_COUNTERMODE_UP                 0  /*!< Counter used as upcounter */
+  #define TIM_COUNTERMODE_DOWN               1  /*!< Counter used as downcounter */
+  #define TIM_COUNTERMODE_CENTERALIGNED1     2  /*!< Center-aligned mode 1 */
+  #define TIM_COUNTERMODE_CENTERALIGNED2     3  /*!< Center-aligned mode 2 */
+  #define TIM_COUNTERMODE_CENTERALIGNED3     4  /*!< Center-aligned mode 3 */
+
+  /*
+   * TIM Output Compare and PWM Modes
+   */
+  #define TIM_OCMODE_TIMING                  0  /*!< Frozen */
+  #define TIM_OCMODE_ACTIVE                  1  /*!< Set active level on match */
+  #define TIM_OCMODE_INACTIVE                2  /*!< Set inactive level on match */
+  #define TIM_OCMODE_TOGGLE                  3  /*!< Toggle on match */
+  #define TIM_OCMODE_PWM1                    4  /*!< PWM mode 1 */
+  #define TIM_OCMODE_PWM2                    5  /*!< PWM mode 2 */
+
+  /*
+   * TIM Output Compare Polarity
+   */
+  #define TIM_OCPOLARITY_HIGH                0  /*!< Output compare active high */
+  #define TIM_OCPOLARITY_LOW                 1  /*!< Output compare active low */
+
+  /*
+   * TIM Input Capture Polarity
+   */
+  #define TIM_ICPOLARITY_RISING              0  /*!< Capture on rising edge */
+  #define TIM_ICPOLARITY_FALLING             1  /*!< Capture on falling edge */
+  #define TIM_ICPOLARITY_BOTHEDGE            2  /*!< Capture on both edges */
+
+  /*
+   * TIM Input Capture Selection
+   */

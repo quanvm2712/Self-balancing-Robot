@@ -126,6 +126,84 @@ void USART_SetBaudRate(USART_RegDef_t *pUSARTx, uint32_t BaudRate)
     pUSARTx->BRR = tempreg;    // Set the BRR register to configure the baud rate
 }
 
+/**
+  * @brief  Initializes the GPIO pins for the specified USART peripheral.
+  *         Configures TX and RX pins in Alternate Function mode with appropriate settings.
+  * @param  BaseAddress: Pointer to the USART peripheral base (USART1, USART2, or USART3).
+  * @retval None
+  *
+  * @note   This function sets:
+  *         - Mode: Alternate Function
+  *         - Speed: Fast
+  *         - Alternate Function number: 7 (for USART)
+  *         - Port/Pin selection based on the USART instance
+  */
+
+void USART_InitGPIO(USART_RegDef_t *BaseAddress){
+	GPIO_HandleTypeDef hGPIO;
+
+	if(BaseAddress == USART2){
+		hGPIO.pGPIOx = GPIOA;
+		hGPIO.Init.Pin = GPIO_PIN_2;
+		hGPIO.Init.Mode = GPIO_MODE_AF;
+		hGPIO.Init.Speed = GPIO_SPEED_FAST;
+		hGPIO.Init.Pull = GPIO_PULLUP;
+		hGPIO.Init.Alternate = 7;
+		GPIO_Init(&hGPIO);
+
+		hGPIO.Init.Pin = GPIO_PIN_3;
+		GPIO_Init(&hGPIO);
+	}
+
+	else if(BaseAddress == USART1){
+		hGPIO.pGPIOx = GPIOA;
+		hGPIO.Init.Pin = GPIO_PIN_9;
+		hGPIO.Init.Mode = GPIO_MODE_AF;
+		hGPIO.Init.Speed = GPIO_SPEED_FAST;
+		hGPIO.Init.Alternate = 7;
+		GPIO_Init(&hGPIO);
+
+		hGPIO.Init.Pin = GPIO_PIN_10;
+		GPIO_Init(&hGPIO);
+	}
+
+	else if(BaseAddress == USART3){
+		hGPIO.pGPIOx = GPIOB;
+		hGPIO.Init.Pin = GPIO_PIN_10;
+		hGPIO.Init.Mode = GPIO_MODE_AF;
+		hGPIO.Init.Speed = GPIO_SPEED_FAST;
+		hGPIO.Init.Alternate = 7;
+		GPIO_Init(&hGPIO);
+
+		hGPIO.Init.Pin = GPIO_PIN_11;
+		GPIO_Init(&hGPIO);
+	}
+}
+
+/**
+  * @brief  Enables and configures the USART peripheral.
+  * @param  BaseAddress: Pointer to USART register definition structure.
+  * @param  USART_TX_RX_Mode: Mode selection (TX, RX, or TX+RX).
+  * @param  NoOfStopBits: Number of stop bits (e.g., 1, 0.5, 2).
+  * @param  WordLength: Data word length (e.g., 8 or 9 bits).
+  * @param  ParityMode: Parity configuration (None, Even, Odd).
+  * @param  BaudRate: Desired baud rate for communication.
+  * @retval None
+  */
+
+void USART_SetParam(USART_HandleTypeDef *USART_Handle, USART_RegDef_t *BaseAddress, uint8_t USART_TX_RX_Mode, uint8_t NoOfStopBits, uint8_t WordLength, uint8_t ParityMode, uint32_t BaudRate){
+		USART_Handle->pUSARTx = BaseAddress;
+		USART_Handle->Init.Mode = USART_TX_RX_Mode;
+		USART_Handle->Init.StopBits = NoOfStopBits;
+		USART_Handle->Init.WordLength = WordLength;
+		USART_Handle->Init.ParityControl = ParityMode;
+		USART_Handle->Init.BaudRate = BaudRate;
+
+		USART_InitGPIO(BaseAddress);
+		USART_Init(USART_Handle);
+		USART_PeripheralControl(BaseAddress, ENABLE);
+}
+
 
 /**
   * @brief  Initializes the USART peripheral according to the specified parameters
@@ -234,6 +312,7 @@ void USART_Init(USART_HandleTypeDef *husart)
 	USART_SetBaudRate(husart->pUSARTx,husart->Init.BaudRate);
 }
 
+
 /**
   * @brief  De-initializes the USART peripheral registers to their default reset values.
   * @param  husart Pointer to USART_HandleTypeDef structure representing the USART peripheral.
@@ -297,7 +376,8 @@ void USART_Transmit(USART_HandleTypeDef *husart, uint8_t *pTxBuffer, uint32_t Le
     for (uint32_t i = 0; i < Len; i++)
     {
         // Wait until TXE flag is set in the SR (Transmitter Empty)
-        while (!USART_GetFlagStatus(husart->pUSARTx, USART_FLAG_TXE));
+        while (!(USART_GetFlagStatus(husart->pUSARTx, USART_FLAG_TXE)));
+
 
         // Check Word Length (9 bits or 8 bits)
         if (husart->Init.WordLength == USART_WORDLENGTH_9BITS)
@@ -338,8 +418,8 @@ void USART_Transmit(USART_HandleTypeDef *husart, uint8_t *pTxBuffer, uint32_t Le
   * @brief  Receives in master mode an amount of data in blocking mode.
   * @param  USART Pointer to a USART_HandleTypeDef structure that contains
   *                the configuration information for the specified USART.
-  * @param  pTxBuffer Pointer to the data buffer containing data to be transmitted.
-  * @param  Len The number of bytes to send.
+  * @param  ppTxBuffer Pointer to the data buffer containing data to be transmitted.
+  * @param  Len The number of bytes to receive.
   * @retval None
   */
 void  USART_Receive(USART_HandleTypeDef *husart, uint8_t *pRxBuffer, uint32_t Len)
@@ -348,7 +428,10 @@ void  USART_Receive(USART_HandleTypeDef *husart, uint8_t *pRxBuffer, uint32_t Le
     for (uint32_t i = 0; i < Len; i++)
     {
         // Wait until RXNE flag is set in the SR
-        while (!USART_GetFlagStatus(husart->pUSARTx, USART_FLAG_RXNE));
+        while (!USART_GetFlagStatus(husart->pUSARTx, USART_FLAG_RXNE)){
+
+			break;
+        };
 
         // Check Word Length (9 bits or 8 bits)
         if (husart->Init.WordLength == USART_WORDLENGTH_9BITS)
@@ -689,6 +772,7 @@ static void USART_Receive_RXNE(USART_HandleTypeDef *husart)
       }
     }
 }
+
 
 /**
   * @brief  Handle USART event and error interrupt request.

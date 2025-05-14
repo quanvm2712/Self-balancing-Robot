@@ -252,8 +252,10 @@ typedef struct
 	__vo uint32_t GTPR;       /*!< Guard Time and Prescaler Register, Address offset: 0x18 */
 } USART_RegDef_t;
 
+
 /*
- * peripheral register definition structure for TIM
+ *
+ *
  */
 typedef struct
 {
@@ -279,6 +281,7 @@ typedef struct
   __vo uint32_t DMAR;        /*!< TIM DMA address for full transfer,   Address offset: 0x4C */
   __vo uint32_t OR;          /*!< TIM option register,                 Address offset: 0x50 */
 } TIM_RegDef_t;
+
 
 /*
  * peripheral definitions ( Peripheral base addresses typecasted to xxx_RegDef_t)
@@ -437,7 +440,20 @@ typedef struct
 /*
  * Clock Disable Macros for SYSCFG peripheral
  */
+
+#define SYSCFG_PCLK_DI()  (RCC->APB2ENR &= ~(1 << 14))\
+
+
+/*
+ *  Macros to cònfig GPIOx peripherals
+ */
+#define TIM2_BASEADDR       		(APB1PERIPH_BASEADDR + 0x0000UL)
+#define TIM2_CLK_ENABLE()        	(RCC->APB1ENR |= (1 << 0))
+#define TIM2_CLK_DISABLE()        	(RCC->APB1ENR &= ~(1 << 0))
+#define TIM2_REG_RESET()        	do { (RCC->APB1RSTR |= (1 << 0));  (RCC->APB1RSTR &= ~(1 << 0)); } while(0)
+
 #define SYSCFG_CLK_DISABLE()  (RCC->APB2ENR &= ~(1 << 14))
+
 
 /****************** Clock Disable Macros for APB1 TIMx ******************/
 #define TIM2_CLK_DISABLE()        (RCC->APB1ENR &= ~(1 << 0))
@@ -774,5 +790,7 @@ typedef struct
 #include "stm32f407xx_rcc.h"
 #include "stm32f407xx_tim.h"
 #include "delay.h"
+#include "SysTick.h"
+#include "stm32f407xx_tim.h"
 
 #endif /* INC_STM32F407XX_H_ */

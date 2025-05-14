@@ -1,0 +1,35 @@
+/*
+ * stm32f407xx_usart.h
+ *
+ *  Created on: May 11, 2025
+ *      Author: quanvm198
+ */
+#ifndef INC_ARM_SYSTICK_H_
+#define INC_ARM_SYSTICK_H_
+
+#include "stm32f407xx.h"
+
+
+// Define the base address of the SysTick registers (Cortex-M4)
+#define SYSTICK_BASEADDRESS     ((volatile uint32_t*)0xE000E010)
+
+// Define a structure to represent the SysTick register layout
+typedef struct {
+    volatile uint32_t STK_CTRL;   // SysTick Control and Status Register (offset 0x00)
+    volatile uint32_t STK_LOAD;   // SysTick Reload Value Register (offset 0x04)
+    volatile uint32_t STK_VAL;    // SysTick Current Value Register (offset 0x08)
+    volatile uint32_t STK_CALIB;  // SysTick Calibration Value Register (offset 0x0C)
+} SysTick_Reg;
+
+// Define a macro to access the SysTick registers using the structure
+#define SYSTICK                 ((SysTick_Reg*)SYSTICK_BASEADDRESS)
+
+
+//Clock source macro
+#define SYSTICK_CLKSOURCE_AHB_DIV_8		0
+#define SYSTICK_CLKSOURCE_AHB_NO_DIV	1
+
+
+#endif
+
+

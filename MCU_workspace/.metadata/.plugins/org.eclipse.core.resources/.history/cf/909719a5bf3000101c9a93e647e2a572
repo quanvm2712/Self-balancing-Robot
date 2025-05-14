@@ -1,0 +1,4 @@
+#include "stm32f407xx_Timer.h"
+
+
+void TIMER_EnableClock()
