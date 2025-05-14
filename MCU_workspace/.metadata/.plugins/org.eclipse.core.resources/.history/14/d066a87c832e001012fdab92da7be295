@@ -1,0 +1,6 @@
+#include "SystemClock.h"
+
+/** STEP
+ *1.Use CE Reg to select HSI as clock source
+ *1.Us
+ * /

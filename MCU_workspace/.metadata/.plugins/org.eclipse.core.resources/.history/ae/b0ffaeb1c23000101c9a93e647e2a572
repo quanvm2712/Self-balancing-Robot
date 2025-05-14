@@ -1,0 +1,78 @@
+/*
+ * stm32f407xx_tim.h
+ *
+ *  Created on: May 12, 2025
+ *      Author: nhduong
+ */
+
+#ifndef INC_STM32F407XX_TIM_H_
+#define INC_STM32F407XX_TIM_H_
+
+#include "stm32f407xx.h"
+
+/**
+  * @brief  TIM Time base Configuration Structure definition
+  */
+typedef struct
+{
+  uint32_t Prescaler;         /*!< Specifies the prescaler value used to divide the TIM clock.
+                                   This parameter can be a number between Min_Data = 0x0000 and Max_Data = 0xFFFF */
+
+  uint32_t CounterMode;       /*!< Specifies the counter mode.
+                                     This parameter can be a value of @ref TIM_Counter_Mode */
+
+
+  uint32_t Period;            /*!< Specifies the period value to be loaded into the active
+                                   Auto-Reload Register at the next update event.
+                                   This parameter can be a number between Min_Data = 0x0000 and Max_Data = 0xFFFF.  */
+
+  uint32_t ClockDivision;     /*!< Specifies the clock division.
+                                   This parameter can be a value of @ref TIM_ClockDivision */
+
+} TIM_Base_InitTypeDef;
+
+/**
+  * @brief  TIM Output Compare Configuration Structure definition
+  */
+typedef struct
+{
+  uint32_t OCMode;        /*!< Specifies the TIM mode.
+                               This parameter can be a value of @ref TIM_Output_Compare_and_PWM_modes */
+
+  uint32_t Pulse;         /*!< Specifies the pulse value to be loaded into the Capture Compare Register.
+                               This parameter can be a number between Min_Data = 0x0000 and Max_Data = 0xFFFF */
+
+  uint32_t OCPolarity;    /*!< Specifies the output polarity.
+                               This parameter can be a value of @ref TIM_Output_Compare_Polarity */
+
+} TIM_OC_InitTypeDef;
+
+/**
+  * @brief  TIM Input Capture Configuration Structure definition
+  */
+typedef struct
+{
+  uint32_t  ICPolarity;  /*!< Specifies the active edge of the input signal.
+                              This parameter can be a value of @ref TIM_Input_Capture_Polarity */
+
+  uint32_t ICSelection;  /*!< Specifies the input.
+                              This parameter can be a value of @ref TIM_Input_Capture_Selection */
+
+  uint32_t ICPrescaler;  /*!< Specifies the Input Capture Prescaler.
+                              This parameter can be a value of @ref TIM_Input_Capture_Prescaler */
+
+  uint32_t ICFilter;     /*!< Specifies the input capture filter.
+                              This parameter can be a number between Min_Data = 0x0 and Max_Data = 0xF */
+} TIM_IC_InitTypeDef;
+
+
+/**
+  * @brief  TIM Encoder Configuration Structure definition
+  */
+typedef struct
+{
+  uint32_t EncoderMode;   /*!< Specifies the active edge of the input signal.
+                               This parameter can be a value of @ref TIM_Encoder_Mode */
+
+  uint32_t IC1Polarity;   /*!< Specifies the active edge of the input signal.
+                               This parameter can be a value of @ref TIM_Encoder_Input_Polarity */

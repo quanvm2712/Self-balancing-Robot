@@ -1,0 +1,6 @@
+#include "SystemClock.h"
+
+/** STEP
+ *Use CR Reg to select HSI as clock source, and check for ready flag of HSI
+ *
+ * /

@@ -1,0 +1,9 @@
+../Drivers/Src/SysTick.c:10:6:SysTick_SetReloadValue	1
+../Drivers/Src/SysTick.c:19:6:SysTick_EnableCounter	1
+../Drivers/Src/SysTick.c:28:6:SysTick_SelectClockSource	1
+../Drivers/Src/SysTick.c:38:6:SysTick_InterruptConfig	1
+../Drivers/Src/SysTick.c:48:6:SysTick_ClearCounterValue	1
+../Drivers/Src/SysTick.c:58:6:SysTick_Init	1
+../Drivers/Src/SysTick.c:72:10:getTick	1
+../Drivers/Src/SysTick.c:82:6:SysTick_Handler	1
+../Drivers/Src/SysTick.c:92:6:Delay_ms	2

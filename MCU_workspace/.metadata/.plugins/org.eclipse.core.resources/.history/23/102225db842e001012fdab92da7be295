@@ -1,0 +1,7 @@
+#include "SystemClock.h"
+
+/** STEP
+ *
+ * Use RCC_PLLCFGR Reg to select HSI as clock source, and check for ready flag of HSI
+ *
+ * /

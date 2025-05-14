@@ -5,8 +5,6 @@
  *      Author: admin
  */
 
-
-
 #include "stm32f407xx.h"
 
 TIM_HandleTypeDef htim;
@@ -38,3 +36,26 @@ int main()
 //	}
 
 }
+
+int main(void){
+	TIM_PWM_Init();
+	uint16_t duty_cycle = 0;
+	uint16_t step = 100;
+
+
+	while(1){
+		TIM_Base_SetConfig(TIM2, 16, 999, duty_cycle);
+		duty_cycle += step;
+		if(duty_cycle >= 999){
+			step -= 100;
+			duty_cycle = 999;
+		}else if (duty_cycle <= 0){
+			duty_cycle = 0;
+			step += 100;
+		}
+		delay();
+
+	}
+}
+
+
