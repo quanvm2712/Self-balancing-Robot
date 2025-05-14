@@ -1,5 +1,0 @@
-#include "SysTick.h"
-
-void SysTick_SetReloadValue(uint32_t ReloadValue){
-	SYSTICK->STK_LOAD = ReloadValue
-}

@@ -235,6 +235,44 @@ typedef struct
 	__vo uint32_t GTPR;       /*!< Guard Time and Prescaler Register, Address offset: 0x18 */
 } USART_RegDef_t;
 
+
+/*
+ *
+ *
+ */
+typedef struct
+{
+  __vo uint32_t CR1;         /*!< TIM control register 1,              Address offset: 0x00 */
+  __vo uint32_t CR2;         /*!< TIM control register 2,              Address offset: 0x04 */
+  __vo uint32_t SMCR;        /*!< TIM slave mode control register,     Address offset: 0x08 */
+  __vo uint32_t DIER;        /*!< TIM DMA/intersrupt enable register,   Address offset: 0x0C */
+  __vo uint32_t SR;          /*!< TIM status register,                 Address offset: 0x10 */
+  __vo uint32_t EGR;         /*!< TIM event generation register,       Address offset: 0x14 */
+  __vo uint32_t CCMR1;       /*!< TIM capture/compare mode register 1, Address offset: 0x18 */
+  __vo uint32_t CCMR2;       /*!< TIM capture/compare mode register 2, Address offset: 0x1C */
+  __vo uint32_t CCER;        /*!< TIM capture/compare enable register, Address offset: 0x20 */
+  __vo uint32_t CNT;         /*!< TIM counter register,                Address offset: 0x24 */
+  __vo uint32_t PSC;         /*!< TIM prescaler,                       Address offset: 0x28 */
+  __vo uint32_t ARR;         /*!< TIM auto-reload register,            Address offset: 0x2C */
+  __vo uint32_t RCR;         /*!< TIM repetition counter register,     Address offset: 0x30 */
+  __vo uint32_t CCR1;        /*!< TIM capture/compare register 1,      Address offset: 0x34 */
+  __vo uint32_t CCR2;        /*!< TIM capture/compare register 2,      Address offset: 0x38 */
+  __vo uint32_t CCR3;        /*!< TIM capture/compare register 3,      Address offset: 0x3C */
+  __vo uint32_t CCR4;        /*!< TIM capture/compare register 4,      Address offset: 0x40 */
+  __vo uint32_t BDTR;        /*!< TIM break and dead-time register,    Address offset: 0x44 */
+  __vo uint32_t DCR;         /*!< TIM DMA control register,            Address offset: 0x48 */
+  __vo uint32_t DMAR;        /*!< TIM DMA address for full transfer,   Address offset: 0x4C */
+  __vo uint32_t OR;          /*!< TIM option register,                 Address offset: 0x50 */
+} TIM_RegDef_t;
+
+
+
+
+
+
+
+
+
 /*
  * peripheral definitions ( Peripheral base addresses typecasted to xxx_RegDef_t)
  */
@@ -267,6 +305,22 @@ typedef struct
 #define UART4  				((USART_RegDef_t*)UART4_BASEADDR)
 #define UART5  				((USART_RegDef_t*)UART5_BASEADDR)
 #define USART6  			((USART_RegDef_t*)USART6_BASEADDR)
+
+#define TIM2                ((TIM_RegDef_t *) TIM2_BASEADDR)
+#define TIM3                ((TIM_RegDef_t *) TIM3_BASEADDR)
+#define TIM4                ((TIM_RegDef_t *) TIM4_BASEADDR)
+#define TIM5                ((TIM_RegDef_t *) TIM5_BASEADDR)
+#define TIM6                ((TIM_RegDef_t *) TIM6_BASEADDR)
+#define TIM7                ((TIM_RegDef_t *) TIM7_BASEADDR)
+#define TIM12               ((TIM_RegDef_t *) TIM12_BASEADDR)
+#define TIM13               ((TIM_RegDef_t *) TIM13_BASEADDR)
+#define TIM14               ((TIM_RegDef_t *) TIM14_BASEADDR)
+
+#define TIM1                ((TIM_RegDef_t *) TIM1_BASEADDR)
+#define TIM8                ((TIM_RegDef_t *) TIM8_BASEADDR)
+#define TIM9                ((TIM_RegDef_t *) TIM9_BASEADDR)
+#define TIM10               ((TIM_RegDef_t *) TIM10_BASEADDR)
+#define TIM11               ((TIM_RegDef_t *) TIM11_BASEADDR)
 
 /*
  * Clock Enable Macros for GPIOx peripherals
@@ -354,7 +408,16 @@ typedef struct
 /*
  * Clock Disable Macros for SYSCFG peripheral
  */
-#define SYSCFG_PCLK_DI()  (RCC->APB2ENR &= ~(1 << 14))
+#define SYSCFG_PCLK_DI()  (RCC->APB2ENR &= ~(1 << 14))\
+
+
+/*
+ *  Macros to cònfig GPIOx peripherals
+ */
+#define TIM2_BASEADDR       		(APB1PERIPH_BASEADDR + 0x0000UL)
+#define TIM2_CLK_ENABLE()        	(RCC->APB1ENR |= (1 << 0))
+#define TIM2_CLK_DISABLE()        	(RCC->APB1ENR &= ~(1 << 0))
+#define TIM2_REG_RESET()        	do { (RCC->APB1RSTR |= (1 << 0));  (RCC->APB1RSTR &= ~(1 << 0)); } while(0)
 
 
 /*
@@ -628,6 +691,27 @@ typedef struct
 #define USART_SR_LBD        			8
 #define USART_SR_CTS        			9
 
+
+/*
+ * Bit position definitions timer
+ */
+#define TIM_CR1_CEN      (1 << 0)   // Counter enable
+#define TIM_CR1_UDIS     (1 << 1)   // Update disable
+#define TIM_CR1_URS      (1 << 2)   // Update request source
+#define TIM_CR1_OPM      (1 << 3)   // One-pulse mode
+#define TIM_CR1_DIR      (1 << 4)   // Direction (0: upcounter, 1: downcounter)
+#define TIM_CR1_CMS_0    (1 << 5)   // Center-aligned mode select bit 0
+#define TIM_CR1_CMS_1    (1 << 6)   // Center-aligned mode select bit 1
+#define TIM_CR1_CMS      (TIM_CR1_CMS_0 | TIM_CR1_CMS_1)
+#define TIM_CR1_ARPE     (1 << 7)   // Auto-reload preload enable
+#define TIM_CR1_CKD_0    (1 << 8)   // Clock division bit 0
+#define TIM_CR1_CKD_1    (1 << 9)   // Clock division bit 1
+#define TIM_CR1_CKD      (TIM_CR1_CKD_0 | TIM_CR1_CKD_1)
+
+#define TIM_EGR_UG       (1 << 0)   // Update generation (force update)
+
+
+
 #include "stm32f407xx_i2c.h"
 #include "stm32f407xx_gpio.h"
 #include "stm32f407xx_spi.h"
@@ -636,5 +720,6 @@ typedef struct
 #include "delay.h"
 #include "aht20_sensor.h"
 #include "SysTick.h"
+#include "stm32f407xx_tim.h"
 
 #endif /* INC_STM32F407XX_H_ */

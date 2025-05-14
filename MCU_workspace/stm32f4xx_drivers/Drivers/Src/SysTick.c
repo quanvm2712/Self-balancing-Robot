@@ -1,5 +1,6 @@
 #include "SysTick.h"
 uint32_t ticks = 0;
+uint32_t ClockFreq = 2000000;
 
 /**
  * @brief Set the SysTick reload value.
@@ -55,7 +56,7 @@ void SysTick_ClearCounterValue(void){
  * @retval None
  */
 void SysTick_Init(void){
-	SysTick_SetReloadValue(1999);
+	SysTick_SetReloadValue((ClockFreq / 1000) - 1);
 	SysTick_ClearCounterValue();
 	SysTick_SelectClockSource(SYSTICK_CLKSOURCE_AHB_DIV_8);
 	SysTick_InterruptConfig(SYSTICK_INTERRUPT_ENABLED);
