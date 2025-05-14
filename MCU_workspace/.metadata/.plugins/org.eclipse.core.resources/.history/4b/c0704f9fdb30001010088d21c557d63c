@@ -109,8 +109,8 @@ int main(void){
 			step += 100;
 		}
 		delay();
-
 	}
+int main()
+{
+	return 0;
 }
-
-

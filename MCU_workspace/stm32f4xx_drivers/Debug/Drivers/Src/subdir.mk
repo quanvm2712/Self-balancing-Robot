@@ -7,7 +7,6 @@
 C_SRCS += \
 ../Drivers/Src/SysTick.c \
 ../Drivers/Src/SystemClock.c \
-../Drivers/Src/aht20_sensor.c \
 ../Drivers/Src/delay.c \
 ../Drivers/Src/stm32f407xx_gpio.c \
 ../Drivers/Src/stm32f407xx_i2c.c \
@@ -19,7 +18,6 @@ C_SRCS += \
 OBJS += \
 ./Drivers/Src/SysTick.o \
 ./Drivers/Src/SystemClock.o \
-./Drivers/Src/aht20_sensor.o \
 ./Drivers/Src/delay.o \
 ./Drivers/Src/stm32f407xx_gpio.o \
 ./Drivers/Src/stm32f407xx_i2c.o \
@@ -31,7 +29,6 @@ OBJS += \
 C_DEPS += \
 ./Drivers/Src/SysTick.d \
 ./Drivers/Src/SystemClock.d \
-./Drivers/Src/aht20_sensor.d \
 ./Drivers/Src/delay.d \
 ./Drivers/Src/stm32f407xx_gpio.d \
 ./Drivers/Src/stm32f407xx_i2c.d \
@@ -48,7 +45,7 @@ Drivers/Src/%.o Drivers/Src/%.su Drivers/Src/%.cyclo: ../Drivers/Src/%.c Drivers
 clean: clean-Drivers-2f-Src
 
 clean-Drivers-2f-Src:
-	-$(RM) ./Drivers/Src/SysTick.cyclo ./Drivers/Src/SysTick.d ./Drivers/Src/SysTick.o ./Drivers/Src/SysTick.su ./Drivers/Src/SystemClock.cyclo ./Drivers/Src/SystemClock.d ./Drivers/Src/SystemClock.o ./Drivers/Src/SystemClock.su ./Drivers/Src/aht20_sensor.cyclo ./Drivers/Src/aht20_sensor.d ./Drivers/Src/aht20_sensor.o ./Drivers/Src/aht20_sensor.su ./Drivers/Src/delay.cyclo ./Drivers/Src/delay.d ./Drivers/Src/delay.o ./Drivers/Src/delay.su ./Drivers/Src/stm32f407xx_gpio.cyclo ./Drivers/Src/stm32f407xx_gpio.d ./Drivers/Src/stm32f407xx_gpio.o ./Drivers/Src/stm32f407xx_gpio.su ./Drivers/Src/stm32f407xx_i2c.cyclo ./Drivers/Src/stm32f407xx_i2c.d ./Drivers/Src/stm32f407xx_i2c.o ./Drivers/Src/stm32f407xx_i2c.su ./Drivers/Src/stm32f407xx_rcc.cyclo ./Drivers/Src/stm32f407xx_rcc.d ./Drivers/Src/stm32f407xx_rcc.o ./Drivers/Src/stm32f407xx_rcc.su ./Drivers/Src/stm32f407xx_spi.cyclo ./Drivers/Src/stm32f407xx_spi.d ./Drivers/Src/stm32f407xx_spi.o ./Drivers/Src/stm32f407xx_spi.su ./Drivers/Src/stm32f407xx_tim.cyclo ./Drivers/Src/stm32f407xx_tim.d ./Drivers/Src/stm32f407xx_tim.o ./Drivers/Src/stm32f407xx_tim.su ./Drivers/Src/stm32f407xx_usart.cyclo ./Drivers/Src/stm32f407xx_usart.d ./Drivers/Src/stm32f407xx_usart.o ./Drivers/Src/stm32f407xx_usart.su
+	-$(RM) ./Drivers/Src/SysTick.cyclo ./Drivers/Src/SysTick.d ./Drivers/Src/SysTick.o ./Drivers/Src/SysTick.su ./Drivers/Src/SystemClock.cyclo ./Drivers/Src/SystemClock.d ./Drivers/Src/SystemClock.o ./Drivers/Src/SystemClock.su ./Drivers/Src/delay.cyclo ./Drivers/Src/delay.d ./Drivers/Src/delay.o ./Drivers/Src/delay.su ./Drivers/Src/stm32f407xx_gpio.cyclo ./Drivers/Src/stm32f407xx_gpio.d ./Drivers/Src/stm32f407xx_gpio.o ./Drivers/Src/stm32f407xx_gpio.su ./Drivers/Src/stm32f407xx_i2c.cyclo ./Drivers/Src/stm32f407xx_i2c.d ./Drivers/Src/stm32f407xx_i2c.o ./Drivers/Src/stm32f407xx_i2c.su ./Drivers/Src/stm32f407xx_rcc.cyclo ./Drivers/Src/stm32f407xx_rcc.d ./Drivers/Src/stm32f407xx_rcc.o ./Drivers/Src/stm32f407xx_rcc.su ./Drivers/Src/stm32f407xx_spi.cyclo ./Drivers/Src/stm32f407xx_spi.d ./Drivers/Src/stm32f407xx_spi.o ./Drivers/Src/stm32f407xx_spi.su ./Drivers/Src/stm32f407xx_tim.cyclo ./Drivers/Src/stm32f407xx_tim.d ./Drivers/Src/stm32f407xx_tim.o ./Drivers/Src/stm32f407xx_tim.su ./Drivers/Src/stm32f407xx_usart.cyclo ./Drivers/Src/stm32f407xx_usart.d ./Drivers/Src/stm32f407xx_usart.o ./Drivers/Src/stm32f407xx_usart.su
 
 .PHONY: clean-Drivers-2f-Src
 

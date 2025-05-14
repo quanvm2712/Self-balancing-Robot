@@ -1,14 +1,14 @@
-20:48:30 **** Incremental Build of configuration Debug for project stm32f4xx_drivers ****
+22:57:54 **** Incremental Build of configuration Debug for project stm32f4xx_drivers ****
 make -j12 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -include"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "stm32f4xx_drivers.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\Project\Self_Balancing_Robot\MCU_workspace\stm32f4xx_drivers\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32f4xx_drivers.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: stm32f4xx_drivers.elf
+ 
 arm-none-eabi-size  stm32f4xx_drivers.elf 
+arm-none-eabi-objdump -h -S stm32f4xx_drivers.elf  > "stm32f4xx_drivers.list"
    text	   data	    bss	    dec	    hex	filename
   24816	    456	   1904	  27176	   6a28	stm32f4xx_drivers.elf
 Finished building: default.size.stdout
  
-20:48:34 **** Incremental Build of configuration Debug for project stm32f4xx_drivers ****
-make -j12 all 
-arm-none-eabi-size  stm32f4xx_drivers.elf 
-   text	   data	    bss	    dec	    hex	filename
-  24816	    456	   1904	  27176	   6a28	stm32f4xx_drivers.elf
-Finished building: default.size.stdout
+Finished building: stm32f4xx_drivers.list
  
