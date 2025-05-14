@@ -751,6 +751,22 @@ typedef struct
 #define USART_SR_LBD        			8
 #define USART_SR_CTS        			9
 
+#define TIM_CR1_CEN      (1 << 0)   // Counter enable
+#define TIM_CR1_UDIS     (1 << 1)   // Update disable
+#define TIM_CR1_URS      (1 << 2)   // Update request source
+#define TIM_CR1_OPM      (1 << 3)   // One-pulse mode
+#define TIM_CR1_DIR      (1 << 4)   // Direction (0: upcounter, 1: downcounter)
+#define TIM_CR1_CMS_0    (1 << 5)   // Center-aligned mode select bit 0
+#define TIM_CR1_CMS_1    (1 << 6)   // Center-aligned mode select bit 1
+#define TIM_CR1_CMS      (TIM_CR1_CMS_0 | TIM_CR1_CMS_1)
+#define TIM_CR1_ARPE     (1 << 7)   // Auto-reload preload enable
+#define TIM_CR1_CKD_0    (1 << 8)   // Clock division bit 0
+#define TIM_CR1_CKD_1    (1 << 9)   // Clock division bit 1
+#define TIM_CR1_CKD      (TIM_CR1_CKD_0 | TIM_CR1_CKD_1)
+
+#define TIM_EGR_UG       (1 << 0)   // Update generation (force update)
+
+
 #include "stm32f407xx_i2c.h"
 #include "stm32f407xx_gpio.h"
 #include "stm32f407xx_spi.h"
