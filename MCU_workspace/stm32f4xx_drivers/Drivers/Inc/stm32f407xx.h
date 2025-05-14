@@ -767,10 +767,6 @@ typedef struct
 #define USART_SR_LBD        			8
 #define USART_SR_CTS        			9
 
-
-/*
- * Bit position definitions timer
- */
 #define TIM_CR1_CEN      (1 << 0)   // Counter enable
 #define TIM_CR1_UDIS     (1 << 1)   // Update disable
 #define TIM_CR1_URS      (1 << 2)   // Update request source
@@ -785,7 +781,6 @@ typedef struct
 #define TIM_CR1_CKD      (TIM_CR1_CKD_0 | TIM_CR1_CKD_1)
 
 #define TIM_EGR_UG       (1 << 0)   // Update generation (force update)
-
 
 
 #include "stm32f407xx_i2c.h"

@@ -26,6 +26,9 @@ typedef struct
                                    Auto-Reload Register at the next update event.
                                    This parameter can be a number between Min_Data = 0x0000 and Max_Data = 0xFFFF.  */
 
+  uint32_t ClockDivision;     /*!< Specifies the clock division.
+                                   This parameter can be a value of @ref TIM_ClockDivision */
+
 } TIM_Base_InitTypeDef;
 
 /**
@@ -119,12 +122,14 @@ typedef struct
 /*
  * TIM Output Compare and PWM Modes
  */
-#define TIM_OCMODE_TIMING                  0  /*!< Frozen */
-#define TIM_OCMODE_ACTIVE                  1  /*!< Set active level on match */
-#define TIM_OCMODE_INACTIVE                2  /*!< Set inactive level on match */
-#define TIM_OCMODE_TOGGLE                  3  /*!< Toggle on match */
-#define TIM_OCMODE_PWM1                    4  /*!< PWM mode 1 */
-#define TIM_OCMODE_PWM2                    5  /*!< PWM mode 2 */
+#define TIM_OCMODE_FROZEN        0x0
+#define TIM_OCMODE_ACTIVE        0x1
+#define TIM_OCMODE_INACTIVE      0x2
+#define TIM_OCMODE_TOGGLE        0x3
+#define TIM_OCMODE_FORCE_LOW     0x4
+#define TIM_OCMODE_FORCE_HIGH    0x5
+#define TIM_OCMODE_PWM1          0x6
+#define TIM_OCMODE_PWM2          0x7
 
 /*
  * TIM Output Compare Polarity
@@ -175,9 +180,38 @@ typedef struct
 #define TIM_CHANNEL_3                      2
 #define TIM_CHANNEL_4                      3
 
+// Bit positions for channels in CCER
+#define TIM_CCER_CC1P_Pos     1U
+#define TIM_CCER_CC2P_Pos     5U
+#define TIM_CCER_CC3P_Pos     9U
+#define TIM_CCER_CC4P_Pos     13U
+
+#define TIM_CCER_CC1E_Pos     0U
+#define TIM_CCER_CC2E_Pos     4U
+#define TIM_CCER_CC3E_Pos     8U
+#define TIM_CCER_CC4E_Pos     12U
+
+#define TIM_OC_POLARITY_HIGH  0x0U
+#define TIM_OC_POLARITY_LOW   0x1U
+
+
+
+#define TIM_CCMR1_OC1M_Pos     	4U
+#define TIM_CCMR2_OC1M_Pos     	12U
+#define TIM_CCMR3_OC1M_Pos     	4U
+#define TIM_CCMR4_OC1M_Pos     	12U
+
 void TIM_Base_SetConfig(TIM_RegDef_t *pTIMx, uint32_t Prescaler, uint32_t Period, uint32_t DutyCycle);
 void TIM_PeriClockControl(TIM_RegDef_t *pTIMx, uint8_t clockState);
 void GPIO_InitPWM(GPIO_HandleTypeDef *GPIO_InitStruct);
+void TIM_SetChannelPolarity(TIM_RegDef_t *TIMx, uint8_t channel, uint8_t polarity);
+void TIM_ChannelOutputControl(TIM_RegDef_t *TIMx, uint8_t channel, uint8_t State);
+void TIM_ConfigTimeBase(TIM_RegDef_t *TIMx, uint32_t Prescaler, uint32_t Period, uint32_t DutyCycle, uint8_t Channel);
+
+void TIM_SetOCMode(TIM_RegDef_t *TIMx, uint8_t channel, uint8_t OCmode);
+
+
+
 
 /* Time Base functions ********************************************************/
 void TIM_Base_Init(TIM_HandleTypeDef *htim);

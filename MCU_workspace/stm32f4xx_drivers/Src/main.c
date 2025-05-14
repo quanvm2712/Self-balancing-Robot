@@ -7,89 +7,34 @@
 
 #include "stm32f407xx.h"
 
-//USART_HandleTypeDef USART2_Handle;
-//char msg[1024] = "UART Tx testing...\n";
-//
-//void delay(void)
-//{
-//	for(uint32_t i = 0 ; i < 500000/2 ; i ++);
-//}
-//
-//
-//
-//int main(void)
-//{
-//	//Init USART Parameter
-//	memset(&USART2_Handle, 0, sizeof(USART2_Handle));
-////	USART_InitGPIO(USART2);
-////	USART2_Inits();
-//	USART_SetParam(&USART2_Handle, USART2, USART_MODE_TX, USART_STOPBITS_1, USART_WORDLENGTH_8BITS, USART_PARITY_NONE, USART_BAUDRATE_9600);
-//
-//
-//	USART_PeripheralControl(USART2, ENABLE);
-//
-//	while (1)
-//	{
-//		USART_Transmit(&USART2_Handle,(uint8_t*)msg,strlen(msg));
-//		delay();
-//
-//	}
-//
-//}
+TIM_HandleTypeDef htim;
 
-
-
-///********************************************************************************/
-//USART_HandleTypeDef USART2_Handle;  //USART2 Handler for Asynchronous RX function
-//
-//GPIO_HandleTypeDef GPIOD_Handle;
-//
-//char rData[2]; //Array to store received data
-//
-//void delay(void)
-//{
-//	for(uint32_t i = 0 ; i < 500000/2 ; i ++);
-//}
-//
-//
-//void GPIO_Initialize(void){
-//	GPIOD_Handle.pGPIOx = GPIOD;
-//	GPIOD_Handle.Init.Pin = 13;
-//	GPIOD_Handle.Init.Mode = GPIO_MODE_OUTPUT;
-//	GPIOD_Handle.Init.OPType = GPIO_OPTYPE_PP;
-//	GPIO_Init(&GPIOD_Handle);
-//}
-//
-//uint32_t clock;
-//
-//int main(void){
-//	//Init UART Parameters
-//	//USART_SetParam(&USART2_Handle, USART2, USART_MODE_RX, USART_STOPBITS_1, USART_WORDLENGTH_8BITS, USART_PARITY_NONE, 9600);
-//
-//	//Init SysTick timer
-//	SysTick_Init();
-//	GPIO_Initialize();
-//
-//
-//	while(1){
-//		//USART_Receive(&USART2_Handle, (uint8_t*) rData, 2);
-//		//delay();
-//
-//		GPIO_TogglePin(GPIOD, GPIO_PIN_13);
-//		clock =RCC_GetPCLK1_Value();
-//		Delay_ms(1000);
-//
-//	}
-//
-//	return 0;
-//}
-
-
-/****************************************************************************************/
-
-void delay(void)
+void delay()
 {
-	for(uint32_t i = 0 ; i < 500000/2 ; i ++);
+	for (uint32_t i = 0; i < 500000; i++);
+}
+int main()
+{
+//	TIM_PWM_Init(&htim);
+//	uint32_t duty = 0;
+//	uint8_t step = 100;
+//
+//	while(1)
+//	{
+//		duty += step;
+//		TIM_Base_SetConfig(TIM2, 15, 999, duty);
+//				  if (duty >= 999)
+//				  {
+//					  duty  = 999;
+//					  step = -10;
+//				  }else if (duty <= 0)
+//				  {
+//					  duty = 0;
+//					  step = 10;
+//				  }
+//				  delay();
+//	}
+
 }
 
 int main(void){
