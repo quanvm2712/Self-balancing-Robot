@@ -25,26 +25,26 @@ void SPI_PeriClockControl(SPI_RegDef_t *pSPIx, uint8_t clockState)
     {
         if(pSPIx == SPI1)
         {
-            SPI1_PCLK_EN();
+            SPI1_CLK_ENABLE();
         }else if (pSPIx == SPI2)
         {
-            SPI2_PCLK_EN();
+            SPI2_CLK_ENABLE();
         }else if (pSPIx == SPI3)
         {
-            SPI3_PCLK_EN();
+            SPI3_CLK_ENABLE();
         }
     }
     else
     {
         if(pSPIx == SPI1)
         {
-            SPI1_PCLK_DI();
+            SPI1_CLK_DISABLE();
         }else if (pSPIx == SPI2)
         {
-            SPI2_PCLK_DI();
+            SPI2_CLK_DISABLE();
         }else if (pSPIx == SPI3)
         {
-            SPI3_PCLK_DI();
+            SPI3_CLK_DISABLE();
         }
     }
 }

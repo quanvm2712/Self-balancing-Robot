@@ -26,34 +26,34 @@ void USART_PeriClockControl(USART_RegDef_t *pUSARTx, uint8_t state)
     {
         if(pUSARTx == USART1)
         {
-            USART1_PCLK_EN();
+            USART1_CLK_ENABLE();
         }else if (pUSARTx == USART2)
         {
-            USART2_PCLK_EN();
+            USART2_CLK_ENABLE();
         }else if (pUSARTx == USART3)
         {
-            USART3_PCLK_EN();
+            USART3_CLK_ENABLE();
         }
         else if (pUSARTx == UART4)
         {
-            UART4_PCLK_EN();
+            UART4_CLK_ENABLE();
         }
     }
     else
     {
         if(pUSARTx == USART1)
         {
-            USART1_PCLK_DI();
+            USART1_CLK_DISABLE();
         }else if (pUSARTx == USART2)
         {
-            USART2_PCLK_DI();
+            USART2_CLK_DISABLE();
         }else if (pUSARTx == USART3)
         {
-            USART3_PCLK_DI();
+            USART3_CLK_DISABLE();
         }
         else if (pUSARTx == UART4)
         {
-            UART4_PCLK_DI();
+            UART4_CLK_DISABLE();
         }
     }
 }

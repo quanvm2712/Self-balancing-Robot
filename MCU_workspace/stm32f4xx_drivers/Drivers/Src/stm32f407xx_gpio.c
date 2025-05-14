@@ -16,43 +16,43 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t clockState)
 {
     if (clockState == ENABLE) {
         if (pGPIOx == GPIOA) {
-            GPIOA_PCLK_EN();
+            GPIOA_CLK_ENABLE();
         }else if (pGPIOx == GPIOB) {
-            GPIOB_PCLK_EN();
+            GPIOB_CLK_ENABLE();
         }else if (pGPIOx == GPIOC) {
-            GPIOC_PCLK_EN();
+            GPIOC_CLK_ENABLE();
         }else if (pGPIOx == GPIOD) {
-            GPIOD_PCLK_EN();
+            GPIOD_CLK_ENABLE();
         }else if (pGPIOx == GPIOE) {
-            GPIOE_PCLK_EN();
+            GPIOE_CLK_ENABLE();
         }else if (pGPIOx == GPIOF) {
-            GPIOF_PCLK_EN();
+            GPIOF_CLK_ENABLE();
         }else if (pGPIOx == GPIOG) {
-            GPIOG_PCLK_EN();
+            GPIOG_CLK_ENABLE();
         }else if (pGPIOx == GPIOH) {
-            GPIOH_PCLK_EN();
+            GPIOH_CLK_ENABLE();
         }else if (pGPIOx == GPIOI) {
-            GPIOI_PCLK_EN();
+            GPIOI_CLK_ENABLE();
         }
     }else {
         if (pGPIOx == GPIOA) {
-            GPIOA_PCLK_DI();
+            GPIOA_CLK_DISABLE();
         }else if (pGPIOx == GPIOB) {
-            GPIOB_PCLK_DI();
+            GPIOB_CLK_DISABLE();
         }else if (pGPIOx == GPIOC) {
-            GPIOC_PCLK_DI();
+            GPIOC_CLK_DISABLE();
         }else if (pGPIOx == GPIOD) {
-            GPIOD_PCLK_DI();
+            GPIOD_CLK_DISABLE();
         }else if (pGPIOx == GPIOE) {
-            GPIOE_PCLK_DI();
+            GPIOE_CLK_DISABLE();
         }else if (pGPIOx == GPIOF) {
-            GPIOF_PCLK_DI();
+            GPIOF_CLK_DISABLE();
         }else if (pGPIOx == GPIOG) {
-            GPIOG_PCLK_DI();
+            GPIOG_CLK_DISABLE();
         }else if (pGPIOx == GPIOH) {
-            GPIOH_PCLK_DI();
+            GPIOH_CLK_DISABLE();
         }else if (pGPIOx == GPIOI) {
-            GPIOI_PCLK_DI();
+            GPIOI_CLK_DISABLE();
         }
     }
 }
@@ -96,7 +96,7 @@ void GPIO_Init(GPIO_HandleTypeDef *hGPIO)
 		uint8_t tmp1 = hGPIO->Init.Pin / 4;
 		uint8_t tmp2 = hGPIO->Init.Pin % 4;
 		uint8_t portCode = GPIO_BASEADDR_TO_CODE(hGPIO->pGPIOx);
-		SYSCFG_PCLK_EN();
+		SYSCFG_CLK_ENABLE();
 		SYSCFG->EXTICR[tmp1] &= ~(0xF << (tmp2 * 4)); // Clear bits first
 		SYSCFG->EXTICR[tmp1] |= portCode << (tmp2 * 4);
 
@@ -312,14 +312,6 @@ void GPIO_IRQHandler(uint8_t GPIO_pin)
 		EXTI->PR |= (1 << GPIO_pin);
 	}
 }
-
-
-
-
-
-
-
-
 
 
 

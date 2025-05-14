@@ -110,4 +110,7 @@ int main(void){
 		}
 		delay();
 	}
+int main()
+{
+	return 0;
 }

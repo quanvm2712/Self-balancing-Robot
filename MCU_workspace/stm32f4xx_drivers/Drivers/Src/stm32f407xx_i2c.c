@@ -245,19 +245,19 @@ void I2C_PeriClockControl(I2C_RegDef_t *pI2Cx, uint8_t clockState)
 {
     if (clockState == ENABLE) {
         if (pI2Cx == I2C1) {
-            I2C1_PCLK_EN();
+            I2C1_CLK_ENABLE();
         }else if (pI2Cx == I2C2) {
-            I2C2_PCLK_EN();
+            I2C2_CLK_ENABLE();
         }else if (pI2Cx == I2C3) {
-            I2C3_PCLK_EN();
+            I2C3_CLK_ENABLE();
         }
     }else {
         if (pI2Cx == I2C1) {
-            I2C1_PCLK_DI();
+            I2C1_CLK_DISABLE();
         }else if (pI2Cx == I2C2) {
-            I2C2_PCLK_DI();
+            I2C2_CLK_DISABLE();
         }else if (pI2Cx == I2C3) {
-            I2C3_PCLK_DI();
+            I2C3_CLK_DISABLE();
         }
     }
 }

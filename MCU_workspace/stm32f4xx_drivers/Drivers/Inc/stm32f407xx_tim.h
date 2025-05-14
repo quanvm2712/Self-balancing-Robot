@@ -26,9 +26,6 @@ typedef struct
                                    Auto-Reload Register at the next update event.
                                    This parameter can be a number between Min_Data = 0x0000 and Max_Data = 0xFFFF.  */
 
-  uint32_t ClockDivision;     /*!< Specifies the clock division.
-                                   This parameter can be a value of @ref TIM_ClockDivision */
-
 } TIM_Base_InitTypeDef;
 
 /**
@@ -76,42 +73,43 @@ typedef struct
 
   uint32_t IC1Polarity;   /*!< Specifies the active edge of the input signal.
                                This parameter can be a value of @ref TIM_Encoder_Input_Polarity */
+
   uint32_t IC1Selection;  /*!< Specifies the input.
-                                 This parameter can be a value of @ref TIM_Input_Capture_Selection */
+                               This parameter can be a value of @ref TIM_Input_Capture_Selection */
 
-uint32_t IC1Prescaler;  /*!< Specifies the Input Capture Prescaler.
-							 This parameter can be a value of @ref TIM_Input_Capture_Prescaler */
+  uint32_t IC1Prescaler;  /*!< Specifies the Input Capture Prescaler.
+                               This parameter can be a value of @ref TIM_Input_Capture_Prescaler */
 
-uint32_t IC1Filter;     /*!< Specifies the input capture filter.
-							 This parameter can be a number between Min_Data = 0x0 and Max_Data = 0xF */
+  uint32_t IC1Filter;     /*!< Specifies the input capture filter.
+                               This parameter can be a number between Min_Data = 0x0 and Max_Data = 0xF */
 
-uint32_t IC2Polarity;   /*!< Specifies the active edge of the input signal.
-							 This parameter can be a value of @ref TIM_Encoder_Input_Polarity */
+  uint32_t IC2Polarity;   /*!< Specifies the active edge of the input signal.
+                               This parameter can be a value of @ref TIM_Encoder_Input_Polarity */
 
-uint32_t IC2Selection;  /*!< Specifies the input.
-							This parameter can be a value of @ref TIM_Input_Capture_Selection */
+  uint32_t IC2Selection;  /*!< Specifies the input.
+                              This parameter can be a value of @ref TIM_Input_Capture_Selection */
 
-uint32_t IC2Prescaler;  /*!< Specifies the Input Capture Prescaler.
-							 This parameter can be a value of @ref TIM_Input_Capture_Prescaler */
+  uint32_t IC2Prescaler;  /*!< Specifies the Input Capture Prescaler.
+                               This parameter can be a value of @ref TIM_Input_Capture_Prescaler */
 
-uint32_t IC2Filter;     /*!< Specifies the input capture filter.
-							 This parameter can be a number between Min_Data = 0x0 and Max_Data = 0xF */
+  uint32_t IC2Filter;     /*!< Specifies the input capture filter.
+                               This parameter can be a number between Min_Data = 0x0 and Max_Data = 0xF */
 } TIM_Encoder_InitTypeDef;
 
 /**
-* @brief  TIM Time Base Handle Structure definition
-*/
+  * @brief  TIM Time Base Handle Structure definition
+  */
 typedef struct
 {
-TIM_RegDef_t                       *pTIMx;         /*!< Register base address                             */
+  TIM_RegDef_t                       *pTIMx;         /*!< Register base address                             */
 
-TIM_Base_InitTypeDef               Init;              /*!< TIM Time Base required parameters                 */
+  TIM_Base_InitTypeDef               Init;              /*!< TIM Time Base required parameters                 */
 
 } TIM_HandleTypeDef;
 
 /*
-* TIM Counter Mode
-*/
+ * TIM Counter Mode
+ */
 #define TIM_COUNTERMODE_UP                 0  /*!< Counter used as upcounter */
 #define TIM_COUNTERMODE_DOWN               1  /*!< Counter used as downcounter */
 #define TIM_COUNTERMODE_CENTERALIGNED1     2  /*!< Center-aligned mode 1 */
@@ -119,8 +117,8 @@ TIM_Base_InitTypeDef               Init;              /*!< TIM Time Base require
 #define TIM_COUNTERMODE_CENTERALIGNED3     4  /*!< Center-aligned mode 3 */
 
 /*
-* TIM Output Compare and PWM Modes
-*/
+ * TIM Output Compare and PWM Modes
+ */
 #define TIM_OCMODE_TIMING                  0  /*!< Frozen */
 #define TIM_OCMODE_ACTIVE                  1  /*!< Set active level on match */
 #define TIM_OCMODE_INACTIVE                2  /*!< Set inactive level on match */
@@ -129,49 +127,49 @@ TIM_Base_InitTypeDef               Init;              /*!< TIM Time Base require
 #define TIM_OCMODE_PWM2                    5  /*!< PWM mode 2 */
 
 /*
-* TIM Output Compare Polarity
-*/
+ * TIM Output Compare Polarity
+ */
 #define TIM_OCPOLARITY_HIGH                0  /*!< Output compare active high */
 #define TIM_OCPOLARITY_LOW                 1  /*!< Output compare active low */
 
 /*
-* TIM Input Capture Polarity
-*/
+ * TIM Input Capture Polarity
+ */
 #define TIM_ICPOLARITY_RISING              0  /*!< Capture on rising edge */
 #define TIM_ICPOLARITY_FALLING             1  /*!< Capture on falling edge */
 #define TIM_ICPOLARITY_BOTHEDGE            2  /*!< Capture on both edges */
 
 /*
-* TIM Input Capture Selection
-*/
+ * TIM Input Capture Selection
+ */
 #define TIM_ICSELECTION_DIRECTTI           0  /*!< TIM Input 1, 2, 3 or 4 is selected */
 #define TIM_ICSELECTION_INDIRECTTI         1  /*!< Indirect input is selected */
 #define TIM_ICSELECTION_TRC                2  /*!< TRC is selected */
 
 /*
-* TIM Input Capture Prescaler
-*/
+ * TIM Input Capture Prescaler
+ */
 #define TIM_ICPSC_DIV1                     0  /*!< No prescaler */
 #define TIM_ICPSC_DIV2                     1  /*!< Capture every 2 events */
 #define TIM_ICPSC_DIV4                     2  /*!< Capture every 4 events */
 #define TIM_ICPSC_DIV8                     3  /*!< Capture every 8 events */
 
 /*
-* TIM Encoder Mode
-*/
+ * TIM Encoder Mode
+ */
 #define TIM_ENCODERMODE_TI1                0  /*!< Encoder mode 1 */
 #define TIM_ENCODERMODE_TI2                1  /*!< Encoder mode 2 */
 #define TIM_ENCODERMODE_TI12               2  /*!< Encoder mode 3 */
 
 /*
-* TIM Encoder Input Polarity
-*/
+ * TIM Encoder Input Polarity
+ */
 #define TIM_ENCODERINPUTPOLARITY_RISING    0  /*!< Rising edge polarity */
 #define TIM_ENCODERINPUTPOLARITY_FALLING   1  /*!< Falling edge polarity */
 
 /*
-* TIM Channels
-*/
+ * TIM Channels
+ */
 #define TIM_CHANNEL_1                      0
 #define TIM_CHANNEL_2                      1
 #define TIM_CHANNEL_3                      2
@@ -240,10 +238,10 @@ void TIM_IRQHandler(TIM_HandleTypeDef *htim);
 
 /* Control functions  *********************************************************/
 void TIM_OC_ConfigChannel(TIM_HandleTypeDef *htim, const TIM_OC_InitTypeDef *sConfig,
-										 uint32_t Channel);
+                                           uint32_t Channel);
 void TIM_PWM_ConfigChannel(TIM_HandleTypeDef *htim, const TIM_OC_InitTypeDef *sConfig,
-										  uint32_t Channel);
+                                            uint32_t Channel);
 void TIM_IC_ConfigChannel(TIM_HandleTypeDef *htim, const TIM_IC_InitTypeDef *sConfig,
-										 uint32_t Channel);
+                                           uint32_t Channel);
 
 #endif /* INC_STM32F407XX_TIM_H_ */
