@@ -1,4 +1,11 @@
-../Drivers/Src/stm32f407xx_tim.c:16:6:TIM_PeriClockControl	2
-../Drivers/Src/stm32f407xx_tim.c:35:6:TIM_Base_SetConfig	1
-../Drivers/Src/stm32f407xx_tim.c:73:6:GPIO_InitPWM	1
-../Drivers/Src/stm32f407xx_tim.c:92:6:TIM_PWM_Init	1
+../Drivers/Src/stm32f407xx_tim.c:19:6:TIM_PeriClockControl	30
+../Drivers/Src/stm32f407xx_tim.c:64:6:TIM_SetConfigPWM	1
+../Drivers/Src/stm32f407xx_tim.c:100:6:GPIO_InitPWM	5
+../Drivers/Src/stm32f407xx_tim.c:145:6:TIM_PWM_Init	1
+../Drivers/Src/stm32f407xx_tim.c:164:6:TIM_SetChannelPolarity	9
+../Drivers/Src/stm32f407xx_tim.c:218:6:TIM_ChannelOutputControl	9
+../Drivers/Src/stm32f407xx_tim.c:265:6:TIM_ConfigTimeBase	5
+../Drivers/Src/stm32f407xx_tim.c:297:6:TIM_SetDuty	1
+../Drivers/Src/stm32f407xx_tim.c:309:6:TIM_SetOCMode	5
+../Drivers/Src/stm32f407xx_tim.c:353:13:TIM_SetCounterMode	6
+../Drivers/Src/stm32f407xx_tim.c:387:13:TIM_CounterControl	2

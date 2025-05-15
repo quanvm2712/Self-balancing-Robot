@@ -1,0 +1,33 @@
+/*
+ * 010i2c_master_tx_testing.c
+ *
+ *  Created on: Feb 24, 2019
+ *      Author: admin
+ */
+
+#include "stm32f407xx.h"
+
+TIM_HandleTypeDef htim;
+
+void delay()
+{
+	for (uint32_t i = 0; i < 500000; i++);
+}
+
+
+int main(void){
+	TIM_PWM_Init(TIM2, TIM_CHANNEL_1);
+	uint16_t duty_cycle = 0;
+	uint16_t step = 100;
+
+
+	while(1){
+		TIM_SetDuty(500);
+		delay();
+		TIM_SetDuty(200);
+		delay();
+
+	}
+}
+
+
