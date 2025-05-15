@@ -97,7 +97,7 @@ void TIM_SetConfigPWM(TIM_RegDef_t *pTIMx,
 }
 
 
-void GPIO_InitPWM_TIM2_Channel(uint8_t channel)
+void GPIO_InitPWM(uint8_t channel)
 {
     GPIO_HandleTypeDef GPIO_InitStruct;
 
@@ -142,15 +142,16 @@ void GPIO_InitPWM_TIM2_Channel(uint8_t channel)
   * @param  htim TIM PWM handle
   * @retval None
   */
-void TIM_PWM_Init()
+void TIM_PWM_Init(TIM_RegDef_t *TIMx,uint8_t channel)
 {
-//	GPIO_HandleTypeDef GPIO_InitStruct;
-//	GPIO_InitPWM(&GPIO_InitStruct);
-//	 /* Enable clock for the PWM */
-//	TIM_PeriClockControl(ENABLE);
-//
-//	 /* Init the base time for the PWM */
-//	TIM_SetConfig(TIM2, 15, 999, 500);
+
+	 /* Enable clock for the PWM */
+	TIM_PeriClockControl(TIMx, ENABLE);
+
+	GPIO_InitPWM(channel);
+
+	/* Init the base time for the PWM */
+	TIM_SetConfigPWM(TIM2, TIM_COUNTERMODE_UP, TIM_CHANNEL_1, TIM_OC_POLARITY_HIGH, 15, 999, 500, TIM_OCMODE_PWM1);
 }
 
 /**
@@ -292,6 +293,10 @@ void TIM_ConfigTimeBase(TIM_RegDef_t *TIMx, uint32_t Prescaler, uint32_t Period,
             // Invalid channel
             break;
     }
+}
+void TIM_SetDuty(uint32_t DutyCycle)
+{
+       TIM2->CCR1 = DutyCycle;
 }
 
 /**

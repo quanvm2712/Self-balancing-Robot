@@ -13,48 +13,18 @@ void delay()
 {
 	for (uint32_t i = 0; i < 500000; i++);
 }
-int main()
-{
-//	TIM_PWM_Init(&htim);
-//	uint32_t duty = 0;
-//	uint8_t step = 100;
-//
-//	while(1)
-//	{
-//		duty += step;
-//		TIM_Base_SetConfig(TIM2, 15, 999, duty);
-//				  if (duty >= 999)
-//				  {
-//					  duty  = 999;
-//					  step = -10;
-//				  }else if (duty <= 0)
-//				  {
-//					  duty = 0;
-//					  step = 10;
-//				  }
-//				  delay();
-//	}
 
-}
 
 int main(void){
-	TIM_PWM_Init();
-	uint16_t duty_cycle = 0;
-	uint16_t step = 100;
-
-
+	TIM_PWM_Init(TIM2, TIM_CHANNEL_1);
+	SysTick_Init();
 	while(1){
-		TIM_Base_SetConfig(TIM2, 16, 999, duty_cycle);
-		duty_cycle += step;
-		if(duty_cycle >= 999){
-			step -= 100;
-			duty_cycle = 999;
-		}else if (duty_cycle <= 0){
-			duty_cycle = 0;
-			step += 100;
-		}
-		delay();
-
+		TIM_SetDuty(500);
+		Delay_ms(1000);
+		TIM_SetDuty(200);
+		Delay_ms(1000);
+		TIM_SetDuty(1000);
+		Delay_ms(1000);
 	}
 }
 
