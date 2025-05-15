@@ -1,0 +1,398 @@
+/*
+ * stm32f407xx_tim.c
+ *
+ *  Created on: May 12, 2025
+ *      Author: nhduong
+ */
+
+#include "stm32f407xx_tim.h"
+
+// TIM_Private_Functions
+static void TIM_SetCounterMode(TIM_RegDef_t *TIMx, uint8_t Mode);
+static void TIM_CounterControl(TIM_RegDef_t *pTIMx, uint8_t State);
+
+/**
+  * @brief  Initializes the TIMx peripheral according to the specified parameters in the TIMx_Init.
+  * @param  clockState Specifies whether to ENABLE or DISABLE of the clock for the TIM2 peripheral.
+  * @retval None
+  */
+void TIM_PeriClockControl(TIM_RegDef_t *pTIMx, uint8_t clockState)
+{
+    if (clockState == ENABLE)
+    {
+        if (pTIMx == TIM1)       TIM1_CLK_ENABLE();
+        else if (pTIMx == TIM2)  TIM2_CLK_ENABLE();
+        else if (pTIMx == TIM3)  TIM3_CLK_ENABLE();
+        else if (pTIMx == TIM4)  TIM4_CLK_ENABLE();
+        else if (pTIMx == TIM5)  TIM5_CLK_ENABLE();
+        else if (pTIMx == TIM6)  TIM6_CLK_ENABLE();
+        else if (pTIMx == TIM7)  TIM7_CLK_ENABLE();
+        else if (pTIMx == TIM8)  TIM8_CLK_ENABLE();
+        else if (pTIMx == TIM9)  TIM9_CLK_ENABLE();
+        else if (pTIMx == TIM10) TIM10_CLK_ENABLE();
+        else if (pTIMx == TIM11) TIM11_CLK_ENABLE();
+        else if (pTIMx == TIM12) TIM12_CLK_ENABLE();
+        else if (pTIMx == TIM13) TIM13_CLK_ENABLE();
+        else if (pTIMx == TIM14) TIM14_CLK_ENABLE();
+    }
+    else
+    {
+        if (pTIMx == TIM1)       TIM1_CLK_DISABLE();
+        else if (pTIMx == TIM2)  TIM2_CLK_DISABLE();
+        else if (pTIMx == TIM3)  TIM3_CLK_DISABLE();
+        else if (pTIMx == TIM4)  TIM4_CLK_DISABLE();
+        else if (pTIMx == TIM5)  TIM5_CLK_DISABLE();
+        else if (pTIMx == TIM6)  TIM6_CLK_DISABLE();
+        else if (pTIMx == TIM7)  TIM7_CLK_DISABLE();
+        else if (pTIMx == TIM8)  TIM8_CLK_DISABLE();
+        else if (pTIMx == TIM9)  TIM9_CLK_DISABLE();
+        else if (pTIMx == TIM10) TIM10_CLK_DISABLE();
+        else if (pTIMx == TIM11) TIM11_CLK_DISABLE();
+        else if (pTIMx == TIM12) TIM12_CLK_DISABLE();
+        else if (pTIMx == TIM13) TIM13_CLK_DISABLE();
+        else if (pTIMx == TIM14) TIM14_CLK_DISABLE();
+    }
+}
+
+
+/**
+  * @brief  Time Base configuration
+  * @param  TIMx TIM peripheral
+  * @param  Structure TIM Base configuration structure
+  * @retval None
+  */
+void TIM_SetConfigPWM(TIM_RegDef_t *pTIMx,
+                   uint8_t CounterMode,
+                   uint8_t Channel,
+                   uint8_t polarity,
+                   uint32_t Prescaler,
+                   uint32_t Period,
+                   uint32_t DutyCycle,
+                   uint8_t OCMode)
+{
+    // 1. Configure counter mode (up/down/center-aligned)
+    TIM_SetCounterMode(pTIMx, CounterMode);
+
+    // 2. Configure clock division = no division (CKD = 00)
+    pTIMx->CR1 &= ~TIM_CR1_CKD;
+    pTIMx->CR1 |= 0;
+
+    // 3. Set prescaler, period, and duty cycle
+    TIM_ConfigTimeBase(pTIMx, Prescaler, Period, DutyCycle, Channel);
+
+    // 4. Enable counter
+    TIM_CounterControl(pTIMx, ENABLE);
+
+    // 5. Enable output compare for the given channel
+    TIM_ChannelOutputControl(pTIMx, Channel, ENABLE);
+
+    // 6. Set output polarity
+    TIM_SetChannelPolarity(pTIMx, Channel, polarity);
+
+    // 7. Set Output Compare mode (e.g., PWM1, PWM2, toggle, etc.)
+    TIM_SetOCMode(pTIMx, Channel, OCMode);
+
+    // 8. Generate an update event to load all the registers
+    pTIMx->EGR |= TIM_EGR_UG;
+}
+
+
+void GPIO_InitPWM_TIM2_Channel(uint8_t channel)
+{
+    GPIO_HandleTypeDef GPIO_InitStruct;
+
+    GPIO_InitStruct.pGPIOx = GPIOA;
+    GPIO_InitStruct.Init.Mode = GPIO_MODE_AF;
+    GPIO_InitStruct.Init.OPType = GPIO_OPTYPE_PP;
+    GPIO_InitStruct.Init.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Init.Speed = GPIO_SPEED_LOW;
+    GPIO_InitStruct.Init.Alternate = 1; // TIM2 uses AF1 on PA0–PA3
+
+    switch (channel)
+    {
+        case TIM_CHANNEL_1: // PA0
+            GPIO_InitStruct.Init.Pin = GPIO_PIN_0;
+            GPIO_Init(&GPIO_InitStruct);
+            break;
+
+        case TIM_CHANNEL_2: // PA1
+            GPIO_InitStruct.Init.Pin = GPIO_PIN_1;
+            GPIO_Init(&GPIO_InitStruct);
+            break;
+
+        case TIM_CHANNEL_3: // PA2
+            GPIO_InitStruct.Init.Pin = GPIO_PIN_2;
+            GPIO_Init(&GPIO_InitStruct);
+            break;
+
+        case TIM_CHANNEL_4: // PA3
+            GPIO_InitStruct.Init.Pin = GPIO_PIN_3;
+            GPIO_Init(&GPIO_InitStruct);
+            break;
+
+        default:
+            // Invalid channel
+            break;
+    }
+}
+
+/**
+  * @brief  Initializes the TIM PWM Time Base according to the specified
+  *         parameters in the TIM_HandleTypeDef and initializes the associated handle.
+  * @param  htim TIM PWM handle
+  * @retval None
+  */
+void TIM_PWM_Init(TIM_RegDef_t *TIMx,uint8_t channel)
+{
+
+	 /* Enable clock for the PWM */
+	TIM_PeriClockControl(TIMx, ENABLE);
+
+	GPIO_InitPWM_TIM2_Channel(channel);
+	 /* Init the base time for the PWM */
+	TIM_SetConfig(TIM2, 15, 999, 500);
+	TIM_SetConfigPWM(TIM2,
+	                   TIM_COUNTERMODE_UP,
+	                   uint8_t Channel,
+	                   uint8_t polarity,
+	                   uint32_t Prescaler,
+	                   uint32_t Period,
+	                   uint32_t DutyCycle,
+	                   uint8_t OCMode)
+}
+
+/**
+  * @brief  Configures the output polarity for the selected TIM channel.
+  * @param  TIMx     Pointer to TIM peripheral (e.g., TIM2, TIM3,...).
+  * @param  channel  Specifies the TIM channel (TIM_CHANNEL_1 to TIM_CHANNEL_4).
+  * @param  polarity Specifies the output polarity (TIM_OC_POLARITY_HIGH or TIM_OC_POLARITY_LOW).
+  * @retval None
+  */
+void TIM_SetChannelPolarity(TIM_RegDef_t *TIMx, uint8_t channel, uint8_t polarity)
+{
+	switch(channel)
+	{
+		case TIM_CHANNEL_1:
+			if (polarity == TIM_OC_POLARITY_LOW)
+			{
+				TIMx->CR1 |= (1 << TIM_CCER_CC1P_Pos);
+			}else {
+				TIMx->CR1 &= ~(1 << TIM_CCER_CC1P_Pos);
+			}
+			break;
+
+		case TIM_CHANNEL_2:
+			if (polarity == TIM_OC_POLARITY_LOW)
+			{
+				TIMx->CR1 |= (1 << TIM_CCER_CC2P_Pos);
+			}else {
+				TIMx->CR1 &= ~(1 << TIM_CCER_CC2P_Pos);
+			}
+			break;
+
+		case TIM_CHANNEL_3:
+			if (polarity == TIM_OC_POLARITY_LOW)
+			{
+				TIMx->CR1 |= (1 << TIM_CCER_CC3P_Pos);
+			}else {
+				TIMx->CR1 &= ~(1 << TIM_CCER_CC3P_Pos);
+			}
+			break;
+
+		case TIM_CHANNEL_4:
+			if (polarity == TIM_OC_POLARITY_LOW)
+			{
+				TIMx->CR1 |= (1 << TIM_CCER_CC4P_Pos);
+			}else {
+				TIMx->CR1 &= ~(1 << TIM_CCER_CC4P_Pos);
+			}
+			break;
+
+		default:
+			/* Nothing to do */
+			break;
+
+	}
+}
+
+/**
+  * @brief  Enables or disables the Capture/Compare output for the selected channel.
+  * @param  TIMx     Pointer to TIM peripheral (e.g., TIM2).
+  * @param  channel  Specifies the TIM channel (TIM_CHANNEL_1 to TIM_CHANNEL_4).
+  * @param  enable   Set to 1 to enable output, 0 to disable output.
+  * @retval None
+  */
+void TIM_ChannelOutputControl(TIM_RegDef_t *TIMx, uint8_t channel, uint8_t State)
+{
+    switch(channel)
+    {
+        case TIM_CHANNEL_1:
+            if (State == ENABLE)
+                TIMx->CCER |= (1 << TIM_CCER_CC1E_Pos);   // CC1E: Capture/Compare 1
+            else
+                TIMx->CCER &= ~(1 << TIM_CCER_CC1E_Pos);
+            break;
+
+        case TIM_CHANNEL_2:
+            if (State == ENABLE)
+                TIMx->CCER |= (1 << TIM_CCER_CC2E_Pos);   // CC2E: Capture/Compare 2
+            else
+                TIMx->CCER &= ~(1 << TIM_CCER_CC2E_Pos);
+            break;
+
+        case TIM_CHANNEL_3:
+            if (State == ENABLE)
+                TIMx->CCER |= (1 << TIM_CCER_CC3E_Pos);   // CC3E: Capture/Compare 3
+            else
+                TIMx->CCER &= ~(1 << TIM_CCER_CC3E_Pos);
+            break;
+
+        case TIM_CHANNEL_4:
+            if (State == ENABLE)
+                TIMx->CCER |= (1 << TIM_CCER_CC4E_Pos);  // CC4E: Capture/Compare 4
+            else
+                TIMx->CCER &= ~(1 << TIM_CCER_CC4E_Pos);
+            break;
+
+        default:
+            // Invalid channel
+            break;
+    }
+}
+
+/**
+  * @brief  Configures the TIM time base unit: prescaler, auto-reload, and duty cycle.
+  * @param  TIMx       Pointer to TIM peripheral (e.g., TIM2).
+  * @param  Prescaler  Prescaler value to divide the timer clock.
+  * @param  Period     Auto-reload value (defines the timer period).
+  * @param  DutyCycle  Capture/Compare value (defines the pulse width).
+  * @param  Channel    Channel to set duty cycle (1 to 4).
+  * @retval None
+  */
+void TIM_ConfigTimeBase(TIM_RegDef_t *TIMx, uint32_t Prescaler, uint32_t Period, uint32_t DutyCycle, uint8_t Channel)
+{
+    // Set prescaler
+    TIMx->PSC = Prescaler;
+
+    // Set auto-reload (period)
+    TIMx->ARR = Period;
+
+    // Set duty cycle based on channel
+    switch(Channel)
+    {
+        case TIM_CHANNEL_1:
+            TIMx->CCR1 = DutyCycle;
+            break;
+
+        case TIM_CHANNEL_2:
+            TIMx->CCR2 = DutyCycle;
+            break;
+
+        case TIM_CHANNEL_3:
+            TIMx->CCR3 = DutyCycle;
+            break;
+
+        case TIM_CHANNEL_4:
+            TIMx->CCR4 = DutyCycle;
+            break;
+
+        default:
+            // Invalid channel
+            break;
+    }
+}
+
+/**
+  * @brief  Selects the Output Compare Mode for TIM Channels 1 to 4.
+  * @param  TIMx     Pointer to TIM peripheral (e.g., TIM2).
+  * @param  channel  Channel number (1 to 4).
+  * @param  OCmode     Output Compare mode (e.g., TIM_OCMODE_PWM1, TIM_OCMODE_TOGGLE, etc.).
+  * @retval None
+  */
+void TIM_SetOCMode(TIM_RegDef_t *TIMx, uint8_t channel, uint8_t OCmode)
+{
+    switch (channel)
+    {
+        case TIM_CHANNEL_1:
+            // Clear bits 6:4 (OC1M) in CCMR1
+            TIMx->CCMR1 &= ~(0x7 << TIM_CCMR1_OC1M_Pos);
+            // Set new OCmode
+            TIMx->CCMR1 |= (OCmode << TIM_CCMR1_OC1M_Pos);
+            break;
+
+        case TIM_CHANNEL_2:
+            // Clear bits 14:12 (OC2M) in CCMR1
+            TIMx->CCMR1 &= ~(0x7 << TIM_CCMR2_OC1M_Pos);
+            // Set new OCmode
+            TIMx->CCMR1 |= (OCmode << TIM_CCMR2_OC1M_Pos);
+            break;
+
+        case TIM_CHANNEL_3:
+            // Clear bits 6:4 (OC3M) in CCMR2
+            TIMx->CCMR2 &= ~(0x7 << TIM_CCMR3_OC1M_Pos);
+            // Set new OCmode
+            TIMx->CCMR2 |= (OCmode << TIM_CCMR3_OC1M_Pos);
+            break;
+
+        case TIM_CHANNEL_4:
+            // Clear bits 14:12 (OC4M) in CCMR2
+            TIMx->CCMR2 &= ~(0x7 << TIM_CCMR4_OC1M_Pos);
+            // Set new OCmode
+            TIMx->CCMR2 |= (OCmode << TIM_CCMR4_OC1M_Pos);
+            break;
+
+        default:
+            // Invalid channel
+            break;
+    }
+}
+
+/**
+  * @brief  Time Set counter mode
+  * @param  TIMx TIM peripheral
+  * @param  Mode
+  * @retval None
+  */
+static void TIM_SetCounterMode(TIM_RegDef_t *TIMx, uint8_t Mode)
+{
+	// clear bit CMS[1:0] and DIR in CR1 register
+	TIMx->CR1 &= ~(TIM_CR1_DIR | TIM_CR1_CMS);
+
+	switch(Mode)
+	{
+		case TIM_COUNTERMODE_UP:
+			TIMx->CR1 |= 0;
+			break;
+		case TIM_COUNTERMODE_DOWN:
+			TIMx->CR1 |= TIM_CR1_DIR;
+			break;
+		case TIM_COUNTERMODE_CENTERALIGNED1:
+			TIMx->CR1 |= TIM_CR1_CMS_0; // CMS = 01
+			break;
+		case TIM_COUNTERMODE_CENTERALIGNED2:
+			TIMx->CR1 |= TIM_CR1_CMS_1; // CMS = 02
+			break;
+		case TIM_COUNTERMODE_CENTERALIGNED3:
+			TIMx->CR1 |= TIM_CR1_CMS; // CMS = 03
+			break;
+		default:
+			/* Nothing to do */
+			break;
+	}
+}
+
+/**
+  * @brief  Time enable counter
+  * @param  TIMx TIM peripheral
+  * @param  State ENABLE or DISABLE
+  * @retval None
+  */
+static void TIM_CounterControl(TIM_RegDef_t *pTIMx, uint8_t State)
+{
+	if (State == ENABLE)
+	{
+		pTIMx->CR1 |= TIM_CR1_CEN;
+	}else {
+		pTIMx->CR1 &= ~TIM_CR1_CEN;
+	}
+}
