@@ -111,6 +111,7 @@ uint16_t GPIO_ReadPort(GPIO_RegDef_t *pGPIOx);
 void GPIO_WritePin(GPIO_RegDef_t *pGPIOx, uint8_t GPIO_pin, uint8_t pinState);
 void GPIO_WritePort(GPIO_RegDef_t *pGPIOx, uint16_t GPIO_pin);
 void GPIO_TogglePin(GPIO_RegDef_t* pGPIOx, uint8_t GPIO_pin);
+void GPIO_Initialize(GPIO_RegDef_t *GPIOx, uint8_t GPIO_Pin, uint8_t GPIO_Mode);
 void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t state);
 void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority);
 void GPIO_IRQHandler(uint8_t GPIO_pin);

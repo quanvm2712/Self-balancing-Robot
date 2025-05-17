@@ -58,6 +58,80 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t clockState)
 }
 
 
+void GPIO_ConfigureMode(GPIO_RegDef_t* GPIOx, uint8_t GPIO_PIN, uint8_t GPIO_Mode){
+	if (GPIO_Mode <= GPIO_MODE_ANALOG){ //When the selected mode is not GPIO External Interrupt
+		//Reset bits value of selected pin.
+		GPIOx->MODER &= ~(0b11 << (GPIO_PIN * 2));
+		//Set the selected mode for the pin
+		GPIOx->MODER |= GPIO_Mode << (GPIO_PIN * 2);
+	}
+	else{//When the selected mode is GPIO External Interrupt
+		/******CONFIGURE EXTI Register******/
+		//Select triggered edge
+		if(GPIO_Mode == GPIO_MODE_IT_FALLING){
+			EXTI->FTSR |= (1 << GPIO_PIN);
+			EXTI->RTSR &= ~(1 << GPIO_PIN);
+		}
+		else if(GPIO_Mode == GPIO_MODE_IT_RISING){
+			EXTI->RTSR |= (1 << GPIO_PIN);
+			EXTI->FTSR &= ~(1 << GPIO_PIN);
+		}
+		else{
+			EXTI->RTSR |= (1 << GPIO_PIN);
+			EXTI->FTSR |= (1 << GPIO_PIN);
+		}
+
+		/******CONFIGURE SYSCFG******/
+		SYSCFG_CLK_ENABLE();	//Enable SYSCFG clock
+		uint8_t EXTICR_Index = GPIO_PIN / 4; //Get Register index of EXTICR
+		uint8_t EXTICR_StartBit = GPIO_PIN % 4;
+		uint8_t GPIO_Port =  GPIO_BASEADDR_TO_CODE(GPIOx);
+		SYSCFG->EXTICR[EXTICR_Index] &= ~(0b1111 << (EXTICR_StartBit * 4));
+		SYSCFG->EXTICR[EXTICR_Index] |= GPIO_Port << (EXTICR_StartBit * 4);
+
+		//Enable External interrupt for selected line
+		EXTI->IMR |= (1 << GPIO_PIN);
+
+		EXTI->PR |= (1 << GPIO_PIN);  // Clear pending flag
+	}
+
+}
+
+
+void GPIO_ConfigureSpeed(GPIO_RegDef_t* GPIOx, uint8_t GPIO_Pin, uint8_t GPIO_Speed){
+	uint8_t startBit = GPIO_Pin * 2;
+	//Clear the value of selected pin
+	GPIOx->OSPEEDR &= ~(0b11 << startBit);
+	//Set GPIO Speed for selected Pin
+	GPIOx->OSPEEDR |= GPIO_Speed << startBit;
+}
+
+void GPIO_ConfigureOutputType(GPIO_RegDef_t* GPIOx, uint8_t GPIO_Pin, _Bool GPIO_OutputType){
+	GPIOx->OTYPER &= ~(1 << GPIO_Pin);  //Clear value of selected pin
+	GPIOx->OTYPER |= GPIO_OutputType << GPIO_Pin; //Set GPIO Output type
+}
+
+void GPIO_ConfigurePullUpDown(GPIO_RegDef_t* GPIOx, uint8_t GPIO_Pin, uint8_t PullMode){
+	GPIOx->PUPDR &= ~(0b11 << (GPIO_Pin*2)); //Clear value of selected pin
+	GPIOx->PUPDR |= PullMode << (GPIO_Pin * 2); //Set GPIO pull mode.
+}
+
+
+void GPIO_Initialize(GPIO_RegDef_t *GPIOx, uint8_t GPIO_Pin, uint8_t GPIO_Mode){
+	GPIO_PeriClockControl(GPIOx, ENABLE);
+
+	GPIO_ConfigureMode(GPIOx, GPIO_Pin, GPIO_Mode);
+
+	if(GPIO_Mode == GPIO_MODE_OUTPUT){
+		GPIO_ConfigureOutputType(GPIOx, GPIO_Pin, GPIO_OPTYPE_PP);
+	}
+	else if(GPIO_Mode == GPIO_MODE_INPUT || GPIO_Mode == GPIO_MODE_IT_RISING){
+		GPIO_ConfigurePullUpDown(GPIOx, GPIO_Pin, GPIO_PULLDOWN);
+	}
+	else if(GPIO_Mode == GPIO_MODE_IT_FALLING){
+		GPIO_ConfigurePullUpDown(GPIOx, GPIO_Pin, GPIO_PULLUP);
+	}
+}
 
 /**
   * @brief  Initializes the GPIO peripheral according to the specified parameters
