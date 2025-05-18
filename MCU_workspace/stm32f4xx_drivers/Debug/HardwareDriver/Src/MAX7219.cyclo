@@ -1,0 +1,12 @@
+../HardwareDriver/Src/MAX7219.c:11:6:MAX7219_SendCommand	1
+../HardwareDriver/Src/MAX7219.c:18:6:MAX7219_OperationMode	1
+../HardwareDriver/Src/MAX7219.c:22:6:MAX7219_SetDecodeMode	1
+../HardwareDriver/Src/MAX7219.c:26:6:MAX7219_SetIntensity	1
+../HardwareDriver/Src/MAX7219.c:30:6:MAX7219_SetScanLimit	1
+../HardwareDriver/Src/MAX7219.c:34:6:MAX7219_Init	1
+../HardwareDriver/Src/MAX7219.c:42:6:MAX7219_SetDigitValue	1
+../HardwareDriver/Src/MAX7219.c:46:6:MAX7219_TestLED	1
+../HardwareDriver/Src/MAX7219.c:50:6:MAX7219_Clean	2
+../HardwareDriver/Src/MAX7219.c:57:6:MAX7219_LeftSignal	4
+../HardwareDriver/Src/MAX7219.c:75:6:MAX7219_RightSignal	4
+../HardwareDriver/Src/MAX7219.c:93:6:MAX7219_StopSignal	5

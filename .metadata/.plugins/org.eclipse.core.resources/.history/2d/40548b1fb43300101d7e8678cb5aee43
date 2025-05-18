@@ -1,0 +1,34 @@
+/*
+ * MAX7219_1.h
+ *
+ *  Created on: May 18, 2025
+ *      Author: quanvm198
+ */
+
+#ifndef INC_MAX7219_H_
+#define INC_MAX7219_H_
+
+#include "stm32f407xx.h"
+
+/**
+ * MAX7221 register definition
+ */
+#define		REG_DIGIT_O		0X1
+#define		REG_DIGIT_1		0X2
+#define		REG_DIGIT_2		0X3
+#define		REG_DIGIT_3		0X4
+#define		REG_DIGIT_4		0X5
+#define		REG_DIGIT_5		0X6
+#define		REG_DIGIT_6		0X7
+#define		REG_DIGIT_7		0X8
+#define 	REG_    0x09
+#define 	REG_INTENSITY      0x0A
+#define 	REG_SCAN_LIMIT     0x0B
+#define 	REG_SHUTDOWN       0x0C
+#define 	REG_DISPLAY_TEST   0x0F
+
+void MAX7219_TestLED(SPI_RegDef_t* SPIx);
+void MAX7219_SendCommand(SPI_RegDef_t* SPIx, uint8_t Address, uint8_t Data);
+
+
+#endif /* INC_MAX7219_H_ */

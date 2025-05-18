@@ -1,0 +1,61 @@
+/*
+ * 010i2c_master_tx_testing.c
+ *
+ *  Created on: Feb 24, 2019
+ *      Author: admin
+ */
+
+#include "stm32f407xx.h"
+#include "MAX7219.h"
+
+TIM_HandleTypeDef htim;
+
+void delay()
+{
+	for (uint32_t i = 0; i < 500000; i++);
+}
+
+void EXTI0_IRQHandler(){
+	EXTI->PR |= (1 << 0); //Clear PR bit to reset interrupt line
+	GPIO_TogglePin(GPIOA, GPIO_PIN_0);
+}
+
+
+int main(void){
+    //TIM_PWM_Init(TIM2, TIM_CHANNEL_1);
+    //Initialize Systick, so each tick is 1ms
+     SysTick_Init();
+
+    //Initialize GPIO output for LED
+    GPIO_Initialize(GPIOA, GPIO_PIN_0, GPIO_MODE_OUTPUT);
+
+//    //Initialize GPIO input for button
+//    GPIO_Initialize(GPIOD, GPIO_PIN_0, GPIO_MODE_IT_RISING);
+//    //Enable interrupt for GPIOD Pin 0
+//    GPIO_IRQInterruptConfig(IRQ_NO_EXTI0, ENABLE);
+
+    SPI_Initialize(SPI1, SPI_MODE_MASTER, SPI_POLARITY_LOW, SPI_PHASE_1stEDGE,
+		   SPI_MSBFIRST, SPI_DATASIZE_8BIT, FALSE);
+
+
+
+     MAX7219_Init(SPI1, MAX7219_DECODE_ALL, MAX7219_INTENSITY_31_32, MAX7219_SCAN_DIGIT_0_7);
+
+    //uint8_t SPI_TXData[2] = {0x1, 0X2};
+
+    //uint8_t SPI_RXData[2];
+
+    while(1){
+	//MAX7219_TestLED(SPI1, ENABLE);
+	for (uint32_t i = 0; i < 8; i++)
+	  {
+	    MAX7219_SetDigitValue(SPI1, MAX7219_REG_DIGIT0, 9);
+	  }
+
+	Delay_ms(500);
+
+
+    }
+}
+
+

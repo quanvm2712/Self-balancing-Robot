@@ -1,0 +1,20 @@
+/*
+ * MAX7219.c
+ *
+ *  Created on: May 18, 2025
+ *      Author: quanvm198
+ */
+#include "MAX7219.h"
+
+void MAX7219_TestLED(SPI_RegDef_t* SPIx){
+  uint8_t TX_Data[2] = {DISPLAY_TEST, 0x1};
+
+  SPI_Transmit(SPIx, TX_Data, 2);
+
+}
+
+void MAX7219_SendCommand(SPI_RegDef_t* SPIx, uint8_t Address, uint8_t Data){
+  uint8_t TX_Data[2] = {Address, Data};
+}
+
+

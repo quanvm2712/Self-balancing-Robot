@@ -6,6 +6,7 @@
  */
 
 #include "stm32f407xx.h"
+#include "MAX7219.h"
 
 TIM_HandleTypeDef htim;
 
@@ -36,14 +37,27 @@ int main(void){
     SPI_Initialize(SPI1, SPI_MODE_MASTER, SPI_POLARITY_LOW, SPI_PHASE_1stEDGE,
 		   SPI_MSBFIRST, SPI_DATASIZE_8BIT, FALSE);
 
-    uint8_t SPI_TXData[2] = {0x1, 0X2};
-    uint8_t SPI_RXData[2];
+
+
+     MAX7219_Init(SPI1, MAX7219_NO_DECODE, MAX7219_INTENSITY_31_32, MAX7219_SCAN_DIGIT_0_7);
+
+    //uint8_t SPI_TXData[2] = {0x1, 0X2};
+
     //uint8_t SPI_RXData[2];
 
     while(1){
-      GPIO_TogglePin(GPIOA, GPIO_PIN_0);
-      SPI_Transmit(SPI1, SPI_TXData, 2);
-      Delay_ms(500);
+	//MAX7219_TestLED(SPI1, ENABLE);
+//	uint8_t data = 0;
+//	for (uint8_t i = 1; i <= 8; i++)
+//	  {
+//	    MAX7219_SetDigitValue(SPI1, i, data++);
+//	  }
+	MAX7219_StopSignal(SPI1);
+
+
+	//Delay_ms(500);
+
+
     }
 }
 

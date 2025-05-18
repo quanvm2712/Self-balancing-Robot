@@ -1,0 +1,15 @@
+/*
+ * MAX7219.c
+ *
+ *  Created on: May 18, 2025
+ *      Author: quanvm198
+ */
+#include "MAX7219.h"
+
+void MAX7219_TestLED(SPI_RegDef_t* SPIx){
+  uint8_t TX_Data[2] = {DisplayTest, 0x1);
+
+
+}
+
+
