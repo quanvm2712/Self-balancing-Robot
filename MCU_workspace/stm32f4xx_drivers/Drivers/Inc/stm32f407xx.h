@@ -579,7 +579,8 @@ typedef struct
 
 
 //some generic macros
-
+#define TRUE				1
+#define FALSE				0
 #define ENABLE 				1
 #define DISABLE 			0
 #define SET 				ENABLE
@@ -781,6 +782,12 @@ typedef struct
 #define TIM_CR1_CKD      (TIM_CR1_CKD_0 | TIM_CR1_CKD_1)
 
 #define TIM_EGR_UG       (1 << 0)   // Update generation (force update)
+
+/** Status
+ *
+ */
+#define	OK		0
+#define	ERROR		1
 
 
 #include "stm32f407xx_i2c.h"

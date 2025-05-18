@@ -21,22 +21,30 @@ void EXTI0_IRQHandler(){
 
 
 int main(void){
-//	TIM_PWM_Init(TIM2, TIM_CHANNEL_1);
-	//Initialize Systick, so each tick is 1ms
-	SysTick_Init();
+    //TIM_PWM_Init(TIM2, TIM_CHANNEL_1);
+    //Initialize Systick, so each tick is 1ms
+     SysTick_Init();
 
-	//Initialize GPIO output for LED
-	GPIO_Initialize(GPIOA, GPIO_PIN_0, GPIO_MODE_OUTPUT);
+    //Initialize GPIO output for LED
+    GPIO_Initialize(GPIOA, GPIO_PIN_0, GPIO_MODE_OUTPUT);
 
-	//Initialize GPIO input for button
-	GPIO_Initialize(GPIOD, GPIO_PIN_0, GPIO_MODE_IT_RISING);
-	//Enable interrupt for GPIOD Pin 0
-	GPIO_IRQInterruptConfig(IRQ_NO_EXTI0, ENABLE);
+//    //Initialize GPIO input for button
+//    GPIO_Initialize(GPIOD, GPIO_PIN_0, GPIO_MODE_IT_RISING);
+//    //Enable interrupt for GPIOD Pin 0
+//    GPIO_IRQInterruptConfig(IRQ_NO_EXTI0, ENABLE);
 
-	while(1){
-		//GPIO_TogglePin(GPIOA, GPIO_PIN_0);
-		//Delay_ms(500);
-	}
+    SPI_Initialize(SPI1, SPI_MODE_MASTER, SPI_POLARITY_LOW, SPI_PHASE_1stEDGE,
+		   SPI_MSBFIRST, SPI_DATASIZE_8BIT, FALSE);
+
+    uint8_t SPI_TXData[2] = {0x1, 0X2};
+    uint8_t SPI_RXData[2];
+    //uint8_t SPI_RXData[2];
+
+    while(1){
+      GPIO_TogglePin(GPIOA, GPIO_PIN_0);
+      SPI_Transmit(SPI1, SPI_TXData, 2);
+      Delay_ms(500);
+    }
 }
 
 

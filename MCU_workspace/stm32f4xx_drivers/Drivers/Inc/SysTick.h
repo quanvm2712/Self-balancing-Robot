@@ -47,6 +47,7 @@ void SysTick_SelectClockSource(_Bool ClockSource);
 void SysTick_EnableCounter(void);
 void SysTick_SetReloadValue(uint32_t ReloadValue);
 void Delay_ms(uint16_t ms);
+uint32_t getTick(void);
 
 #endif
 

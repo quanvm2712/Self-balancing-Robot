@@ -57,80 +57,158 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t clockState)
     }
 }
 
-
+/**
+ * @brief  Configures the mode of the specified GPIO pin.
+ *         Supports input, output, alternative function, analog, and external interrupt modes.
+ *
+ * @param  GPIOx      Pointer to GPIO peripheral (e.g., GPIOA, GPIOB).
+ * @param  GPIO_PIN   GPIO pin number (0–15).
+ * @param  GPIO_Mode  Mode to be set:
+ *                    - GPIO_MODE_INPUT
+ *                    - GPIO_MODE_OUTPUT
+ *                    - GPIO_MODE_AF
+ *                    - GPIO_MODE_ANALOG
+ *                    - GPIO_MODE_IT_FALLING
+ *                    - GPIO_MODE_IT_RISING
+ *                    - GPIO_MODE_IT_RISING_FALLING
+ *
+ * @retval None
+ */
 void GPIO_ConfigureMode(GPIO_RegDef_t* GPIOx, uint8_t GPIO_PIN, uint8_t GPIO_Mode){
-	if (GPIO_Mode <= GPIO_MODE_ANALOG){ //When the selected mode is not GPIO External Interrupt
-		//Reset bits value of selected pin.
-		GPIOx->MODER &= ~(0b11 << (GPIO_PIN * 2));
-		//Set the selected mode for the pin
-		GPIOx->MODER |= GPIO_Mode << (GPIO_PIN * 2);
-	}
-	else{//When the selected mode is GPIO External Interrupt
-		/******CONFIGURE EXTI Register******/
-		//Select triggered edge
-		if(GPIO_Mode == GPIO_MODE_IT_FALLING){
-			EXTI->FTSR |= (1 << GPIO_PIN);
-			EXTI->RTSR &= ~(1 << GPIO_PIN);
-		}
-		else if(GPIO_Mode == GPIO_MODE_IT_RISING){
-			EXTI->RTSR |= (1 << GPIO_PIN);
-			EXTI->FTSR &= ~(1 << GPIO_PIN);
-		}
-		else{
-			EXTI->RTSR |= (1 << GPIO_PIN);
-			EXTI->FTSR |= (1 << GPIO_PIN);
-		}
+    if (GPIO_Mode <= GPIO_MODE_ANALOG){ //When the selected mode is not GPIO External Interrupt
+	    //Reset bits value of selected pin.
+	    GPIOx->MODER &= ~(0b11 << (GPIO_PIN * 2));
+	    //Set the selected mode for the pin
+	    GPIOx->MODER |= GPIO_Mode << (GPIO_PIN * 2);
+    }
+    else{//When the selected mode is GPIO External Interrupt
+	    /******CONFIGURE EXTI Register******/
+	    //Select triggered edge
+	    if(GPIO_Mode == GPIO_MODE_IT_FALLING){
+		    EXTI->FTSR |= (1 << GPIO_PIN);
+		    EXTI->RTSR &= ~(1 << GPIO_PIN);
+	    }
+	    else if(GPIO_Mode == GPIO_MODE_IT_RISING){
+		    EXTI->RTSR |= (1 << GPIO_PIN);
+		    EXTI->FTSR &= ~(1 << GPIO_PIN);
+	    }
+	    else{
+		    EXTI->RTSR |= (1 << GPIO_PIN);
+		    EXTI->FTSR |= (1 << GPIO_PIN);
+	    }
 
-		/******CONFIGURE SYSCFG******/
-		SYSCFG_CLK_ENABLE();	//Enable SYSCFG clock
-		uint8_t EXTICR_Index = GPIO_PIN / 4; //Get Register index of EXTICR
-		uint8_t EXTICR_StartBit = GPIO_PIN % 4;
-		uint8_t GPIO_Port =  GPIO_BASEADDR_TO_CODE(GPIOx);
-		SYSCFG->EXTICR[EXTICR_Index] &= ~(0b1111 << (EXTICR_StartBit * 4));
-		SYSCFG->EXTICR[EXTICR_Index] |= GPIO_Port << (EXTICR_StartBit * 4);
+	    /******CONFIGURE SYSCFG******/
+	    SYSCFG_CLK_ENABLE();	//Enable SYSCFG clock
+	    uint8_t EXTICR_Index = GPIO_PIN / 4; //Get Register index of EXTICR
+	    uint8_t EXTICR_StartBit = GPIO_PIN % 4;
+	    uint8_t GPIO_Port =  GPIO_BASEADDR_TO_CODE(GPIOx);
+	    SYSCFG->EXTICR[EXTICR_Index] &= ~(0b1111 << (EXTICR_StartBit * 4));
+	    SYSCFG->EXTICR[EXTICR_Index] |= GPIO_Port << (EXTICR_StartBit * 4);
 
-		//Enable External interrupt for selected line
-		EXTI->IMR |= (1 << GPIO_PIN);
+	    //Enable External interrupt for selected line
+	    EXTI->IMR |= (1 << GPIO_PIN);
 
-		EXTI->PR |= (1 << GPIO_PIN);  // Clear pending flag
-	}
+	    EXTI->PR |= (1 << GPIO_PIN);  // Clear pending flag
+    }
 
 }
 
-
+/**
+ * @brief  Configures the speed of the specified GPIO pin.
+ *
+ * @param  GPIOx       Pointer to GPIO peripheral.
+ * @param  GPIO_Pin    GPIO pin number (0–15).
+ * @param  GPIO_Speed  Speed level:
+ *                     - GPIO_SPEED_LOW
+ *                     - GPIO_SPEED_MEDIUM
+ *                     - GPIO_SPEED_FAST
+ *
+ * @retval None
+ */
 void GPIO_ConfigureSpeed(GPIO_RegDef_t* GPIOx, uint8_t GPIO_Pin, uint8_t GPIO_Speed){
-	uint8_t startBit = GPIO_Pin * 2;
-	//Clear the value of selected pin
-	GPIOx->OSPEEDR &= ~(0b11 << startBit);
-	//Set GPIO Speed for selected Pin
-	GPIOx->OSPEEDR |= GPIO_Speed << startBit;
+    uint8_t startBit = GPIO_Pin * 2;
+    //Clear the value of selected pin
+    GPIOx->OSPEEDR &= ~(0b11 << startBit);
+    //Set GPIO Speed for selected Pin
+    GPIOx->OSPEEDR |= GPIO_Speed << startBit;
 }
 
+/**
+ * @brief  Sets the output type for the specified GPIO pin.
+ *
+ * @param  GPIOx            Pointer to GPIO peripheral.
+ * @param  GPIO_Pin         GPIO pin number (0–15).
+ * @param  GPIO_OutputType  Output type:
+ *                          - GPIO_OPTYPE_PP (Push-pull)
+ *                          - GPIO_OPTYPE_OD (Open-drain)
+ *
+ * @retval None
+ */
 void GPIO_ConfigureOutputType(GPIO_RegDef_t* GPIOx, uint8_t GPIO_Pin, _Bool GPIO_OutputType){
-	GPIOx->OTYPER &= ~(1 << GPIO_Pin);  //Clear value of selected pin
-	GPIOx->OTYPER |= GPIO_OutputType << GPIO_Pin; //Set GPIO Output type
+    GPIOx->OTYPER &= ~(1 << GPIO_Pin);  //Clear value of selected pin
+    GPIOx->OTYPER |= GPIO_OutputType << GPIO_Pin; //Set GPIO Output type
 }
 
+
+/**
+ * @brief  Configures pull-up/pull-down resistors for the specified GPIO pin.
+ *
+ * @param  GPIOx     Pointer to GPIO peripheral.
+ * @param  GPIO_Pin  GPIO pin number (0–15).
+ * @param  PullMode  Pull configuration:
+ *                   - GPIO_NOPULL
+ *                   - GPIO_PULLUP
+ *                   - GPIO_PULLDOWN
+ *
+ * @retval None
+ */
 void GPIO_ConfigurePullUpDown(GPIO_RegDef_t* GPIOx, uint8_t GPIO_Pin, uint8_t PullMode){
-	GPIOx->PUPDR &= ~(0b11 << (GPIO_Pin*2)); //Clear value of selected pin
-	GPIOx->PUPDR |= PullMode << (GPIO_Pin * 2); //Set GPIO pull mode.
+    GPIOx->PUPDR &= ~(0b11 << (GPIO_Pin*2)); //Clear value of selected pin
+    GPIOx->PUPDR |= PullMode << (GPIO_Pin * 2); //Set GPIO pull mode.
 }
 
 
+/**
+ * @brief  Initializes the specified GPIO pin with the given mode.
+ *         Enables peripheral clock and configures mode, output type, and pull settings.
+ *
+ * @param  GPIOx     Pointer to GPIO peripheral.
+ * @param  GPIO_Pin  GPIO pin number (0–15).
+ * @param  GPIO_Mode Desired mode (input, output, interrupt, etc.).
+ *
+ * @retval None
+ */
 void GPIO_Initialize(GPIO_RegDef_t *GPIOx, uint8_t GPIO_Pin, uint8_t GPIO_Mode){
-	GPIO_PeriClockControl(GPIOx, ENABLE);
+      GPIO_PeriClockControl(GPIOx, ENABLE);
 
-	GPIO_ConfigureMode(GPIOx, GPIO_Pin, GPIO_Mode);
+      GPIO_ConfigureMode(GPIOx, GPIO_Pin, GPIO_Mode);
 
-	if(GPIO_Mode == GPIO_MODE_OUTPUT){
-		GPIO_ConfigureOutputType(GPIOx, GPIO_Pin, GPIO_OPTYPE_PP);
-	}
-	else if(GPIO_Mode == GPIO_MODE_INPUT || GPIO_Mode == GPIO_MODE_IT_RISING){
-		GPIO_ConfigurePullUpDown(GPIOx, GPIO_Pin, GPIO_PULLDOWN);
-	}
-	else if(GPIO_Mode == GPIO_MODE_IT_FALLING){
-		GPIO_ConfigurePullUpDown(GPIOx, GPIO_Pin, GPIO_PULLUP);
-	}
+      GPIO_ConfigureSpeed(GPIOx, GPIO_Pin, GPIO_SPEED_FAST);  //Fast speed as default.
+
+      if(GPIO_Mode == GPIO_MODE_OUTPUT){
+	      GPIO_ConfigureOutputType(GPIOx, GPIO_Pin, GPIO_OPTYPE_PP);  //Output push-pull as default
+      }
+      else if(GPIO_Mode == GPIO_MODE_INPUT || GPIO_Mode == GPIO_MODE_IT_RISING){
+	      GPIO_ConfigurePullUpDown(GPIOx, GPIO_Pin, GPIO_PULLDOWN);  //If GPIO mode is input, GPIO_PULLDOWN is used as default.
+      }
+      else if(GPIO_Mode == GPIO_MODE_IT_FALLING){
+	      GPIO_ConfigurePullUpDown(GPIOx, GPIO_Pin, GPIO_PULLUP);
+      }
+}
+
+void AFIO_SelectAlternateFunction(GPIO_RegDef_t* GPIOx, uint8_t GPIO_Pin, uint8_t AlternateFunction){
+    uint8_t StartBit;
+    GPIO_PeriClockControl(GPIOx, ENABLE);
+    if(GPIO_Pin <= GPIO_PIN_7){
+	    StartBit = GPIO_Pin * 4;
+	    GPIOx->AFR[0] &= ~(0b1111 << StartBit);
+	    GPIOx->AFR[0] |= AlternateFunction << StartBit;
+    }
+    else{
+	    StartBit = (GPIO_Pin - 8) * 4;
+	    GPIOx->AFR[1] &= ~(0b1111 << StartBit);
+	    GPIOx->AFR[1] |= AlternateFunction << StartBit;
+    }
 }
 
 /**
@@ -142,66 +220,66 @@ void GPIO_Initialize(GPIO_RegDef_t *GPIOx, uint8_t GPIO_Pin, uint8_t GPIO_Mode){
   */
 void GPIO_Init(GPIO_HandleTypeDef *hGPIO)
 {
-	uint32_t temp;
-	// Enable the clock peripheral
-	GPIO_PeriClockControl(hGPIO->pGPIOx, ENABLE);
+    uint32_t temp;
+    // Enable the clock peripheral
+    GPIO_PeriClockControl(hGPIO->pGPIOx, ENABLE);
 
-	// 1. Configure mode
-	if (hGPIO->Init.Mode <= GPIO_MODE_ANALOG) {
-		// The non interrupt mode
-		temp = (hGPIO->Init.Mode << (2 * hGPIO->Init.Pin));
-		hGPIO->pGPIOx->MODER &= ~(0x3 << (2 * hGPIO->Init.Pin)); // clearing
-		hGPIO->pGPIOx->MODER |= temp;
-	}else {
-		// Interrupt mode
-		if (hGPIO->Init.Mode == GPIO_MODE_IT_FALLING) {
-			// Configure the FTSR
-			EXTI->FTSR |= (1 << hGPIO->Init.Pin);
-			// Clear the corresponding the RTSR
-			EXTI->RTSR &= ~(1 << hGPIO->Init.Pin);
-		}else if (hGPIO->Init.Mode == GPIO_MODE_IT_RISING) {
-			EXTI->RTSR |= (1 << hGPIO->Init.Pin);
-			EXTI->FTSR &= ~(1 << hGPIO->Init.Pin);
-		}else if (hGPIO->Init.Mode == GPIO_MODE_IT_RISING_FALLING) {
-			EXTI->RTSR |= (1 << hGPIO->Init.Pin);
-			EXTI->FTSR |= (1 << hGPIO->Init.Pin);
-		}
-		// Configure the GPIO port selection in SYSCFG_EXTICR
-		uint8_t tmp1 = hGPIO->Init.Pin / 4;
-		uint8_t tmp2 = hGPIO->Init.Pin % 4;
-		uint8_t portCode = GPIO_BASEADDR_TO_CODE(hGPIO->pGPIOx);
-		SYSCFG_CLK_ENABLE();
-		SYSCFG->EXTICR[tmp1] &= ~(0xF << (tmp2 * 4)); // Clear bits first
-		SYSCFG->EXTICR[tmp1] |= portCode << (tmp2 * 4);
+    // 1. Configure mode
+    if (hGPIO->Init.Mode <= GPIO_MODE_ANALOG) {
+	    // The non interrupt mode
+	    temp = (hGPIO->Init.Mode << (2 * hGPIO->Init.Pin));
+	    hGPIO->pGPIOx->MODER &= ~(0x3 << (2 * hGPIO->Init.Pin)); // clearing
+	    hGPIO->pGPIOx->MODER |= temp;
+    }else {
+	    // Interrupt mode
+	    if (hGPIO->Init.Mode == GPIO_MODE_IT_FALLING) {
+		    // Configure the FTSR
+		    EXTI->FTSR |= (1 << hGPIO->Init.Pin);
+		    // Clear the corresponding the RTSR
+		    EXTI->RTSR &= ~(1 << hGPIO->Init.Pin);
+	    }else if (hGPIO->Init.Mode == GPIO_MODE_IT_RISING) {
+		    EXTI->RTSR |= (1 << hGPIO->Init.Pin);
+		    EXTI->FTSR &= ~(1 << hGPIO->Init.Pin);
+	    }else if (hGPIO->Init.Mode == GPIO_MODE_IT_RISING_FALLING) {
+		    EXTI->RTSR |= (1 << hGPIO->Init.Pin);
+		    EXTI->FTSR |= (1 << hGPIO->Init.Pin);
+	    }
+	    // Configure the GPIO port selection in SYSCFG_EXTICR
+	    uint8_t tmp1 = hGPIO->Init.Pin / 4;
+	    uint8_t tmp2 = hGPIO->Init.Pin % 4;
+	    uint8_t portCode = GPIO_BASEADDR_TO_CODE(hGPIO->pGPIOx);
+	    SYSCFG_CLK_ENABLE();
+	    SYSCFG->EXTICR[tmp1] &= ~(0xF << (tmp2 * 4)); // Clear bits first
+	    SYSCFG->EXTICR[tmp1] |= portCode << (tmp2 * 4);
 
-		// Enable the EXTI Interrupt delivery using IMR
-		EXTI->IMR |= 1 << hGPIO->Init.Pin;
-	}
+	    // Enable the EXTI Interrupt delivery using IMR
+	    EXTI->IMR |= 1 << hGPIO->Init.Pin;
+    }
 
-	// 2. Configure speed
-	temp = ((hGPIO->Init.Speed) << (2 * hGPIO->Init.Pin));
-	hGPIO->pGPIOx->OSPEEDR &= ~(0x3 << (2 * hGPIO->Init.Pin)); // clearing
-	hGPIO->pGPIOx->OSPEEDR |= temp;
+    // 2. Configure speed
+    temp = ((hGPIO->Init.Speed) << (2 * hGPIO->Init.Pin));
+    hGPIO->pGPIOx->OSPEEDR &= ~(0x3 << (2 * hGPIO->Init.Pin)); // clearing
+    hGPIO->pGPIOx->OSPEEDR |= temp;
 
-	// 3. Configure pull settings
-	temp = (hGPIO->Init.Pull) << (2 * hGPIO->Init.Pin);
-	hGPIO->pGPIOx->PUPDR &= ~(0x3 << (2 * hGPIO->Init.Pin)); // clearing
-	hGPIO->pGPIOx->PUPDR |= temp;
+    // 3. Configure pull settings
+    temp = (hGPIO->Init.Pull) << (2 * hGPIO->Init.Pin);
+    hGPIO->pGPIOx->PUPDR &= ~(0x3 << (2 * hGPIO->Init.Pin)); // clearing
+    hGPIO->pGPIOx->PUPDR |= temp;
 
-	// 4. Configure OPType
-	temp = (hGPIO->Init.OPType) << hGPIO->Init.Pin;
-	hGPIO->pGPIOx->OTYPER &= ~(0x1 << hGPIO->Init.Pin); // clearing
-	hGPIO->pGPIOx->OTYPER |= temp;
+    // 4. Configure OPType
+    temp = (hGPIO->Init.OPType) << hGPIO->Init.Pin;
+    hGPIO->pGPIOx->OTYPER &= ~(0x1 << hGPIO->Init.Pin); // clearing
+    hGPIO->pGPIOx->OTYPER |= temp;
 
-	// 5. Configure the alternate function
-	if (hGPIO->Init.Mode == GPIO_MODE_AF) {
-		uint8_t temp1, temp2;
+    // 5. Configure the alternate function
+    if (hGPIO->Init.Mode == GPIO_MODE_AF) {
+	    uint8_t temp1, temp2;
 
-		temp1 = hGPIO->Init.Pin / 8; // AFR[0] or AFR[1]
-		temp2 = hGPIO->Init.Pin % 8; // Position in AFR register
-		hGPIO->pGPIOx->AFR[temp1] &= ~(0xF << (4 * temp2)); // clearing
-		hGPIO->pGPIOx->AFR[temp1] |= (hGPIO->Init.Alternate << (4 * temp2));
-	}
+	    temp1 = hGPIO->Init.Pin / 8; // AFR[0] or AFR[1]
+	    temp2 = hGPIO->Init.Pin % 8; // Position in AFR register
+	    hGPIO->pGPIOx->AFR[temp1] &= ~(0xF << (4 * temp2)); // clearing
+	    hGPIO->pGPIOx->AFR[temp1] |= (hGPIO->Init.Alternate << (4 * temp2));
+    }
 }
 /**
   * @brief  De-initializes the GPIOx peripheral registers to their default reset values.
