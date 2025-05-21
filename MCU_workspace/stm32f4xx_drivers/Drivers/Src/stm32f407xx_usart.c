@@ -143,15 +143,16 @@ void USART_InitGPIO(USART_RegDef_t *BaseAddress){
 	GPIO_HandleTypeDef hGPIO;
 
 	if(BaseAddress == USART2){
-		hGPIO.pGPIOx = GPIOA;
-		hGPIO.Init.Pin = GPIO_PIN_2;
+		hGPIO.pGPIOx = GPIOD;
+		hGPIO.Init.Pin = GPIO_PIN_5;
 		hGPIO.Init.Mode = GPIO_MODE_AF;
 		hGPIO.Init.Speed = GPIO_SPEED_FAST;
 		hGPIO.Init.Pull = GPIO_PULLUP;
 		hGPIO.Init.Alternate = 7;
 		GPIO_Init(&hGPIO);
 
-		hGPIO.Init.Pin = GPIO_PIN_3;
+		hGPIO.pGPIOx = GPIOD;
+		hGPIO.Init.Pin = GPIO_PIN_6;
 		GPIO_Init(&hGPIO);
 	}
 
@@ -163,7 +164,8 @@ void USART_InitGPIO(USART_RegDef_t *BaseAddress){
 		hGPIO.Init.Alternate = 7;
 		GPIO_Init(&hGPIO);
 
-		hGPIO.Init.Pin = GPIO_PIN_10;
+		hGPIO.pGPIOx = GPIOB;
+		hGPIO.Init.Pin = GPIO_PIN_7;
 		GPIO_Init(&hGPIO);
 	}
 
@@ -192,16 +194,16 @@ void USART_InitGPIO(USART_RegDef_t *BaseAddress){
   */
 
 void USART_SetParam(USART_HandleTypeDef *USART_Handle, USART_RegDef_t *BaseAddress, uint8_t USART_TX_RX_Mode, uint8_t NoOfStopBits, uint8_t WordLength, uint8_t ParityMode, uint32_t BaudRate){
-		USART_Handle->pUSARTx = BaseAddress;
-		USART_Handle->Init.Mode = USART_TX_RX_Mode;
-		USART_Handle->Init.StopBits = NoOfStopBits;
-		USART_Handle->Init.WordLength = WordLength;
-		USART_Handle->Init.ParityControl = ParityMode;
-		USART_Handle->Init.BaudRate = BaudRate;
+    USART_Handle->pUSARTx = BaseAddress;
+    USART_Handle->Init.Mode = USART_TX_RX_Mode;
+    USART_Handle->Init.StopBits = NoOfStopBits;
+    USART_Handle->Init.WordLength = WordLength;
+    USART_Handle->Init.ParityControl = ParityMode;
+    USART_Handle->Init.BaudRate = BaudRate;
 
-		USART_InitGPIO(BaseAddress);
-		USART_Init(USART_Handle);
-		USART_PeripheralControl(BaseAddress, ENABLE);
+    USART_InitGPIO(BaseAddress);
+    USART_Init(USART_Handle);
+    USART_PeripheralControl(BaseAddress, ENABLE);
 }
 
 
@@ -428,10 +430,7 @@ void  USART_Receive(USART_HandleTypeDef *husart, uint8_t *pRxBuffer, uint32_t Le
     for (uint32_t i = 0; i < Len; i++)
     {
         // Wait until RXNE flag is set in the SR
-        while (!USART_GetFlagStatus(husart->pUSARTx, USART_FLAG_RXNE)){
-
-			break;
-        };
+        while (!USART_GetFlagStatus(husart->pUSARTx, USART_FLAG_RXNE));
 
         // Check Word Length (9 bits or 8 bits)
         if (husart->Init.WordLength == USART_WORDLENGTH_9BITS)

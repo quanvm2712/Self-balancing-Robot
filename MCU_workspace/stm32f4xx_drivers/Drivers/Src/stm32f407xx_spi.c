@@ -187,6 +187,7 @@ void SPI_ConfigureDirection(SPI_RegDef_t* SPIx, uint8_t SPI_Direction){
 
 /**
  * @brief Initializes the SPI peripheral with common settings. The baudrate prescaler is PCLK/16 when using this function.
+ * For the direction, currently it's full duplex
  *
  * @param SPIx                Pointer to the SPI peripheral.
  * @param SPI_Mode            Set to 1 for Master, 0 for Slave.

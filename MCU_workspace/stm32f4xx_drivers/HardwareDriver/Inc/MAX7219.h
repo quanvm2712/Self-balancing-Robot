@@ -91,6 +91,7 @@ void MAX7219_SetDigitValue(SPI_RegDef_t* SPIx, uint8_t Digit, uint8_t Value);
 void MAX7219_Init(SPI_RegDef_t* SPIx, uint8_t DecodeMode, uint8_t IntensityLevel, uint8_t ScanLimit);
 void MAX7219_TestLED(SPI_RegDef_t* SPIx, _Bool IsEnabled);
 void MAX7219_Clean(SPI_RegDef_t* SPIx);
+void MAX7219_DisplayNumbers(SPI_RegDef_t* SPIx, uint8_t Position, uint32_t Number, uint8_t NoOfLEDDigits);
 void MAX7219_LeftSignal(SPI_RegDef_t* SPIx);
 void MAX7219_RightSignal(SPI_RegDef_t* SPIx);
 void MAX7219_StopSignal(SPI_RegDef_t* SPIx);

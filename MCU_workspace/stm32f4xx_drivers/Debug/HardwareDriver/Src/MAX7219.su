@@ -7,6 +7,8 @@
 ../HardwareDriver/Src/MAX7219.c:42:6:MAX7219_SetDigitValue	16	static
 ../HardwareDriver/Src/MAX7219.c:46:6:MAX7219_TestLED	16	static
 ../HardwareDriver/Src/MAX7219.c:50:6:MAX7219_Clean	24	static
-../HardwareDriver/Src/MAX7219.c:57:6:MAX7219_LeftSignal	24	static
-../HardwareDriver/Src/MAX7219.c:75:6:MAX7219_RightSignal	24	static
-../HardwareDriver/Src/MAX7219.c:93:6:MAX7219_StopSignal	24	static
+../HardwareDriver/Src/MAX7219.c:57:10:POWER_10	24	static
+../HardwareDriver/Src/MAX7219.c:65:6:MAX7219_DisplayNumbers	32	static
+../HardwareDriver/Src/MAX7219.c:104:6:MAX7219_LeftSignal	24	static
+../HardwareDriver/Src/MAX7219.c:121:6:MAX7219_RightSignal	24	static
+../HardwareDriver/Src/MAX7219.c:139:6:MAX7219_StopSignal	24	static

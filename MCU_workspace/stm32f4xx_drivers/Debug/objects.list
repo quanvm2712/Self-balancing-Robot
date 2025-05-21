@@ -8,6 +8,7 @@
 "./Drivers/Src/stm32f407xx_tim.o"
 "./Drivers/Src/stm32f407xx_usart.o"
 "./HardwareDriver/Src/MAX7219.o"
+"./HardwareDriver/Src/SR05.o"
 "./Src/main.o"
 "./Src/syscalls.o"
 "./Src/sysmem.o"

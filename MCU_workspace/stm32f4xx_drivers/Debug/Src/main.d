@@ -10,7 +10,8 @@ Src/main.o: ../Src/main.c \
  D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/delay.h \
  D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/SysTick.h \
  D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h \
- D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc/MAX7219.h
+ D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc/MAX7219.h \
+ D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc/SR05.h
 D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h:
 D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx_i2c.h:
 D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h:
@@ -23,3 +24,4 @@ D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/dela
 D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/SysTick.h:
 D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h:
 D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc/MAX7219.h:
+D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc/SR05.h:

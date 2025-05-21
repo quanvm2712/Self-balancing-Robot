@@ -5,13 +5,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../HardwareDriver/Src/MAX7219.c 
+../HardwareDriver/Src/MAX7219.c \
+../HardwareDriver/Src/SR05.c 
 
 OBJS += \
-./HardwareDriver/Src/MAX7219.o 
+./HardwareDriver/Src/MAX7219.o \
+./HardwareDriver/Src/SR05.o 
 
 C_DEPS += \
-./HardwareDriver/Src/MAX7219.d 
+./HardwareDriver/Src/MAX7219.d \
+./HardwareDriver/Src/SR05.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -21,7 +24,7 @@ HardwareDriver/Src/%.o HardwareDriver/Src/%.su HardwareDriver/Src/%.cyclo: ../Ha
 clean: clean-HardwareDriver-2f-Src
 
 clean-HardwareDriver-2f-Src:
-	-$(RM) ./HardwareDriver/Src/MAX7219.cyclo ./HardwareDriver/Src/MAX7219.d ./HardwareDriver/Src/MAX7219.o ./HardwareDriver/Src/MAX7219.su
+	-$(RM) ./HardwareDriver/Src/MAX7219.cyclo ./HardwareDriver/Src/MAX7219.d ./HardwareDriver/Src/MAX7219.o ./HardwareDriver/Src/MAX7219.su ./HardwareDriver/Src/SR05.cyclo ./HardwareDriver/Src/SR05.d ./HardwareDriver/Src/SR05.o ./HardwareDriver/Src/SR05.su
 
 .PHONY: clean-HardwareDriver-2f-Src
 
