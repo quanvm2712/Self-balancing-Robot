@@ -46,7 +46,7 @@ void SysTick_InterruptConfig(_Bool IsInterruptEnaled){
  * @retval None
  */
 void SysTick_ClearCounterValue(void){
-	SYSTICK->STK_VAL = 0; // Writing any value clears the counter to 0
+	SYSTICK->STK_VAL |= 0; // Writing any value clears the counter to 0
 }
 
 
@@ -57,7 +57,7 @@ void SysTick_ClearCounterValue(void){
  */
 void SysTick_Init(void){
 	SysTick_SetReloadValue((ClockFreq / 1000) - 1);
-	SysTick_ClearCounterValue();
+	//SysTick_ClearCounterValue();
 	SysTick_SelectClockSource(SYSTICK_CLKSOURCE_AHB_DIV_8);
 	SysTick_InterruptConfig(SYSTICK_INTERRUPT_ENABLED);
 

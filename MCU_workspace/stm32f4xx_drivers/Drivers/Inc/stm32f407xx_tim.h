@@ -10,105 +10,6 @@
 
 #include "stm32f407xx.h"
 
-/**
-  * @brief  TIM Time base Configuration Structure definition
-  */
-typedef struct
-{
-  uint32_t Prescaler;         /*!< Specifies the prescaler value used to divide the TIM clock.
-                                   This parameter can be a number between Min_Data = 0x0000 and Max_Data = 0xFFFF */
-
-  uint32_t CounterMode;       /*!< Specifies the counter mode.
-                                     This parameter can be a value of @ref TIM_Counter_Mode */
-
-
-  uint32_t Period;            /*!< Specifies the period value to be loaded into the active
-                                   Auto-Reload Register at the next update event.
-                                   This parameter can be a number between Min_Data = 0x0000 and Max_Data = 0xFFFF.  */
-
-  uint32_t ClockDivision;     /*!< Specifies the clock division.
-                                   This parameter can be a value of @ref TIM_ClockDivision */
-
-} TIM_Base_InitTypeDef;
-
-/**
-  * @brief  TIM Output Compare Configuration Structure definition
-  */
-typedef struct
-{
-  uint32_t OCMode;        /*!< Specifies the TIM mode.
-                               This parameter can be a value of @ref TIM_Output_Compare_and_PWM_modes */
-
-  uint32_t Pulse;         /*!< Specifies the pulse value to be loaded into the Capture Compare Register.
-                               This parameter can be a number between Min_Data = 0x0000 and Max_Data = 0xFFFF */
-
-  uint32_t OCPolarity;    /*!< Specifies the output polarity.
-                               This parameter can be a value of @ref TIM_Output_Compare_Polarity */
-
-} TIM_OC_InitTypeDef;
-
-/**
-  * @brief  TIM Input Capture Configuration Structure definition
-  */
-typedef struct
-{
-  uint32_t  ICPolarity;  /*!< Specifies the active edge of the input signal.
-                              This parameter can be a value of @ref TIM_Input_Capture_Polarity */
-
-  uint32_t ICSelection;  /*!< Specifies the input.
-                              This parameter can be a value of @ref TIM_Input_Capture_Selection */
-
-  uint32_t ICPrescaler;  /*!< Specifies the Input Capture Prescaler.
-                              This parameter can be a value of @ref TIM_Input_Capture_Prescaler */
-
-  uint32_t ICFilter;     /*!< Specifies the input capture filter.
-                              This parameter can be a number between Min_Data = 0x0 and Max_Data = 0xF */
-} TIM_IC_InitTypeDef;
-
-
-/**
-  * @brief  TIM Encoder Configuration Structure definition
-  */
-typedef struct
-{
-  uint32_t EncoderMode;   /*!< Specifies the active edge of the input signal.
-                               This parameter can be a value of @ref TIM_Encoder_Mode */
-
-  uint32_t IC1Polarity;   /*!< Specifies the active edge of the input signal.
-                               This parameter can be a value of @ref TIM_Encoder_Input_Polarity */
-
-  uint32_t IC1Selection;  /*!< Specifies the input.
-                               This parameter can be a value of @ref TIM_Input_Capture_Selection */
-
-  uint32_t IC1Prescaler;  /*!< Specifies the Input Capture Prescaler.
-                               This parameter can be a value of @ref TIM_Input_Capture_Prescaler */
-
-  uint32_t IC1Filter;     /*!< Specifies the input capture filter.
-                               This parameter can be a number between Min_Data = 0x0 and Max_Data = 0xF */
-
-  uint32_t IC2Polarity;   /*!< Specifies the active edge of the input signal.
-                               This parameter can be a value of @ref TIM_Encoder_Input_Polarity */
-
-  uint32_t IC2Selection;  /*!< Specifies the input.
-                              This parameter can be a value of @ref TIM_Input_Capture_Selection */
-
-  uint32_t IC2Prescaler;  /*!< Specifies the Input Capture Prescaler.
-                               This parameter can be a value of @ref TIM_Input_Capture_Prescaler */
-
-  uint32_t IC2Filter;     /*!< Specifies the input capture filter.
-                               This parameter can be a number between Min_Data = 0x0 and Max_Data = 0xF */
-} TIM_Encoder_InitTypeDef;
-
-/**
-  * @brief  TIM Time Base Handle Structure definition
-  */
-typedef struct
-{
-  TIM_RegDef_t                       *pTIMx;         /*!< Register base address                             */
-
-  TIM_Base_InitTypeDef               Init;              /*!< TIM Time Base required parameters                 */
-
-} TIM_HandleTypeDef;
 
 /*
  * TIM Counter Mode
@@ -131,33 +32,6 @@ typedef struct
 #define TIM_OCMODE_PWM1          0x6
 #define TIM_OCMODE_PWM2          0x7
 
-/*
- * TIM Output Compare Polarity
- */
-#define TIM_OCPOLARITY_HIGH                0  /*!< Output compare active high */
-#define TIM_OCPOLARITY_LOW                 1  /*!< Output compare active low */
-
-/*
- * TIM Input Capture Polarity
- */
-#define TIM_ICPOLARITY_RISING              0  /*!< Capture on rising edge */
-#define TIM_ICPOLARITY_FALLING             1  /*!< Capture on falling edge */
-#define TIM_ICPOLARITY_BOTHEDGE            2  /*!< Capture on both edges */
-
-/*
- * TIM Input Capture Selection
- */
-#define TIM_ICSELECTION_DIRECTTI           0  /*!< TIM Input 1, 2, 3 or 4 is selected */
-#define TIM_ICSELECTION_INDIRECTTI         1  /*!< Indirect input is selected */
-#define TIM_ICSELECTION_TRC                2  /*!< TRC is selected */
-
-/*
- * TIM Input Capture Prescaler
- */
-#define TIM_ICPSC_DIV1                     0  /*!< No prescaler */
-#define TIM_ICPSC_DIV2                     1  /*!< Capture every 2 events */
-#define TIM_ICPSC_DIV4                     2  /*!< Capture every 4 events */
-#define TIM_ICPSC_DIV8                     3  /*!< Capture every 8 events */
 
 /*
  * TIM Encoder Mode
@@ -191,6 +65,10 @@ typedef struct
 #define TIM_CCER_CC3E_Pos     8U
 #define TIM_CCER_CC4E_Pos     12U
 
+
+/*
+ * TIM Output Compare Polarity
+ */
 #define TIM_OC_POLARITY_HIGH  0x0U
 #define TIM_OC_POLARITY_LOW   0x1U
 
@@ -201,80 +79,40 @@ typedef struct
 #define TIM_CCMR3_OC1M_Pos     	4U
 #define TIM_CCMR4_OC1M_Pos     	12U
 
+
+#define TIM_SMCR_SMS_Pos      0U
+
+// mode encoder
+#define ENCODER_MODE_TI1      1
+#define ENCODER_MODE_TI2      2
+#define ENCODER_MODE_TI12     3
+
+// Input Capture Selection
+#define TIM_IC_SELECTION_DIRECTTI    0x01U  // CCx is mapped on TIx (Direct)
+#define TIM_IC_SELECTION_INDIRECTTI  0x02U  // CCx is mapped on TIx^ (Indirect)
+#define TIM_IC_SELECTION_TRC         0x03U  // CCx is mapped on TRC (Trigger)
+
+#define TIM_CCMR1_CC1S_Pos  0U
+#define TIM_CCMR1_CC2S_Pos  8U
+#define TIM_CCMR2_CC3S_Pos  0U
+#define TIM_CCMR2_CC4S_Pos  8U
+
+#define TIM_CCMR_CCxS_MASK  0x3U  // Mask for 2-bit CCxS field
+
+
+uint16_t TIM_GetCounter(void);
 void TIM_Base_SetConfig(TIM_RegDef_t *pTIMx, uint32_t Prescaler, uint32_t Period, uint32_t DutyCycle);
 void TIM_PeriClockControl(TIM_RegDef_t *pTIMx, uint8_t clockState);
-void GPIO_InitPWM(uint8_t channel);
+void GPIO_Init_TIM(uint8_t channel);
 void TIM_SetChannelPolarity(TIM_RegDef_t *TIMx, uint8_t channel, uint8_t polarity);
 void TIM_ChannelOutputControl(TIM_RegDef_t *TIMx, uint8_t channel, uint8_t State);
 void TIM_ConfigTimeBase(TIM_RegDef_t *TIMx, uint32_t Prescaler, uint32_t Period, uint32_t DutyCycle, uint8_t Channel);
 void TIM_SetDuty(uint32_t DutyCycle);
 void TIM_SetOCMode(TIM_RegDef_t *TIMx, uint8_t channel, uint8_t OCmode);
 void TIM_PWM_Init(TIM_RegDef_t *TIMx,uint8_t channel);
+void GPIO_Init_Encoder(void);
+void TIM_Encoder_Init(TIM_RegDef_t *TIMx);
+void TIM_SetConfigEncoder(TIM_RegDef_t *pTIMx, uint8_t CounterMode, uint8_t polarity, uint32_t Prescaler, uint32_t Period, uint8_t EncoderMode);
 
-
-
-/* Time Base functions ********************************************************/
-void TIM_Base_Init(TIM_HandleTypeDef *htim);
-void TIM_Base_DeInit(TIM_HandleTypeDef *htim);
-/* Blocking mode: Polling */
-void TIM_Base_Start(TIM_HandleTypeDef *htim);
-void TIM_Base_Stop(TIM_HandleTypeDef *htim);
-/* Non-Blocking mode: Interrupt */
-void TIM_Base_Start_IT(TIM_HandleTypeDef *htim);
-void TIM_Base_Stop_IT(TIM_HandleTypeDef *htim);
-
-/* Timer Output Compare functions *********************************************/
-void TIM_OC_Init(TIM_HandleTypeDef *htim);
-void TIM_OC_DeInit(TIM_HandleTypeDef *htim);
-/* Blocking mode: Polling */
-void TIM_OC_Start(TIM_HandleTypeDef *htim, uint32_t Channel);
-void TIM_OC_Stop(TIM_HandleTypeDef *htim, uint32_t Channel);
-/* Non-Blocking mode: Interrupt */
-void TIM_OC_Start_IT(TIM_HandleTypeDef *htim, uint32_t Channel);
-void TIM_OC_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Channel);
-
-/* Timer PWM functions ********************************************************/
-void TIM_PWM_DeInit(TIM_HandleTypeDef *htim);
-/* Blocking mode: Polling */
-void TIM_PWM_Start(TIM_HandleTypeDef *htim, uint32_t Channel);
-void TIM_PWM_Stop(TIM_HandleTypeDef *htim, uint32_t Channel);
-/* Non-Blocking mode: Interrupt */
-void TIM_PWM_Start_IT(TIM_HandleTypeDef *htim, uint32_t Channel);
-void TIM_PWM_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Channel);
-
-/* Timer Input Capture functions **********************************************/
-void TIM_IC_Init(TIM_HandleTypeDef *htim);
-void TIM_IC_DeInit(TIM_HandleTypeDef *htim);
-void TIM_IC_MspInit(TIM_HandleTypeDef *htim);
-void TIM_IC_MspDeInit(TIM_HandleTypeDef *htim);
-/* Blocking mode: Polling */
-void TIM_IC_Start(TIM_HandleTypeDef *htim, uint32_t Channel);
-void TIM_IC_Stop(TIM_HandleTypeDef *htim, uint32_t Channel);
-/* Non-Blocking mode: Interrupt */
-void TIM_IC_Start_IT(TIM_HandleTypeDef *htim, uint32_t Channel);
-void TIM_IC_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Channel);
-
-/* Timer Encoder functions ****************************************************/
-void TIM_Encoder_Init(TIM_HandleTypeDef *htim, const TIM_Encoder_InitTypeDef *sConfig);
-void TIM_Encoder_DeInit(TIM_HandleTypeDef *htim);
-void TIM_Encoder_MspInit(TIM_HandleTypeDef *htim);
-void TIM_Encoder_MspDeInit(TIM_HandleTypeDef *htim);
-/* Blocking mode: Polling */
-void TIM_Encoder_Start(TIM_HandleTypeDef *htim, uint32_t Channel);
-void TIM_Encoder_Stop(TIM_HandleTypeDef *htim, uint32_t Channel);
-/* Non-Blocking mode: Interrupt */
-void TIM_Encoder_Start_IT(TIM_HandleTypeDef *htim, uint32_t Channel);
-void TIM_Encoder_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Channel);
-
-/* Interrupt Handler functions  ***********************************************/
-void TIM_IRQHandler(TIM_HandleTypeDef *htim);
-
-/* Control functions  *********************************************************/
-void TIM_OC_ConfigChannel(TIM_HandleTypeDef *htim, const TIM_OC_InitTypeDef *sConfig,
-                                           uint32_t Channel);
-void TIM_PWM_ConfigChannel(TIM_HandleTypeDef *htim, const TIM_OC_InitTypeDef *sConfig,
-                                            uint32_t Channel);
-void TIM_IC_ConfigChannel(TIM_HandleTypeDef *htim, const TIM_IC_InitTypeDef *sConfig,
-                                           uint32_t Channel);
 
 #endif /* INC_STM32F407XX_TIM_H_ */

@@ -11,11 +11,19 @@
 #include<stddef.h>
 #include<stdint.h>
 #include<string.h>
+#include<math.h>
 #define __vo volatile
 #define __weak __attribute__((weak))
 
 
+#define DWT_BASE            (0xE0001000UL)
+#define DWT_CTRL            (*(volatile uint32_t *)(DWT_BASE + 0x00))
+#define DWT_CYCCNT          (*(volatile uint32_t *)(DWT_BASE + 0x04))
 
+#define DEMCR               (*(volatile uint32_t *)0xE000EDFCUL)
+#define DEMCR_TRCENA        (1 << 24)  // Enable DWT
+
+#define DWT_CTRL_CYCCNTENA  (1 << 0)   // Enable CYCCNT
 /**********************************START:Processor Specific Details **********************************/
 /*
  * ARM Cortex Mx Processor NVIC ISERx register Addresses
@@ -782,15 +790,14 @@ typedef struct
 
 #define TIM_EGR_UG       (1 << 0)   // Update generation (force update)
 
-
+#define GPIO_AF4_I2C1 	4
+#define GPIO_AF4_I2C2 	4
 #include "stm32f407xx_i2c.h"
 #include "stm32f407xx_gpio.h"
 #include "stm32f407xx_spi.h"
 #include "stm32f407xx_usart.h"
 #include "stm32f407xx_rcc.h"
 #include "stm32f407xx_tim.h"
-#include "delay.h"
 #include "SysTick.h"
-#include "stm32f407xx_tim.h"
-
+#include "MPU6050.h"
 #endif /* INC_STM32F407XX_H_ */
