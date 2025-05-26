@@ -1,14 +1,21 @@
-22:16:29 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
-make -j8 all 
-arm-none-eabi-size  SelfBalancingRobot.elf 
+20:59:58 **** Incremental Build of configuration Debug for project stm32f4xx_drivers ****
+make -j12 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc" -include"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -Wno-comment -Wno-parentheses -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "stm32f4xx_drivers.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\Project\Self_Balancing_Robot\MCU_workspace\stm32f4xx_drivers\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32f4xx_drivers.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: stm32f4xx_drivers.elf
+ 
+arm-none-eabi-size  stm32f4xx_drivers.elf 
+arm-none-eabi-objdump -h -S stm32f4xx_drivers.elf  > "stm32f4xx_drivers.list"
    text	   data	    bss	    dec	    hex	filename
-  30104	    476	   2016	  32596	   7f54	SelfBalancingRobot.elf
+  29496	    480	   1952	  31928	   7cb8	stm32f4xx_drivers.elf
 Finished building: default.size.stdout
  
-22:16:33 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
-make -j8 all 
-arm-none-eabi-size  SelfBalancingRobot.elf 
+Finished building: stm32f4xx_drivers.list
+ 
+21:00:04 **** Incremental Build of configuration Debug for project stm32f4xx_drivers ****
+make -j12 all 
+arm-none-eabi-size  stm32f4xx_drivers.elf 
    text	   data	    bss	    dec	    hex	filename
-  30104	    476	   2016	  32596	   7f54	SelfBalancingRobot.elf
+  29496	    480	   1952	  31928	   7cb8	stm32f4xx_drivers.elf
 Finished building: default.size.stdout
  

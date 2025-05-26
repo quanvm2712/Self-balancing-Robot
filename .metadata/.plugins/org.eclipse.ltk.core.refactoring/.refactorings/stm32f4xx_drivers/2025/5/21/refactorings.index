@@ -1,0 +1,7 @@
+1747546545065	Move 'MAX7221.c' to 'Src'
+1747546547250	Move 'MAX7221.h' to 'Inc'
+1747548817450	Rename resource 'HardwareDrivers'
+1747548822748	Rename resource 'Middleware'
+1747548975548	Rename resource 'Middlewares'
+1747549135636	Rename resource 'MAX7219_1.h'
+1747577305956	Rename resource 'SR05.c'
