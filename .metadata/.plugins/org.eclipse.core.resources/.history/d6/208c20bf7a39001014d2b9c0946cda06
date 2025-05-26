@@ -1,0 +1,34 @@
+#include "stm32f407xx.h"
+#include "MPU6050.h"
+void Error_Handler(void);
+
+I2C_HandleTypeDef hi2c1;
+MPU6050_Data sensor_data;
+MPU6050_ConvertedData converted_data;
+double test;
+int main(void){
+	DWT->CTRL |= 1;  // Enable DWT
+	DWT->CYCCNT = 0; // Reset counter
+
+	I2C1_Init(&hi2c1);
+	if (MPU6050_Init(&hi2c1) != I2C_OK)
+	{
+		Error_Handler();
+	}
+
+	uint32_t prev_cycle = DWT->CYCCNT;
+
+	while (1)
+	{
+		uint32_t now = DWT->CYCCNT;
+		float dt = (now - prev_cycle) / (float)SystemCoreClock;
+		prev_cycle = now;
+
+		if (MPU6050_ReadData(&hi2c1, &sensor_data) == I2C_OK)
+		{
+			MPU6050_ConvertData(&sensor_data, &converted_data);
+			test = MPU6050_GetAngle(&converted_data, dt);
+		}
+	}
+}
+

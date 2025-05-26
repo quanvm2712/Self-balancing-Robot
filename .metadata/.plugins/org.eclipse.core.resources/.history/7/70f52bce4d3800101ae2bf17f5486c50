@@ -1,0 +1,13 @@
+/*
+ * MPU6050.h
+ *
+ *  Created on: May 24, 2025
+ *      Author: nhduong
+ */
+
+#ifndef INC_MPU6050_H_
+#define INC_MPU6050_H_
+
+#include "stm32f407xx.h"
+
+#endif /* INC_MPU6050_H_ */

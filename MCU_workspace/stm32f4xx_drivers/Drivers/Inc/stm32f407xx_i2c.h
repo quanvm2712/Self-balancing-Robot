@@ -120,7 +120,22 @@ typedef struct
 #define I2C_FLAG_ADDR 						( 1 << I2C_SR1_ADDR)	/* I2C status flag: Address sent (master mode) or matched (slave mode) */
 #define I2C_FLAG_TIMEOUT 					( 1 << I2C_SR1_TIMEOUT)	/* I2C status flag: Timeout or Tlow error */
 
+/** @defgroup I2C_MemAddrSize I2C Memory address size
+  *
+  */
+#define I2C_MEMADD_SIZE_8BIT  					1
+#define I2C_MEMADD_SIZE_16BIT  					2
 
+/**
+  * @brief  I2C Status structures definition
+  */
+typedef enum
+{
+	I2C_OK       = 0x00U,
+	I2C_ERROR    = 0x01U,
+	I2C_BUSY     = 0x02U,
+	I2C_TIMEOUT  = 0x03U
+} I2C_StatusTypeDef;
 
 /******************************************************************************************
  *                              APIs supported by this driver
@@ -134,15 +149,18 @@ void I2C_PeriClockControl(I2C_RegDef_t *pI2Cx, uint8_t clockState);
 /*
  * Init and De-init
  */
-void I2C_Init(I2C_HandleTypeDef *hi2c);
+I2C_StatusTypeDef I2C_Init(I2C_HandleTypeDef *hi2c);
 void I2C_DeInit(I2C_RegDef_t *pI2Cx);
-
-
+void I2C1_Init(I2C_HandleTypeDef *hi2c1);
+void I2C1_GPIOInits(void);
+void I2C2_Init(void);
+void I2C2_GPIOInits(void);
 /*
  * Data Transmit and Receive
  */
-void I2C_Master_Transmit(I2C_HandleTypeDef *hi2c, uint8_t *pTxbuffer, uint32_t Len, uint8_t DevAddress, uint8_t Sr);
-void I2C_Master_Receive(I2C_HandleTypeDef *hi2c, uint8_t *pRxBuffer, uint32_t Len, uint8_t DevAddress, uint8_t Sr);
+I2C_StatusTypeDef I2C_Master_Transmit(I2C_HandleTypeDef *hi2c, uint8_t *pTxbuffer, uint32_t Len, uint8_t DevAddress, uint8_t Sr);
+I2C_StatusTypeDef I2C_Master_Receive(I2C_HandleTypeDef *hi2c, uint8_t *pRxBuffer, uint32_t Len, uint8_t DevAddress, uint8_t Sr);
+I2C_StatusTypeDef I2C_Mem_Read(I2C_HandleTypeDef *hi2c, uint16_t DevAddress, uint16_t MemAddress, uint16_t MemAddSize, uint8_t *pData, uint16_t Size);
 uint8_t I2C_Master_Transmit_IT(I2C_HandleTypeDef *hi2c, uint8_t *pTxbuffer, uint32_t Len, uint8_t DevAddress, uint8_t Sr);
 uint8_t I2C_Master_Receive_IT(I2C_HandleTypeDef *hi2c, uint8_t *pRxBuffer, uint8_t Len, uint8_t DevAddress, uint8_t Sr);
 
