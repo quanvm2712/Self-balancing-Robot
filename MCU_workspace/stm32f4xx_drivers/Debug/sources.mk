@@ -22,8 +22,8 @@ C_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-Core/Src \
 Drivers/Src \
-HardwareDrivers/Src \
+HardwareDriver/Src \
+Src \
 Startup \
 
