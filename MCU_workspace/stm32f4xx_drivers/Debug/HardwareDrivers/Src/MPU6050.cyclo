@@ -1,0 +1,8 @@
+../HardwareDrivers/Src/MPU6050.c:17:26:MPU6050_WriteRegister	1
+../HardwareDrivers/Src/MPU6050.c:30:26:MPU6050_ReadRegister	1
+../HardwareDrivers/Src/MPU6050.c:39:19:MPU6050_Init	6
+../HardwareDrivers/Src/MPU6050.c:81:19:MPU6050_CheckDevice	3
+../HardwareDrivers/Src/MPU6050.c:96:19:MPU6050_ReadData	2
+../HardwareDrivers/Src/MPU6050.c:125:6:MPU6050_ConvertData	1
+../HardwareDrivers/Src/MPU6050.c:136:6:TIM_Counter_Init	1
+../HardwareDrivers/Src/MPU6050.c:156:8:MPU6050_GetAngle	1

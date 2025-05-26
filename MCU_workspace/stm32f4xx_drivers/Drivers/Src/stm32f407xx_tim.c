@@ -53,6 +53,99 @@ void TIM_PeriClockControl(TIM_RegDef_t *pTIMx, uint8_t clockState)
         else if (pTIMx == TIM14) TIM14_CLK_DISABLE();
     }
 }
+/**
+ * @brief  Configure the encoder mode for a timer.
+ * @param  pTIMx: pointer to TIM peripheral (e.g., TIM2)
+ * @param  EncoderMode: encoder mode
+ *         - 1: Encoder Mode 1 (TI1)
+ *         - 2: Encoder Mode 2 (TI2)
+ *         - 3: Encoder Mode 3 (TI1 + TI2)
+ * @retval None
+ */
+void TIM_SetEncoderMode(TIM_RegDef_t *pTIMx, uint8_t EncoderMode)
+{
+    // 1. Clear SMS bits
+    pTIMx->SMCR &= ~TIM_SMCR_SMS_Pos;
+
+    // 2. Set encoder mode
+    switch (EncoderMode)
+    {
+        case TIM_ENCODERMODE_TI1: // Encoder Mode 1: Count on TI1 edge
+            pTIMx->SMCR |= (0x1 << TIM_SMCR_SMS_Pos); // SMS = 001
+            break;
+        case TIM_ENCODERMODE_TI2: // Encoder Mode 2: Count on TI2 edge
+            pTIMx->SMCR |= (0x2 << TIM_SMCR_SMS_Pos); // SMS = 010
+            break;
+        case TIM_ENCODERMODE_TI12: // Encoder Mode 3: Count on both TI1 and TI2 edges
+            pTIMx->SMCR |= (0x3 << TIM_SMCR_SMS_Pos); // SMS = 011
+            break;
+        default:
+            // Invalid mode: do nothing or assert
+            break;
+    }
+}
+
+/**
+ * @brief  Configures the timer for encoder mode operation.
+ * @param  pTIMx: Pointer to the TIM peripheral register structure.
+ * @param  CounterMode: Specifies the counter mode (e.g., up, down, or up-down).
+ * @param  polarity: Sets the polarity for channel 1 (e.g., rising or falling edge)
+ * @param  Prescaler: Prescaler value to divide the timer clock.
+ * @param  Period: Period value for the timer counter (auto-reload value).
+ * @param  EncoderMode: Specifies the encoder mode (e.g., TI1, TI2, or both).
+ * @retval None
+ */
+void TIM_SetConfigEncoder(TIM_RegDef_t *pTIMx,
+                          uint8_t CounterMode,
+                          uint8_t polarity,
+                          uint32_t Prescaler,
+                          uint32_t Period,
+						  uint8_t EncoderMode)
+{
+    // 1. Disable counter to configure
+    TIM_CounterControl(pTIMx, DISABLE);
+
+    // 2. Configure counter mode (up/down/center-aligned)
+    TIM_SetCounterMode(pTIMx, CounterMode);
+
+    // 3. Configure clock division = no division (CKD = 00)
+    pTIMx->CR1 &= ~TIM_CR1_CKD;
+    pTIMx->CR1 |= 0;
+
+    // 4. Configure prescaler and auto-reload (ARR)
+    pTIMx->PSC = Prescaler;
+    pTIMx->ARR = Period;
+
+    // 5. Reset counter to 0
+    pTIMx->CNT = 0;
+
+    // 6. Configure Encoder mode
+    TIM_SetEncoderMode(pTIMx, EncoderMode);
+
+    // 7. Configure Input Capture mode
+    pTIMx->CCMR1 &= ~(TIM_CCMR1_CC1S_Pos | TIM_CCMR1_CC2S_Pos);
+    pTIMx->CCMR1 |= (1 << TIM_CCMR1_CC1S_Pos) | (1 << TIM_CCMR1_CC2S_Pos);
+
+    //8. Configure polarities for CH1 and CH2
+    if (polarity == TIM_OC_POLARITY_LOW)
+    {
+    	pTIMx->CCER |= TIM_CCER_CC1P_Pos;
+    	pTIMx->CCER |= TIM_CCER_CC2P_Pos;
+    }else {
+    	pTIMx->CCER &= ~TIM_CCER_CC1P_Pos;
+    	pTIMx->CCER &= ~TIM_CCER_CC2P_Pos;
+    }
+
+    // 9. Enable capture for both channels
+    pTIMx->CCER |= (TIM_CCER_CC1E_Pos | TIM_CCER_CC2E_Pos);
+
+    // 10. Enable counter
+    TIM_CounterControl(pTIMx, ENABLE);
+
+    // 10. Generate an update event to load all the registers
+    pTIMx->EGR |= TIM_EGR_UG;
+}
+
 
 
 /**
@@ -96,8 +189,12 @@ void TIM_SetConfigPWM(TIM_RegDef_t *pTIMx,
     pTIMx->EGR |= TIM_EGR_UG;
 }
 
-
-void GPIO_InitPWM(uint8_t channel)
+/**
+ * @brief  Initializes the GPIO pin for the specified timer channel.
+ * @param  channel: Specifies the timer channel to configure the GPIO for.
+ * @retval None
+ */
+void GPIO_Init_TIM(uint8_t channel)
 {
     GPIO_HandleTypeDef GPIO_InitStruct;
 
@@ -137,23 +234,63 @@ void GPIO_InitPWM(uint8_t channel)
 }
 
 /**
-  * @brief  Initializes the TIM PWM Time Base according to the specified
-  *         parameters in the TIM_HandleTypeDef and initializes the associated handle.
-  * @param  htim TIM PWM handle
-  * @retval None
-  */
+ * @brief  Initializes GPIO pins for encoder interface.
+ * @param  None
+ * @retval None
+ */
+void GPIO_Init_Encoder(void)
+{
+    GPIO_HandleTypeDef GPIO_InitStruct;
+
+    GPIO_InitStruct.pGPIOx = GPIOA;
+    GPIO_InitStruct.Init.Mode = GPIO_MODE_AF;
+    GPIO_InitStruct.Init.OPType = GPIO_OPTYPE_PP;
+    GPIO_InitStruct.Init.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Init.Speed = GPIO_SPEED_LOW;
+    GPIO_InitStruct.Init.Alternate = 1; // TIM2 uses AF1 on PA0–PA3
+
+    GPIO_InitStruct.Init.Pin = GPIO_PIN_0;
+    GPIO_Init(&GPIO_InitStruct);
+
+    GPIO_InitStruct.Init.Pin = GPIO_PIN_1;
+    GPIO_Init(&GPIO_InitStruct);
+}
+
+/**
+ * @brief  Initializes the timer for PWM mode on the specified channel.
+ * @param  TIMx: Pointer to the TIM peripheral register structure.
+ * @param  channel: Specifies the timer channel to configure for PWM output.
+ * @retval None
+ */
 void TIM_PWM_Init(TIM_RegDef_t *TIMx,uint8_t channel)
 {
 
-	 /* Enable clock for the PWM */
+	 /* Enable clock for the TIM */
 	TIM_PeriClockControl(TIMx, ENABLE);
 
-	GPIO_InitPWM(channel);
+	/* GPIO Init for the TIM */
+	GPIO_Init_TIM(channel);
 
 	/* Init the base time for the PWM */
 	TIM_SetConfigPWM(TIM2, TIM_COUNTERMODE_UP, TIM_CHANNEL_1, TIM_OC_POLARITY_HIGH, 15, 999, 500, TIM_OCMODE_PWM1);
 }
 
+/**
+ * @brief  Initializes the timer for encoder mode.
+ * @param  TIMx: Pointer to the TIM peripheral register structure.
+ * @retval None
+ */
+void TIM_Encoder_Init(TIM_RegDef_t *TIMx)
+{
+	 /* Enable clock for the TIM */
+	TIM_PeriClockControl(TIMx, ENABLE);
+
+	/* GPIO Init for the encoder */
+	GPIO_Init_Encoder();
+
+	/* Init the base time for the Encoder */
+	TIM_SetConfigEncoder(TIMx, TIM_COUNTERMODE_UP, TIM_OC_POLARITY_LOW, 0, 0xFFFF, TIM_ENCODERMODE_TI12);
+}
 /**
   * @brief  Configures the output polarity for the selected TIM channel.
   * @param  TIMx     Pointer to TIM peripheral (e.g., TIM2, TIM3,...).
@@ -294,9 +431,16 @@ void TIM_ConfigTimeBase(TIM_RegDef_t *TIMx, uint32_t Prescaler, uint32_t Period,
             break;
     }
 }
+
 void TIM_SetDuty(uint32_t DutyCycle)
 {
        TIM2->CCR1 = DutyCycle;
+}
+
+uint16_t TIM_GetCounter(void)
+{
+       uint16_t value = TIM2->CNT;
+       return value;
 }
 
 /**
@@ -343,6 +487,47 @@ void TIM_SetOCMode(TIM_RegDef_t *TIMx, uint8_t channel, uint8_t OCmode)
             break;
     }
 }
+
+/**
+  * @brief  Set Input Capture mode for the specified channel.
+  * @param  TIMx     Pointer to TIM peripheral (e.g., TIM2).
+  * @param  channel  Channel number (1 to 4).
+  * @param  ICMode   One of:
+  *                  - TIM_IC_SELECTION_DIRECTTI
+  *                  - TIM_IC_SELECTION_INDIRECTTI
+  *                  - TIM_IC_SELECTION_TRC
+  * @retval None
+  */
+void TIM_SetICMode(TIM_RegDef_t *TIMx, uint8_t channel, uint8_t ICMode)
+{
+    switch (channel)
+    {
+    case TIM_CHANNEL_1:
+        TIMx->CCMR1 &= ~(TIM_CCMR_CCxS_MASK << TIM_CCMR1_CC1S_Pos);
+        TIMx->CCMR1 |=  (ICMode << TIM_CCMR1_CC1S_Pos);
+        break;
+
+    case TIM_CHANNEL_2:
+        TIMx->CCMR1 &= ~(TIM_CCMR_CCxS_MASK << TIM_CCMR1_CC2S_Pos);
+        TIMx->CCMR1 |=  (ICMode << TIM_CCMR1_CC2S_Pos);
+        break;
+
+    case TIM_CHANNEL_3:
+        TIMx->CCMR2 &= ~(TIM_CCMR_CCxS_MASK << TIM_CCMR2_CC3S_Pos);
+        TIMx->CCMR2 |=  (ICMode << TIM_CCMR2_CC3S_Pos);
+        break;
+
+    case TIM_CHANNEL_4:
+        TIMx->CCMR2 &= ~(TIM_CCMR_CCxS_MASK << TIM_CCMR2_CC4S_Pos);
+        TIMx->CCMR2 |=  (ICMode << TIM_CCMR2_CC4S_Pos);
+        break;
+
+    default:
+        // Handle invalid channel if needed
+        break;
+    }
+}
+
 
 /**
   * @brief  Time Set counter mode
