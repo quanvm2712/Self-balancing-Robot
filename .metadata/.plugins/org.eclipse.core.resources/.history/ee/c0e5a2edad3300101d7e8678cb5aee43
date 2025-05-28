@@ -1,0 +1,9 @@
+#ifndef	_MAX7221_H
+#define _MAX7221_H
+
+/**
+ * MAX7221 register definition
+ */
+#define		DIGIT_O		0X1
+
+#endif //__MAX7219_H

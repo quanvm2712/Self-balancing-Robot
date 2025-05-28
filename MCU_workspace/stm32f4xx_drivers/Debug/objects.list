@@ -9,5 +9,7 @@
 "./Drivers/Src/stm32f407xx_spi.o"
 "./Drivers/Src/stm32f407xx_tim.o"
 "./Drivers/Src/stm32f407xx_usart.o"
-"./HardwareDrivers/Src/MPU6050.o"
+"./HardwareDriver/Src/MAX7219.o"
+"./HardwareDriver/Src/MPU6050.o"
+"./HardwareDriver/Src/SR05.o"
 "./Startup/startup_stm32f407vgtx.o"

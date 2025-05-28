@@ -94,9 +94,30 @@ typedef struct
 /** @defgroup GPIO_pull_define GPIO pull define
   *
   */
-#define  GPIO_NOPULL        0   /*!< No Pull-up or Pull-down activation  */
-#define  GPIO_PULLUP        1   /*!< Pull-up activation                  */
-#define  GPIO_PULLDOWN      2   /*!< Pull-down activation                */
+#define  	GPIO_NOPULL        0   /*!< No Pull-up or Pull-down activation  */
+#define  	GPIO_PULLUP        1   /*!< Pull-up activation                  */
+#define  	GPIO_PULLDOWN      2   /*!< Pull-down activation                */
+
+/** @defgroup Alternative function lists
+  *
+  */
+#define		AF0				0
+#define		AF1				1
+#define		AF2				2
+#define		AF3				3
+#define		AF4				4
+#define		AF5				5
+#define		AF6				6
+#define		AF7				7
+#define		AF8				8
+#define		AF9				9
+#define		AF10				10
+#define		AF11				11
+#define		AF12				12
+#define		AF13				13
+#define		AF14				14
+#define		AF15				15
+
 
 /* Peripheral Clock setup function *****************************/
 void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t clockState);
@@ -111,9 +132,11 @@ uint16_t GPIO_ReadPort(GPIO_RegDef_t *pGPIOx);
 void GPIO_WritePin(GPIO_RegDef_t *pGPIOx, uint8_t GPIO_pin, uint8_t pinState);
 void GPIO_WritePort(GPIO_RegDef_t *pGPIOx, uint16_t GPIO_pin);
 void GPIO_TogglePin(GPIO_RegDef_t* pGPIOx, uint8_t GPIO_pin);
+void GPIO_Initialize(GPIO_RegDef_t *GPIOx, uint8_t GPIO_Pin, uint8_t GPIO_Mode);
 void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t state);
 void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority);
 void GPIO_IRQHandler(uint8_t GPIO_pin);
+void AFIO_SelectAlternateFunction(GPIO_RegDef_t* GPIOx, uint8_t GPIO_Pin, uint8_t AlternateFunction);
 
 
 

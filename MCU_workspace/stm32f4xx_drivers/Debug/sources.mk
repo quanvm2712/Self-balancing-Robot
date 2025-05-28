@@ -24,6 +24,6 @@ C_DEPS :=
 SUBDIRS := \
 Core/Src \
 Drivers/Src \
-HardwareDrivers/Src \
+HardwareDriver/Src \
 Startup \
 

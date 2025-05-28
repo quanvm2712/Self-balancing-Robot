@@ -431,11 +431,12 @@ void TIM_ConfigTimeBase(TIM_RegDef_t *TIMx, uint32_t Prescaler, uint32_t Period,
             break;
     }
 }
-
 void TIM_SetDuty(uint32_t DutyCycle)
 {
        TIM2->CCR1 = DutyCycle;
 }
+
+
 
 uint16_t TIM_GetCounter(void)
 {

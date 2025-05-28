@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Move &apos;MPU6050.h&apos; to &apos;Inc&apos;" description="Move &apos;MPU6050.h&apos; to &apos;Inc&apos;" destination="HardwareDriver/Inc" element1="HardwareDrivers/Inc/MPU6050.h" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="1" stamp="1748447793927" updateReferences="true"/>&#x0A;<refactoring comment="Move &apos;MPU6050.c&apos; to &apos;Src&apos;" description="Move &apos;MPU6050.c&apos; to &apos;Src&apos;" destination="HardwareDriver/Src" element1="HardwareDrivers/Src/MPU6050.c" flags="7" id="org.eclipse.ltk.core.refactoring.move.resources" resources="1" stamp="1748447800127" updateReferences="true"/>
+</session>

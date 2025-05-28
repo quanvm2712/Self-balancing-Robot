@@ -10,6 +10,8 @@
 
 #include "stm32f407xx.h"
 
+#define OK	1
+#define ERROR	2
 /**
   * @brief  SPI Configuration Structure definition
   */
@@ -108,8 +110,8 @@ typedef struct
 /** @defgroup SPI_Clock_Phase SPI Clock Phase
   *
   */
-#define SPI_PHASE_1EDGE                 	0
-#define SPI_PHASE_2EDGE                 	1
+#define SPI_PHASE_1stEDGE                 	0
+#define SPI_PHASE_2ndEDGE                 	1
 
 /** @defgroup SPI_State SPI State Definition
   *
@@ -139,10 +141,23 @@ typedef struct
 #define SPI_FLAG_OVR                    (1 << SPI_SR_OVR)    /* SPI Error flag: Overrun flag                    */
 #define SPI_FLAG_FRE                    (1 << SPI_SR_FRE)    /* SPI Error flag: TI mode frame format error flag */
 
+/** SPI busy timeout/
+ *
+ */
+#define SPI_MSBFIRST   			0
+#define SPI_LSBFIRST			1
+
+
+/** SPI busy timeout/
+ *
+ */
+#define SPI_BUSY_TIMEOUT		10		/* 10ms timeout/
+
 /******************************************************************************************
  *								APIs supported by this driver
  *		 For more information about the APIs check the function definitions
  ******************************************************************************************/
+
 /*
  * Peripheral Clock setup
  */
@@ -158,13 +173,15 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx);
 /*
  * Data Send and Receive
  */
-void SPI_Transmit(SPI_RegDef_t *pSPIx, const uint8_t *pTxBuffer, uint32_t Len);
+_Bool SPI_Transmit(SPI_RegDef_t *pSPIx, const uint8_t *pTxBuffer, uint32_t Len);
 void SPI_Receive(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Len);
 void SPI_Transmit1(SPI_RegDef_t *pSPIx, const uint8_t *pTxBuffer, uint32_t Len);
 void SPI_Receive1(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Len);
 void SPI_TransmitReceive(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint8_t *pRxBuffer, uint32_t Len);
 uint8_t SPI_Transmit_IT(SPI_HandleTypeDef *hspi,uint8_t *pTxBuffer, uint32_t Len);
 uint8_t SPI_Receive_IT(SPI_HandleTypeDef *hspi, uint8_t *pRxBuffer, uint32_t Len);
+void SPI_Initialize(SPI_RegDef_t *SPIx, uint8_t SPI_Mode,_Bool SPI_ClockPolarity, _Bool SPI_ClockPhase, _Bool FrameFormat,
+		    _Bool DataFrame_Length, _Bool NSS_SoftwareEnabled);
 
 /*
  * IRQ Configuration and ISR handling

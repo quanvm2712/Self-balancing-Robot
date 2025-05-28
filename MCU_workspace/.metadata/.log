@@ -4623,3 +4623,18 @@ org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Premature end of 
 	 at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
 	 at org.eclipse.ui.internal.Workbench$39.run(Workbench.java:2733)
 	 at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SESSION 2025-05-15 21:00:52.402 -----------------------------------------------
+eclipse.buildId=Version 1.18.1
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-05-15 21:01:01.471
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-05-15 21:01:01.472
+!MESSAGE Log4j2 initialized with config file D:\Project\Self_Balancing_Robot\MCU_workspace\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-05-15 21:01:06.337
+!MESSAGE Started RMI Server, listening on port 41337

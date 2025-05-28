@@ -9,9 +9,9 @@
 ../Drivers/Src/stm32f407xx_tim.c:301:6:TIM_SetChannelPolarity	9
 ../Drivers/Src/stm32f407xx_tim.c:355:6:TIM_ChannelOutputControl	9
 ../Drivers/Src/stm32f407xx_tim.c:402:6:TIM_ConfigTimeBase	5
-../Drivers/Src/stm32f407xx_tim.c:435:6:TIM_SetDuty	1
-../Drivers/Src/stm32f407xx_tim.c:440:10:TIM_GetCounter	1
-../Drivers/Src/stm32f407xx_tim.c:453:6:TIM_SetOCMode	5
-../Drivers/Src/stm32f407xx_tim.c:501:6:TIM_SetICMode	5
-../Drivers/Src/stm32f407xx_tim.c:538:13:TIM_SetCounterMode	6
-../Drivers/Src/stm32f407xx_tim.c:572:13:TIM_CounterControl	2
+../Drivers/Src/stm32f407xx_tim.c:434:6:TIM_SetDuty	1
+../Drivers/Src/stm32f407xx_tim.c:441:10:TIM_GetCounter	1
+../Drivers/Src/stm32f407xx_tim.c:454:6:TIM_SetOCMode	5
+../Drivers/Src/stm32f407xx_tim.c:502:6:TIM_SetICMode	5
+../Drivers/Src/stm32f407xx_tim.c:539:13:TIM_SetCounterMode	6
+../Drivers/Src/stm32f407xx_tim.c:573:13:TIM_CounterControl	2
