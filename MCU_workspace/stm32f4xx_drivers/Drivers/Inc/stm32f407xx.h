@@ -800,5 +800,5 @@ typedef struct
 #include "stm32f407xx_rcc.h"
 #include "stm32f407xx_tim.h"
 #include "SysTick.h"
-#include "MPU6050.h"
+#include <MPU6050.h>
 #endif /* INC_STM32F407XX_H_ */

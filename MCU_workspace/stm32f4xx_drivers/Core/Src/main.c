@@ -16,7 +16,7 @@ void DWT_Init(void)
     DWT_CTRL |= DWT_CTRL_CYCCNTENA; // Enable cycle counter
 }
 int main(void){
-	DWT_Init();
+
 
 	I2C1_Init(&hi2c1);
 	if (MPU6050_Init(&hi2c1) != I2C_OK)
@@ -24,18 +24,17 @@ int main(void){
 		Error_Handler();
 	}
 
-	uint32_t prev = DWT_CYCCNT;
+	SysTick_Init();
+
+	MPU6050_CalibGyro();
 
 	while (1)
 	{
-		uint32_t now = DWT_CYCCNT;
-		float dt = (now - prev) / (float)SystemCoreClock; // đơn vị: giây
-		prev = now;
 
 		if (MPU6050_ReadData(&hi2c1, &sensor_data) == I2C_OK)
 		{
 			MPU6050_ConvertData(&sensor_data, &converted_data);
-			test = MPU6050_GetAngle(&converted_data, test, dt);
+			test = MPU6050_GetAngle(&converted_data);
 		}
 	}
 }

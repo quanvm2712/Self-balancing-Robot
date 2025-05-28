@@ -10,6 +10,8 @@
 
 #include "stm32f407xx.h"
 
+#define OK	1
+#define ERROR	2
 /**
   * @brief  SPI Configuration Structure definition
   */
