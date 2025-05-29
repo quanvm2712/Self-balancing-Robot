@@ -436,10 +436,7 @@ void TIM_SetDuty(uint32_t DutyCycle)
        TIM2->CCR1 = DutyCycle;
 }
 
-void TIM_SetDuty(uint32_t DutyCycle)
-{
-       TIM2->CCR1 = DutyCycle;
-}
+
 
 uint16_t TIM_GetCounter(void)
 {
