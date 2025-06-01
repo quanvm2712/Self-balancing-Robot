@@ -1,25 +1,11 @@
-12:59:10 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
-make -j12 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/Project/MainRepo_Copy/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -I"D:/Project/MainRepo_Copy/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc" -include"D:/Project/MainRepo_Copy/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -Wno-comment -Wno-parentheses -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "SelfBalancingRobot.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\Project\MainRepo_Copy\MCU_workspace\stm32f4xx_drivers\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SelfBalancingRobot.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: SelfBalancingRobot.elf
- 
-arm-none-eabi-size  SelfBalancingRobot.elf 
-arm-none-eabi-objdump -h -S SelfBalancingRobot.elf  > "SelfBalancingRobot.list"
-   text	   data	    bss	    dec	    hex	filename
-  26608	    460	   1908	  28976	   7130	SelfBalancingRobot.elf
-Finished building: default.size.stdout
- 
-Finished building: SelfBalancingRobot.list
- 
-12:59:14 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
+13:11:39 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
 make -j12 all 
 arm-none-eabi-size  SelfBalancingRobot.elf 
    text	   data	    bss	    dec	    hex	filename
   26608	    460	   1908	  28976	   7130	SelfBalancingRobot.elf
 Finished building: default.size.stdout
  
-12:59:16 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
+13:11:42 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
 make -j12 all 
 arm-none-eabi-size  SelfBalancingRobot.elf 
    text	   data	    bss	    dec	    hex	filename

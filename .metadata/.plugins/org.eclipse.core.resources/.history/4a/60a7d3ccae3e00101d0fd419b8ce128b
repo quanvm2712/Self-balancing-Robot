@@ -34,28 +34,7 @@ double test;
 //	}
 //}
 
-int main(void){
-  //Init systick to use delay function
-  SysTick_Init();
 
-  //Init TIM2 as PWM output.
-  TIM_PWM_Init(TIM2, TIM_CHANNEL_1);
-  TIM_SetConfigPWM(TIM2, TIM_COUNTERMODE_UP, TIM_CHANNEL_1, TIM_OC_POLARITY_HIGH, 15, 999, 0, TIM_OCMODE_PWM1);
-  uint16_t DutyCycle = 0;
-
-
-
-  while(1){
-      TIM_SetConfigPWM(TIM2, TIM_COUNTERMODE_UP, TIM_CHANNEL_1, TIM_OC_POLARITY_HIGH, 15, 999, DutyCycle, TIM_OCMODE_PWM1);
-      DutyCycle += 100;
-      if(DutyCycle>= 999) DutyCycle = 0;
-
-      Delay_ms(1000);
-  }
-
-
-  return 0;
-}
 
 void Error_Handler(void)
 {
