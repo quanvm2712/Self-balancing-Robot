@@ -11,6 +11,7 @@ extern I2C_HandleTypeDef hi2c1;
 extern MPU6050_Data sensor_data;
 extern MPU6050_ConvertedData converted_data;
 double MPU_CalibValue = 0.0;
+uint16_t data_count = 0;
 
 /**
   * @brief  Write a register on MPU6050
@@ -122,13 +123,16 @@ I2C_StatusTypeDef MPU6050_ReadData(I2C_HandleTypeDef *hi2c, MPU6050_Data *data) 
 }
 
 void MPU6050_CalibGyro(void){
-	for(uint16_t count = 0; count < 1000; count++){
-		MPU6050_ReadData(&hi2c1, &sensor_data);
-		MPU6050_ConvertData(&sensor_data, &converted_data);
-		MPU_CalibValue += converted_data.gyro_x_dps;
-	}
+    for(uint16_t count = 0; count < 1000; count++){
+      if(MPU6050_ReadData(&hi2c1, &sensor_data) == I2C_OK){
+	  MPU6050_ConvertData(&sensor_data, &converted_data);
+	  MPU_CalibValue += converted_data.gyro_x_dps;
+	  data_count ++;
+      }
 
-	MPU_CalibValue /= 1000;
+    }
+
+    MPU_CalibValue /= data_count;
 }
 
 /**

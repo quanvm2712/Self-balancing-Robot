@@ -2333,3 +2333,28 @@ org.eclipse.core.runtime.CoreException: Cannot determine URI for '/SelfBalancing
 
 !ENTRY org.eclipse.cdt.core 1 0 2025-06-01 13:07:23.368
 !MESSAGE Indexed 'SelfBalancingRobot' (14 sources, 71 headers) in 1.17 sec: 3,869 declarations; 8,840 references; 0 unresolved inclusions; 1 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2025-06-01 16:07:25.995
+!MESSAGE Error in final launch sequence:
+
+Setup exceptions
+!STACK 1
+org.eclipse.core.runtime.CoreException: Setup exceptions
+	at org.eclipse.cdt.dsf.concurrent.Query.get(Query.java:112)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugSession(GdbLaunchDelegate.java:252)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugger(GdbLaunchDelegate.java:109)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launch(GdbLaunchDelegate.java:97)
+	at com.st.stm32cube.ide.mcu.debug.launch.DSFDelegate.launch(DSFDelegate.java:336)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:805)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1054)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$1.run(DebugUIPlugin.java:1257)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SUBENTRY 1 com.st.stm32cube.ide.mcu.debug.launch 4 0 2025-06-01 16:07:25.995
+!MESSAGE Setup exceptions
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-06-01 16:10:34.326
+!MESSAGE Indexed 'SelfBalancingRobot' (14 sources, 71 headers) in 0.362 sec: 3,881 declarations; 8,875 references; 0 unresolved inclusions; 1 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-06-01 16:11:17.676
+!MESSAGE Indexed 'SelfBalancingRobot' (14 sources, 71 headers) in 0.271 sec: 3,881 declarations; 8,874 references; 0 unresolved inclusions; 1 syntax errors; 0 unresolved names (0%)

@@ -8,7 +8,7 @@ void Error_Handler(void);
 I2C_HandleTypeDef hi2c1;
 MPU6050_Data sensor_data;
 MPU6050_ConvertedData converted_data;
-double test;
+double MPU6050_Angle = 0;
 
 //int main(void){
 //
@@ -35,22 +35,40 @@ double test;
 //}
 
 int main(void){
-  //Init systick to use delay function
-  SysTick_Init();
 
   //Init TIM2 as PWM output.
   TIM_PWM_Init(TIM2, TIM_CHANNEL_1);
   TIM_SetConfigPWM(TIM2, TIM_COUNTERMODE_UP, TIM_CHANNEL_1, TIM_OC_POLARITY_HIGH, 15, 999, 0, TIM_OCMODE_PWM1);
-  uint16_t DutyCycle = 0;
+  uint16_t DutyCycle = 500;
 
 
+  I2C1_Init(&hi2c1);
+  if (MPU6050_Init(&hi2c1) != I2C_OK)
+  {
+	  Error_Handler();
+  }
+  MPU6050_CalibGyro();
+
+
+  //Init systick to use delay function
+  SysTick_Init();
 
   while(1){
+      //Control signal to L298N driver
       TIM_SetConfigPWM(TIM2, TIM_COUNTERMODE_UP, TIM_CHANNEL_1, TIM_OC_POLARITY_HIGH, 15, 999, DutyCycle, TIM_OCMODE_PWM1);
-      DutyCycle += 100;
-      if(DutyCycle>= 999) DutyCycle = 0;
 
-      Delay_ms(1000);
+      //Read MPU pitch data from Gyroscope and Acclerometer, and convert to degree.
+      if(MPU6050_ReadData(&hi2c1, &sensor_data) == I2C_OK){
+	  MPU6050_ConvertData(&sensor_data, &converted_data);
+
+	  //Combine the pitch data above using Complementary filter
+	  MPU6050_Angle = MPU6050_GetAngle(&converted_data);
+      }
+
+
+
+
+      Delay_ms(10);
   }
 
 

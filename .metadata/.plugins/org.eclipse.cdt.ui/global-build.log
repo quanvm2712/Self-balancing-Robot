@@ -1,14 +1,91 @@
-13:11:39 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
+16:11:20 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
 make -j12 all 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f407vgtx.d" -MT"Startup/startup_stm32f407vgtx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -o "Startup/startup_stm32f407vgtx.o" "../Startup/startup_stm32f407vgtx.s"
+arm-none-eabi-gcc "../HardwareDriver/Src/MAX7219.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc" -include"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -Wno-comment -Wno-parentheses -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"HardwareDriver/Src/MAX7219.d" -MT"HardwareDriver/Src/MAX7219.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -o "HardwareDriver/Src/MAX7219.o"
+arm-none-eabi-gcc "../HardwareDriver/Src/MPU6050.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc" -include"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -Wno-comment -Wno-parentheses -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"HardwareDriver/Src/MPU6050.d" -MT"HardwareDriver/Src/MPU6050.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -o "HardwareDriver/Src/MPU6050.o"
+arm-none-eabi-gcc "../HardwareDriver/Src/SR05.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc" -include"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -Wno-comment -Wno-parentheses -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"HardwareDriver/Src/SR05.d" -MT"HardwareDriver/Src/SR05.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -o "HardwareDriver/Src/SR05.o"
+arm-none-eabi-gcc "../Drivers/Src/SysTick.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc" -include"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -Wno-comment -Wno-parentheses -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/SysTick.d" -MT"Drivers/Src/SysTick.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -o "Drivers/Src/SysTick.o"
+arm-none-eabi-gcc "../Drivers/Src/SystemClock.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc" -include"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -Wno-comment -Wno-parentheses -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/SystemClock.d" -MT"Drivers/Src/SystemClock.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -o "Drivers/Src/SystemClock.o"
+arm-none-eabi-gcc "../Drivers/Src/stm32f407xx_gpio.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc" -include"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -Wno-comment -Wno-parentheses -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32f407xx_gpio.d" -MT"Drivers/Src/stm32f407xx_gpio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -o "Drivers/Src/stm32f407xx_gpio.o"
+arm-none-eabi-gcc "../Drivers/Src/stm32f407xx_i2c.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc" -include"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -Wno-comment -Wno-parentheses -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32f407xx_i2c.d" -MT"Drivers/Src/stm32f407xx_i2c.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -o "Drivers/Src/stm32f407xx_i2c.o"
+arm-none-eabi-gcc "../Drivers/Src/stm32f407xx_rcc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc" -include"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -Wno-comment -Wno-parentheses -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32f407xx_rcc.d" -MT"Drivers/Src/stm32f407xx_rcc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -o "Drivers/Src/stm32f407xx_rcc.o"
+arm-none-eabi-gcc "../Drivers/Src/stm32f407xx_spi.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc" -include"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -Wno-comment -Wno-parentheses -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32f407xx_spi.d" -MT"Drivers/Src/stm32f407xx_spi.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -o "Drivers/Src/stm32f407xx_spi.o"
+arm-none-eabi-gcc "../Drivers/Src/stm32f407xx_tim.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc" -include"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -Wno-comment -Wno-parentheses -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32f407xx_tim.d" -MT"Drivers/Src/stm32f407xx_tim.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -o "Drivers/Src/stm32f407xx_tim.o"
+arm-none-eabi-gcc "../Drivers/Src/stm32f407xx_usart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc" -include"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -Wno-comment -Wno-parentheses -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32f407xx_usart.d" -MT"Drivers/Src/stm32f407xx_usart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -o "Drivers/Src/stm32f407xx_usart.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc" -include"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -Wno-comment -Wno-parentheses -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc" -include"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -Wno-comment -Wno-parentheses -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc" -I"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/HardwareDriver/Inc" -include"D:/Project/Self_Balancing_Robot/MCU_workspace/stm32f4xx_drivers/Drivers/Inc/stm32f407xx.h" -O0 -ffunction-sections -fdata-sections -Wall -Wno-comment -Wno-parentheses -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc -o "SelfBalancingRobot.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\Project\Self_Balancing_Robot\MCU_workspace\stm32f4xx_drivers\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SelfBalancingRobot.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: SelfBalancingRobot.elf
+ 
 arm-none-eabi-size  SelfBalancingRobot.elf 
+arm-none-eabi-objdump -h -S SelfBalancingRobot.elf  > "SelfBalancingRobot.list"
    text	   data	    bss	    dec	    hex	filename
-  26608	    460	   1908	  28976	   7130	SelfBalancingRobot.elf
+  32496	    480	   2040	  35016	   88c8	SelfBalancingRobot.elf
 Finished building: default.size.stdout
  
-13:11:42 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
+Finished building: SelfBalancingRobot.list
+ 
+16:11:24 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
 make -j12 all 
 arm-none-eabi-size  SelfBalancingRobot.elf 
    text	   data	    bss	    dec	    hex	filename
-  26608	    460	   1908	  28976	   7130	SelfBalancingRobot.elf
+  32496	    480	   2040	  35016	   88c8	SelfBalancingRobot.elf
+Finished building: default.size.stdout
+ 
+16:14:50 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
+make -j12 all 
+arm-none-eabi-size  SelfBalancingRobot.elf 
+   text	   data	    bss	    dec	    hex	filename
+  32496	    480	   2040	  35016	   88c8	SelfBalancingRobot.elf
+Finished building: default.size.stdout
+ 
+16:15:33 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
+make -j12 all 
+arm-none-eabi-size  SelfBalancingRobot.elf 
+   text	   data	    bss	    dec	    hex	filename
+  32496	    480	   2040	  35016	   88c8	SelfBalancingRobot.elf
+Finished building: default.size.stdout
+ 
+16:17:17 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
+make -j12 all 
+arm-none-eabi-size  SelfBalancingRobot.elf 
+   text	   data	    bss	    dec	    hex	filename
+  32496	    480	   2040	  35016	   88c8	SelfBalancingRobot.elf
+Finished building: default.size.stdout
+ 
+16:17:47 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
+make -j12 all 
+arm-none-eabi-size  SelfBalancingRobot.elf 
+   text	   data	    bss	    dec	    hex	filename
+  32496	    480	   2040	  35016	   88c8	SelfBalancingRobot.elf
+Finished building: default.size.stdout
+ 
+16:18:27 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
+make -j12 all 
+arm-none-eabi-size  SelfBalancingRobot.elf 
+   text	   data	    bss	    dec	    hex	filename
+  32496	    480	   2040	  35016	   88c8	SelfBalancingRobot.elf
+Finished building: default.size.stdout
+ 
+16:18:47 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
+make -j12 all 
+arm-none-eabi-size  SelfBalancingRobot.elf 
+   text	   data	    bss	    dec	    hex	filename
+  32496	    480	   2040	  35016	   88c8	SelfBalancingRobot.elf
+Finished building: default.size.stdout
+ 
+16:20:30 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
+make -j12 all 
+arm-none-eabi-size  SelfBalancingRobot.elf 
+   text	   data	    bss	    dec	    hex	filename
+  32496	    480	   2040	  35016	   88c8	SelfBalancingRobot.elf
+Finished building: default.size.stdout
+ 
+16:23:42 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
+make -j12 all 
+arm-none-eabi-size  SelfBalancingRobot.elf 
+   text	   data	    bss	    dec	    hex	filename
+  32496	    480	   2040	  35016	   88c8	SelfBalancingRobot.elf
 Finished building: default.size.stdout
  
