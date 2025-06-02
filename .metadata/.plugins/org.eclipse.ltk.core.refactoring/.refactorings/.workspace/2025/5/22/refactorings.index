@@ -1,3 +1,6 @@
 1748447740142	Delete resource 'stm32f4xx_drivers'
 1748447755969	Delete resource 'SelfBalancingRobot/Src'
 1748447803455	Delete resource 'SelfBalancingRobot/HardwareDrivers'
+1748527602844	Delete resource 'SelfBalancingRobot'
+1748528435864	Delete resource 'SelfBalancingRobot/Drivers/Src/SystemClock.c'
+1748528440579	Delete resource 'SelfBalancingRobot/Drivers/Inc/SystemClock.h'

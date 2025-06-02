@@ -94,6 +94,7 @@ static void I2C_MasterReceive_BTF(I2C_HandleTypeDef *hi2c);
      GPIO_InitStruct.Init.Pin = GPIO_PIN_11;
      GPIO_Init(&GPIO_InitStruct);
  }
+
 /* --- Helper functions --- */
 /**
   * @brief Generates a START condition on the I2C bus.

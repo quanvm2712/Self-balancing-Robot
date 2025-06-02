@@ -78,14 +78,6 @@
 #define MAX7219_SCAN_DIGIT_0_7    0x07  /**< Display digits 0 to 7 (default) */
 
 
-
-
-
-/**
- *
- */
-
-
 void MAX7219_SendCommand(SPI_RegDef_t* SPIx, uint8_t Address, uint8_t Data);
 void MAX7219_SetDigitValue(SPI_RegDef_t* SPIx, uint8_t Digit, uint8_t Value);
 void MAX7219_Init(SPI_RegDef_t* SPIx, uint8_t DecodeMode, uint8_t IntensityLevel, uint8_t ScanLimit);

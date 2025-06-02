@@ -121,14 +121,20 @@ I2C_StatusTypeDef MPU6050_ReadData(I2C_HandleTypeDef *hi2c, MPU6050_Data *data) 
     return I2C_OK;
 }
 
-void MPU6050_CalibGyro(void){
-	for(uint16_t count = 0; count < 1000; count++){
-		MPU6050_ReadData(&hi2c1, &sensor_data);
-		MPU6050_ConvertData(&sensor_data, &converted_data);
-		MPU_CalibValue += converted_data.gyro_x_dps;
-	}
+/**
+  * @brief  Calibrates the gyroscope bias on the X-axis of the MPU6050 sensor.
+  * @param  None
+  * @retval None
+  */
+void MPU6050_CalibGyro(void)
+{
+  for(uint16_t count = 0; count < 1000; count++){
+	MPU6050_ReadData(&hi2c1, &sensor_data);
+	MPU6050_ConvertData(&sensor_data, &converted_data);
+	MPU_CalibValue += converted_data.gyro_x_dps;
+  }
 
-	MPU_CalibValue /= 1000;
+  MPU_CalibValue /= 1000;
 }
 
 /**
@@ -147,19 +153,6 @@ void MPU6050_ConvertData(const MPU6050_Data *raw_data, MPU6050_ConvertedData *co
     converted_data->gyro_y_dps = (double)raw_data->gyro_y / 131.0f;
     converted_data->gyro_z_dps = (double)raw_data->gyro_z / 131.0f;
 
-}
-void TIM_Counter_Init(TIM_RegDef_t *TIMx) {
-    // Kích hoạt clock cho TIM2
-	TIM_PeriClockControl(TIM2, ENABLE);
-
-    // Cấu hình prescaler: HCLK = 84 MHz, muốn 1 tick = 1 µs
-    TIMx->PSC = 16 - 1; // 84 MHz / 84 = 1 MHz (1 tick = 1 µs)
-
-    // Đặt giá trị tối đa cho bộ đếm (32-bit timer)
-    TIMx->ARR = 0xFFFFFFFF; // Đếm đến giá trị lớn nhất
-
-    // Bật timer
-    TIMx->CR1 |= TIM_CR1_CEN;
 }
 
 /**

@@ -9,12 +9,7 @@ I2C_HandleTypeDef hi2c1;
 MPU6050_Data sensor_data;
 MPU6050_ConvertedData converted_data;
 double test;
-void DWT_Init(void)
-{
-    DEMCR |= DEMCR_TRCENA;         // Enable trace (cần thiết để DWT hoạt động)
-    DWT_CYCCNT = 0;                // Reset counter
-    DWT_CTRL |= DWT_CTRL_CYCCNTENA; // Enable cycle counter
-}
+
 int main(void){
 
 
