@@ -1,0 +1,2 @@
+../HardwareDriver/Src/DCMotor.c:11:6:Motor_ConfigDirectionGPIO	8	static
+../HardwareDriver/Src/DCMotor.c:18:6:Motor_Move	16	static

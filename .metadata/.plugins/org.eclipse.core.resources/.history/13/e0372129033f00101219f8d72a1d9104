@@ -1,0 +1,30 @@
+/*
+ * DCMotor.h
+ *
+ *  Created on: Jun 1, 2025
+ *      Author: quanvm198
+ */
+
+#ifndef INC_DCMOTOR_H_
+#define INC_DCMOTOR_H_
+
+#include "DCMotor.h"
+#include "stm32f407xx.h"
+
+
+/*
+ * L298N GPIO Pin
+ */
+#define	L298N_IN1_PORT	GPIOC
+#define	L298N_IN1_PIN	GPIO_PIN_2
+
+#define	L298N_IN2_PORT	GPIOC
+#define	L298N_IN2_PIN	GPIO_PIN_3
+
+/*
+ * Define motor name
+ */
+#define	MOTOR_LEFT	0
+#define MOTOR_RIGHT	1
+
+#endif /* INC_DCMOTOR_H_ */

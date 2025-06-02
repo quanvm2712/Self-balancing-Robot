@@ -1,10 +1,10 @@
-16:23:42 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
+23:39:16 **** Incremental Build of configuration Debug for project SelfBalancingRobot ****
 make -j12 all 
 arm-none-eabi-size  SelfBalancingRobot.elf 
    text	   data	    bss	    dec	    hex	filename
-  32496	    480	   2040	  35016	   88c8	SelfBalancingRobot.elf
+  24832	    460	   1908	  27200	   6a40	SelfBalancingRobot.elf
 Finished building: default.size.stdout
  
 
-16:23:42 Build Finished. 0 errors, 0 warnings. (took 209ms)
+23:39:16 Build Finished. 0 errors, 0 warnings. (took 205ms)
 
