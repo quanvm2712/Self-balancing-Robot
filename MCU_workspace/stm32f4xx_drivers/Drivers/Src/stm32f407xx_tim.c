@@ -149,11 +149,23 @@ void TIM_SetConfigEncoder(TIM_RegDef_t *pTIMx,
 
 
 /**
-  * @brief  Time Base configuration
-  * @param  TIMx TIM peripheral
-  * @param  Structure TIM Base configuration structure
-  * @retval None
-  */
+ * @brief  Configures a timer for PWM output.
+ *
+ * This function sets up a timer peripheral for Pulse Width Modulation (PWM)
+ * by configuring counter mode, prescaler, period, duty cycle, polarity,
+ * output compare mode, and enabling the necessary channels.
+ *
+ * @param  pTIMx        Pointer to the timer register definition structure.
+ * @param  CounterMode  Timer counter mode (e.g., up, down, center-aligned).
+ * @param  Channel      Timer channel to configure (e.g., 1, 2, 3, 4).
+ * @param  polarity     Output polarity (e.g., active high or active low).
+ * @param  Prescaler    Prescaler value to divide the timer input clock.
+ * @param  Period       Auto-reload value (defines the PWM period).
+ * @param  DutyCycle    Pulse width value (defines the PWM duty cycle).
+ * @param  OCMode       Output Compare mode (e.g., PWM1, PWM2, toggle).
+ *
+ * @retval None
+ */
 void TIM_SetConfigPWM(TIM_RegDef_t *pTIMx,
                    uint8_t CounterMode,
                    uint8_t Channel,
