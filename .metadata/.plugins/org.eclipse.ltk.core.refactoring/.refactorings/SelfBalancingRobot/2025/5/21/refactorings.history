@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;stm32f4xx_drivers/Middlewares&apos; to &apos;HardwareDrivers&apos;" description="Rename resource &apos;Middlewares&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Middlewares" name="HardwareDrivers" stamp="1748056205225" updateReferences="true"/>
-</session>
