@@ -11,6 +11,5 @@
 #include "stm32f407xx.h"
 
 uint16_t SR05_ReadData(USART_HandleTypeDef* pUSART);
-void SR05_InitTriggerIO();
 
 #endif /* INC_SR05_H_ */
