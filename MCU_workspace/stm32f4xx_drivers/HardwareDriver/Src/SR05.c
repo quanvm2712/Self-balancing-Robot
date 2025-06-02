@@ -9,51 +9,13 @@
 #include "SR05.h"
 #include "stm32f407xx.h"
 
-//
-//void SR05_InitTriggerIO(){
-//  GPIO_Initialize(GPIOA, GPIO_PIN_0, GPIO_MODE_OUTPUT);
-//  SR05_Trigger();
-//}
-
-//void SR05_Trigger(){
-//  GPIO_WritePin(GPIOA, GPIO_PIN_0, 0);
-////  Delay_ms(20);
-////  GPIO_WritePin(GPIOA, GPIO_PIN_0, 1);
-////  Delay_ms(18);
-//}
-
-//uint16_t SR05_ReadData(USART_HandleTypeDef* pUSART){
-//
-//  uint16_t distance = 0;
-//  //USART_Receive(pUSART, pRxBuffer, 1);
-//
-//  uint8_t pRxBuffer[4];
-////  for(uint8_t count = 0; count < 10; count++){
-////      USART_Receive(pUSART, pRxBuffer, 4);
-////      if(pRxBuffer[0] == 0xff){
-////	  if(pRxBuffer[1] == 0xAA && pRxBuffer[2] == 0xAA) return 1;
-////	  distance = (uint16_t)(pRxBuffer[1] << 8) | pRxBuffer[2];
-////	  break;
-////      }
-////  }
-//  USART_Receive(pUSART, pRxBuffer, 4);
-//
-//  uint8_t Received_Value_Sum = 0;
-//
-//
-//  if(pRxBuffer[0] == 0xff){
-//      if(pRxBuffer[1] == 0xAA && pRxBuffer[2] == 0xAA) return 1;
-//
-//      Received_Value_Sum = (pRxBuffer[0] + pRxBuffer[1] + pRxBuffer[2]) & 0xFF;
-//      if(Received_Value_Sum == pRxBuffer[3]){
-//	  distance = (uint16_t)(pRxBuffer[1] << 8) | pRxBuffer[2];
-//      }
-//
-//  }
-//
-//  return distance;
-//}
-
+/**
+  * @brief  Reads distance data from SR05 ultrasonic sensor via USART.
+  * @param  pUSART: Pointer to the USART handle structure used for communication.
+  * @retval Distance value in centimeters if a valid frame is received;
+  *         returns 1 if a reserved invalid frame is detected (0xFF 0xAA 0xAA),
+  *         or previous distance value if checksum fails.
+  */
 uint16_t SR05_ReadData(USART_HandleTypeDef* pUSART) {
     uint8_t pRxBuffer[4];
     uint8_t byte = 0;

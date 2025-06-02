@@ -7,6 +7,13 @@
 #include "MAX7219.h"
 
 
+/**
+  * @brief  Sends a command (address and data) to the MAX7219 via SPI.
+  * @param  SPIx: Pointer to the SPI peripheral configuration structure.
+  * @param  Address: Register address in MAX7219.
+  * @param  Data: Data to be sent to the specified address.
+  * @retval None
+  */
 
 void MAX7219_SendCommand(SPI_RegDef_t* SPIx, uint8_t Address, uint8_t Data){
   uint8_t TX_Data[2] = {Address, Data};
@@ -14,23 +21,54 @@ void MAX7219_SendCommand(SPI_RegDef_t* SPIx, uint8_t Address, uint8_t Data){
   SPI_Transmit(SPIx, TX_Data, 2);
 }
 
-
+/**
+  * @brief  Sets the operation mode (shutdown or normal) of the MAX7219.
+  * @param  SPIx: Pointer to the SPI peripheral configuration structure.
+  * @param  Mode: Operation mode. Use 0 for shutdown, 1 for normal operation.
+  * @retval None
+  */
 void MAX7219_OperationMode(SPI_RegDef_t* SPIx, _Bool Mode){
   MAX7219_SendCommand(SPIx, MAX7219_REG_SHUTDOWN, Mode);
 }
 
+/**
+  * @brief  Configures the decode mode for the MAX7219 (BCD decode or no decode).
+  * @param  SPIx: Pointer to the SPI peripheral configuration structure.
+  * @param  DecodeMode: Decode mode setting (0x00 to 0xFF depending on digits).
+  * @retval None
+  */
 void MAX7219_SetDecodeMode(SPI_RegDef_t* SPIx, uint8_t DecodeMode){
   MAX7219_SendCommand(SPIx, MAX7219_REG_DECODE_MODE, DecodeMode);
 }
 
+/**
+  * @brief  Sets the brightness intensity level of the MAX7219 display.
+  * @param  SPIx: Pointer to the SPI peripheral configuration structure.
+  * @param  IntensityLevel: Intensity level (0x00 to 0x0F).
+  * @retval None
+  */
 void MAX7219_SetIntensity(SPI_RegDef_t* SPIx, uint8_t IntensityLevel){
   MAX7219_SendCommand(SPIx, MAX7219_REG_INTENSITY, IntensityLevel);
 }
 
+/**
+  * @brief  Sets the scan limit for number of digits to be displayed.
+  * @param  SPIx: Pointer to the SPI peripheral configuration structure.
+  * @param  ScanLimit: Number of digits (0–7).
+  * @retval None
+  */
 void MAX7219_SetScanLimit(SPI_RegDef_t* SPIx, uint8_t ScanLimit){
   MAX7219_SendCommand(SPIx, MAX7219_REG_SCAN_LIMIT, ScanLimit);
 }
 
+/**
+  * @brief  Initializes the MAX7219 display with basic configurations.
+  * @param  SPIx: Pointer to the SPI peripheral configuration structure.
+  * @param  DecodeMode: Decode mode configuration.
+  * @param  IntensityLevel: Brightness level.
+  * @param  ScanLimit: Number of digits to scan/display.
+  * @retval None
+  */
 void MAX7219_Init(SPI_RegDef_t* SPIx, uint8_t DecodeMode, uint8_t IntensityLevel, uint8_t ScanLimit){
   MAX7219_Clean(SPIx);
   MAX7219_OperationMode(SPIx, MAX7219_NORMAL_OPERATION);
@@ -39,14 +77,32 @@ void MAX7219_Init(SPI_RegDef_t* SPIx, uint8_t DecodeMode, uint8_t IntensityLevel
   MAX7219_SetScanLimit(SPIx, ScanLimit);
 }
 
+/**
+  * @brief  Displays a value on a specific digit of the MAX7219.
+  * @param  SPIx: Pointer to the SPI peripheral configuration structure.
+  * @param  Digit: Digit register (0x01 to 0x08).
+  * @param  Value: Value to be displayed on the digit.
+  * @retval None
+  */
 void MAX7219_SetDigitValue(SPI_RegDef_t* SPIx, uint8_t Digit, uint8_t Value){
   MAX7219_SendCommand(SPIx, Digit, Value);
 }
 
+/**
+  * @brief  Enables or disables display test mode.
+  * @param  SPIx: Pointer to the SPI peripheral configuration structure.
+  * @param  IsEnabled: Set to 1 to enable test mode, 0 to disable.
+  * @retval None
+  */
 void MAX7219_TestLED(SPI_RegDef_t* SPIx, _Bool IsEnabled){
   MAX7219_SendCommand(SPIx, MAX7219_REG_DISPLAY_TEST, IsEnabled);
 }
 
+/**
+  * @brief  Clears all digits on the display.
+  * @param  SPIx: Pointer to the SPI peripheral configuration structure.
+  * @retval None
+  */
 void MAX7219_Clean(SPI_RegDef_t* SPIx){
   for(int count = 0; count <= 0xC; count++){
       MAX7219_SendCommand(SPIx, count, 0);
@@ -54,6 +110,11 @@ void MAX7219_Clean(SPI_RegDef_t* SPIx){
   MAX7219_SendCommand(SPIx, 0xF, 0);
 }
 
+/**
+  * @brief  Calculates 10 raised to the power of x.
+  * @param  x: The exponent value.
+  * @retval 10^x as an unsigned 32-bit integer.
+  */
 uint32_t POWER_10(uint8_t x){
   double result = 1;
   while (x--) {
@@ -62,6 +123,14 @@ uint32_t POWER_10(uint8_t x){
   return result;
 }
 
+/**
+  * @brief  Displays a number starting from a specific position on the MAX7219.
+  * @param  SPIx: Pointer to the SPI peripheral configuration structure.
+  * @param  Position: Starting digit position (1 to 8).
+  * @param  Number: The number to be displayed.
+  * @param  NoOfLEDDigits: Number of digits to be shown (padding with zero if needed).
+  * @retval None
+  */
 void MAX7219_DisplayNumbers(SPI_RegDef_t* SPIx, uint8_t Position, uint32_t Number, uint8_t NoOfLEDDigits){
 //  //Get number of digits of the number
 //  uint8_t NumberOfDigits = 0;
@@ -101,6 +170,11 @@ void MAX7219_DisplayNumbers(SPI_RegDef_t* SPIx, uint8_t Position, uint32_t Numbe
   }
 }
 
+/**
+  * @brief  Displays a left turn signal animation on the MAX7219 display.
+  * @param  SPIx: Pointer to the SPI peripheral configuration structure.
+  * @retval None
+  */
 void MAX7219_LeftSignal(SPI_RegDef_t* SPIx){
   for(uint8_t digit = MAX7219_REG_DIGIT0; digit <= MAX7219_REG_DIGIT3; digit++){
       if(digit == MAX7219_REG_DIGIT0){
@@ -118,6 +192,11 @@ void MAX7219_LeftSignal(SPI_RegDef_t* SPIx){
   Delay_ms(200);
 }
 
+/**
+  * @brief  Displays a right turn signal animation on the MAX7219 display.
+  * @param  SPIx: Pointer to the SPI peripheral configuration structure.
+  * @retval None
+  */
 void MAX7219_RightSignal(SPI_RegDef_t* SPIx){
   for(uint8_t digit = MAX7219_REG_DIGIT4; digit <= MAX7219_REG_DIGIT7; digit++){
       if(digit == MAX7219_REG_DIGIT7){
@@ -136,6 +215,11 @@ void MAX7219_RightSignal(SPI_RegDef_t* SPIx){
   Delay_ms(200);
 }
 
+/**
+  * @brief  Displays a stop signal animation by blinking inward from the outer digits.
+  * @param  SPIx: Pointer to the SPI peripheral configuration structure.
+  * @retval None
+  */
 void MAX7219_StopSignal(SPI_RegDef_t* SPIx){
   uint8_t right = MAX7219_REG_DIGIT3;
   uint8_t left = MAX7219_REG_DIGIT4;

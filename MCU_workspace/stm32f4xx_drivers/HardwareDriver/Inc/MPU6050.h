@@ -10,7 +10,7 @@
 
 #include "stm32f407xx.h"
 
-#define MPU6050_ADDRESS			(0x68)
+#define MPU6050_ADDRESS			0x68
 #define MPU6050_WHO_AM_I		0x75
 
 #define MPU6050_REG_PWR_MGMT_1  	0x6B
@@ -39,12 +39,13 @@ typedef struct {
 	double gyro_y_dps;
 	double gyro_z_dps;
 } MPU6050_ConvertedData;
-void TIM_Counter_Init(TIM_RegDef_t *TIMx);
+
 I2C_StatusTypeDef MPU6050_Init(I2C_HandleTypeDef *hi2c);
 I2C_StatusTypeDef MPU6050_ReadData(I2C_HandleTypeDef *hi2c, MPU6050_Data *data);
 I2C_StatusTypeDef MPU6050_CheckDevice(I2C_HandleTypeDef *hi2c);
 void MPU6050_ConvertData(const MPU6050_Data *raw_data, MPU6050_ConvertedData *converted_data);
-double MPU6050_GetAngle(const MPU6050_ConvertedData *data);
 void MPU6050_CalibGyro(void);
+double MPU6050_GetAngle(const MPU6050_ConvertedData *data);
+
 
 #endif /* INC_MPU6050_H_ */
