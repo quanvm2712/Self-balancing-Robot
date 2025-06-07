@@ -1,2 +1,5 @@
-../HardwareDriver/Src/DCMotor.c:11:6:Motor_ConfigDirectionGPIO	1
-../HardwareDriver/Src/DCMotor.c:18:6:Motor_Move	4
+../HardwareDriver/Src/DCMotor.c:12:6:Motor_Init	1
+../HardwareDriver/Src/DCMotor.c:18:6:Motor_ConfigIN_GPIO	1
+../HardwareDriver/Src/DCMotor.c:25:6:Motor_ConfigPWMSource	1
+../HardwareDriver/Src/DCMotor.c:32:6:Motor_ConfigDirection	4
+../HardwareDriver/Src/DCMotor.c:51:6:Motor_Control	4

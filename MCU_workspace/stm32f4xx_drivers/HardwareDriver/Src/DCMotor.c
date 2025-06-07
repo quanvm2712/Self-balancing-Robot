@@ -6,16 +6,30 @@
  */
 
 #include "DCMotor.h"
+#include <stdlib.h>
 
 
-void Motor_ConfigDirectionGPIO(){
+void Motor_Init(){
+  Motor_ConfigIN_GPIO();
+  Motor_ConfigPWMSource();
+
+}
+
+void Motor_ConfigIN_GPIO(){
   //Configure GPIO mode as output to connect to L298N IN1 and IN2 pin
   GPIO_Initialize(L298N_IN1_PORT, L298N_IN1_PIN, GPIO_MODE_OUTPUT);
   GPIO_Initialize(L298N_IN2_PORT, L298N_IN2_PIN, GPIO_MODE_OUTPUT);
 }
 
 
-void Motor_Move(_Bool Motor, _Bool Direction){
+void Motor_ConfigPWMSource(){
+  TIM_PWM_Init(TIM2, TIM_CHANNEL_1);
+}
+
+
+
+
+void Motor_ConfigDirection(_Bool Motor, _Bool Direction){
   if(Motor == MOTOR_LEFT){
       if(Direction == MOTOR_DIR_FORWARD){
 	  GPIO_WritePin(L298N_IN1_PORT, L298N_IN1_PIN, 1);
@@ -33,3 +47,18 @@ void Motor_Move(_Bool Motor, _Bool Direction){
   }
 }
 
+
+void Motor_Control(_Bool Motor, int16_t ControlSignal){
+  uint16_t ABS_ControlSignal = abs(ControlSignal);
+
+  if(Motor == MOTOR_LEFT){
+      if(ControlSignal < 0){
+	  Motor_ConfigDirection(MOTOR_LEFT, MOTOR_DIR_BACKWARD);
+      }
+      else if(ControlSignal >= 0){
+	  Motor_ConfigDirection(MOTOR_LEFT, MOTOR_DIR_FORWARD);
+      }
+
+      TIM_SetDuty(ABS_ControlSignal);
+  }
+}

@@ -88,15 +88,19 @@ double MPU6050_Angle = 0;
 int main(void){
   SysTick_Init();
 
-  Motor_ConfigDirectionGPIO();
+//  Motor_ConfigDirectionGPIO();
+  Motor_Init();
 
   while(1){
-      Motor_Move(MOTOR_LEFT, MOTOR_DIR_FORWARD);
-      Delay_ms(3000);
-      Motor_Move(MOTOR_LEFT, MOTOR_DIR_STOP);
-      Delay_ms(5000);
-      Motor_Move(MOTOR_LEFT, MOTOR_DIR_BACKWARD);
-      Delay_ms(3000);
+//      Motor_Move(MOTOR_LEFT, MOTOR_DIR_FORWARD);
+//      Delay_ms(3000);
+//      Motor_Move(MOTOR_LEFT, MOTOR_DIR_STOP);
+//      Delay_ms(5000);
+//      Motor_Move(MOTOR_LEFT, MOTOR_DIR_BACKWARD);
+//      Delay_ms(3000);
+
+      Motor_Control(MOTOR_LEFT, 999);
+      Delay_ms(2000);
 
   }
 

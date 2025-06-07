@@ -40,7 +40,10 @@
 /*/
  * User function
  */
-void Motor_ConfigDirectionGPIO(void);
-void Motor_Move(_Bool Motor, _Bool Direction);
+void Motor_ConfigIN_GPIO(void);
+void Motor_ConfigDirection(_Bool Motor, _Bool Direction);
+void Motor_ConfigPWMSource(void);
+void Motor_Init(void);
+void Motor_Control(_Bool Motor, int16_t ControlSignal);
 
 #endif /* INC_DCMOTOR_H_ */

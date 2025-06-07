@@ -312,49 +312,49 @@ void TIM_Encoder_Init(TIM_RegDef_t *TIMx)
   */
 void TIM_SetChannelPolarity(TIM_RegDef_t *TIMx, uint8_t channel, uint8_t polarity)
 {
-	switch(channel)
-	{
-		case TIM_CHANNEL_1:
-			if (polarity == TIM_OC_POLARITY_LOW)
-			{
-				TIMx->CR1 |= (1 << TIM_CCER_CC1P_Pos);
-			}else {
-				TIMx->CR1 &= ~(1 << TIM_CCER_CC1P_Pos);
-			}
-			break;
+  switch(channel)
+  {
+    case TIM_CHANNEL_1:
+	    if (polarity == TIM_OC_POLARITY_LOW)
+	    {
+		    TIMx->CR1 |= (1 << TIM_CCER_CC1P_Pos);
+	    }else {
+		    TIMx->CR1 &= ~(1 << TIM_CCER_CC1P_Pos);
+	    }
+	    break;
 
-		case TIM_CHANNEL_2:
-			if (polarity == TIM_OC_POLARITY_LOW)
-			{
-				TIMx->CR1 |= (1 << TIM_CCER_CC2P_Pos);
-			}else {
-				TIMx->CR1 &= ~(1 << TIM_CCER_CC2P_Pos);
-			}
-			break;
+    case TIM_CHANNEL_2:
+	    if (polarity == TIM_OC_POLARITY_LOW)
+	    {
+		    TIMx->CR1 |= (1 << TIM_CCER_CC2P_Pos);
+	    }else {
+		    TIMx->CR1 &= ~(1 << TIM_CCER_CC2P_Pos);
+	    }
+	    break;
 
-		case TIM_CHANNEL_3:
-			if (polarity == TIM_OC_POLARITY_LOW)
-			{
-				TIMx->CR1 |= (1 << TIM_CCER_CC3P_Pos);
-			}else {
-				TIMx->CR1 &= ~(1 << TIM_CCER_CC3P_Pos);
-			}
-			break;
+    case TIM_CHANNEL_3:
+	    if (polarity == TIM_OC_POLARITY_LOW)
+	    {
+		    TIMx->CR1 |= (1 << TIM_CCER_CC3P_Pos);
+	    }else {
+		    TIMx->CR1 &= ~(1 << TIM_CCER_CC3P_Pos);
+	    }
+	    break;
 
-		case TIM_CHANNEL_4:
-			if (polarity == TIM_OC_POLARITY_LOW)
-			{
-				TIMx->CR1 |= (1 << TIM_CCER_CC4P_Pos);
-			}else {
-				TIMx->CR1 &= ~(1 << TIM_CCER_CC4P_Pos);
-			}
-			break;
+    case TIM_CHANNEL_4:
+	    if (polarity == TIM_OC_POLARITY_LOW)
+	    {
+		    TIMx->CR1 |= (1 << TIM_CCER_CC4P_Pos);
+	    }else {
+		    TIMx->CR1 &= ~(1 << TIM_CCER_CC4P_Pos);
+	    }
+	    break;
 
-		default:
-			/* Nothing to do */
-			break;
+    default:
+	    /* Nothing to do */
+	    break;
 
-	}
+  }
 }
 
 /**
@@ -422,27 +422,29 @@ void TIM_ConfigTimeBase(TIM_RegDef_t *TIMx, uint32_t Prescaler, uint32_t Period,
     // Set duty cycle based on channel
     switch(Channel)
     {
-        case TIM_CHANNEL_1:
-            TIMx->CCR1 = DutyCycle;
-            break;
+      case TIM_CHANNEL_1:
+	  TIMx->CCR1 = DutyCycle;
+	  break;
 
-        case TIM_CHANNEL_2:
-            TIMx->CCR2 = DutyCycle;
-            break;
+      case TIM_CHANNEL_2:
+	  TIMx->CCR2 = DutyCycle;
+	  break;
 
-        case TIM_CHANNEL_3:
-            TIMx->CCR3 = DutyCycle;
-            break;
+      case TIM_CHANNEL_3:
+	  TIMx->CCR3 = DutyCycle;
+	  break;
 
-        case TIM_CHANNEL_4:
-            TIMx->CCR4 = DutyCycle;
-            break;
+      case TIM_CHANNEL_4:
+	  TIMx->CCR4 = DutyCycle;
+	  break;
 
-        default:
-            // Invalid channel
-            break;
+      default:
+	  // Invalid channel
+	  break;
     }
 }
+
+
 void TIM_SetDuty(uint32_t DutyCycle)
 {
        TIM2->CCR1 = DutyCycle;

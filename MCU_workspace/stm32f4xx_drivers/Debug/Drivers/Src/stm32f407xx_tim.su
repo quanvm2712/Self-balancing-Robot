@@ -9,9 +9,9 @@
 ../Drivers/Src/stm32f407xx_tim.c:313:6:TIM_SetChannelPolarity	16	static
 ../Drivers/Src/stm32f407xx_tim.c:367:6:TIM_ChannelOutputControl	16	static
 ../Drivers/Src/stm32f407xx_tim.c:414:6:TIM_ConfigTimeBase	24	static
-../Drivers/Src/stm32f407xx_tim.c:446:6:TIM_SetDuty	16	static
-../Drivers/Src/stm32f407xx_tim.c:453:10:TIM_GetCounter	16	static
-../Drivers/Src/stm32f407xx_tim.c:466:6:TIM_SetOCMode	16	static
-../Drivers/Src/stm32f407xx_tim.c:514:6:TIM_SetICMode	16	static
-../Drivers/Src/stm32f407xx_tim.c:551:13:TIM_SetCounterMode	16	static
-../Drivers/Src/stm32f407xx_tim.c:585:13:TIM_CounterControl	16	static
+../Drivers/Src/stm32f407xx_tim.c:448:6:TIM_SetDuty	16	static
+../Drivers/Src/stm32f407xx_tim.c:455:10:TIM_GetCounter	16	static
+../Drivers/Src/stm32f407xx_tim.c:468:6:TIM_SetOCMode	16	static
+../Drivers/Src/stm32f407xx_tim.c:516:6:TIM_SetICMode	16	static
+../Drivers/Src/stm32f407xx_tim.c:553:13:TIM_SetCounterMode	16	static
+../Drivers/Src/stm32f407xx_tim.c:587:13:TIM_CounterControl	16	static

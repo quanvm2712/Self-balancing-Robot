@@ -3,7 +3,6 @@
 ../HardwareDriver/Src/MPU6050.c:45:19:MPU6050_Init	24	static
 ../HardwareDriver/Src/MPU6050.c:87:19:MPU6050_CheckDevice	24	static
 ../HardwareDriver/Src/MPU6050.c:102:19:MPU6050_ReadData	32	static
-../HardwareDriver/Src/MPU6050.c:125:6:MPU6050_CalibGyro	24	static
-../HardwareDriver/Src/MPU6050.c:144:6:MPU6050_ConvertData	16	static
-../HardwareDriver/Src/MPU6050.c:155:6:TIM_Counter_Init	16	static
-../HardwareDriver/Src/MPU6050.c:175:8:MPU6050_GetAngle	104	static
+../HardwareDriver/Src/MPU6050.c:131:6:MPU6050_CalibGyro	24	static
+../HardwareDriver/Src/MPU6050.c:150:6:MPU6050_ConvertData	16	static
+../HardwareDriver/Src/MPU6050.c:168:8:MPU6050_GetAngle	104	static

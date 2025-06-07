@@ -107,9 +107,7 @@ void GPIO_Init_TIM(uint8_t channel);
 void TIM_SetChannelPolarity(TIM_RegDef_t *TIMx, uint8_t channel, uint8_t polarity);
 void TIM_ChannelOutputControl(TIM_RegDef_t *TIMx, uint8_t channel, uint8_t State);
 void TIM_ConfigTimeBase(TIM_RegDef_t *TIMx, uint32_t Prescaler, uint32_t Period, uint32_t DutyCycle, uint8_t Channel);
-void TIM_SetDuty(uint32_t DutyCycle);
 void TIM_SetOCMode(TIM_RegDef_t *TIMx, uint8_t channel, uint8_t OCmode);
-void TIM_PWM_Init(TIM_RegDef_t *TIMx,uint8_t channel);
 void GPIO_Init_Encoder(void);
 void TIM_SetConfigEncoder(TIM_RegDef_t *pTIMx, uint8_t CounterMode, uint8_t polarity, uint32_t Prescaler, uint32_t Period, uint8_t EncoderMode);
 void TIM_Encoder_Init(TIM_RegDef_t *TIMx);
@@ -127,6 +125,7 @@ void TIM_SetConfigPWM(TIM_RegDef_t *pTIMx,
                    uint32_t Period,
                    uint32_t DutyCycle,
                    uint8_t OCMode);
+void TIM_SetDuty(uint32_t DutyCycle);
 
 
 
