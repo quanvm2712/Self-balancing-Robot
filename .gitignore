@@ -1,0 +1,7 @@
+*.log              # Bỏ qua tất cả file có phần mở rộng .log
+metadata/          # Bỏ qua toàn bộ thư mục metadata và các nội dung bên trong
+plugins/org.eclipse*  # Bỏ qua tất cả file/thư mục bắt đầu bằng plugins/org.eclipse
+version.ini        # Bỏ qua file version.ini
+bak_*              # Bỏ qua tất cả file bắt đầu bằng bak_ (ví dụ: bak_0.log, bak_1.log)
+*.tmp              # Bỏ qua tất cả file tạm thời có phần mở rộng .tmp
+*.bak              # Bỏ qua tất cả file backup có phần mở rộng .bak

@@ -1,0 +1,19 @@
+/*
+ * PID.c
+ *
+ *  Created on: Jun 8, 2025
+ *      Author: nhduong
+ */
+
+#include "PID.h"
+
+
+void PID_Init(PID_Controller* pid, float Kp, float Ki, float Kd, float output_limit) {
+    pid->Kp = Kp;
+    pid->Ki = Ki;
+    pid->Kd = Kd;
+    pid->output_limit = output_limit;
+
+    pid->integral = 0.0f;
+    pid->prev_error = 0.0f;
+}

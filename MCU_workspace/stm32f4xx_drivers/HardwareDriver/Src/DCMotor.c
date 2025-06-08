@@ -8,7 +8,7 @@
 #include "DCMotor.h"
 
 
-void Motor_ConfigDirectionGPIO(){
+void Motor_ConfigDirectionGPIO(void){
   //Configure GPIO mode as output to connect to L298N IN1 and IN2 pin
   GPIO_Initialize(L298N_IN1_PORT, L298N_IN1_PIN, GPIO_MODE_OUTPUT);
   GPIO_Initialize(L298N_IN2_PORT, L298N_IN2_PIN, GPIO_MODE_OUTPUT);
