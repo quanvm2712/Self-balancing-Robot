@@ -1,0 +1,38 @@
+/*
+ * PID.c
+ *
+ *  Created on: Jun 8, 2025
+ *      Author: nhduong
+ */
+
+#include "PID.h"
+
+
+void PID_Init(PID_Controller* pid, float Kp, float Ki, float Kd) {
+    pid->Kp = Kp;
+    pid->Ki = Ki;
+    pid->Kd = Kd;
+
+    pid->integral = 0.0f;
+    pid->prev_error = 0.0f;
+}
+
+float PID_Compute(PID_Controller *pid, float setpoint, float measured)
+{
+
+	float dt = 0, lastTick = 0;
+
+
+	float error = setpoint - measured;
+
+	pid->integral += error * dt;
+
+	float derivative = (error - pid->prev_error) / dt;
+
+	float output = pid->Kp * error + pid->Ki * pid->integral + pid->Kd * derivative;
+
+	pid->prev_error = error;
+
+	return output;
+}
+

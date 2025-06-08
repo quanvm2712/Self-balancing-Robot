@@ -1,26 +1,43 @@
 #include "stm32f407xx.h"
 #include "MPU6050.h"
 #include "DCMotor.h"
+#include "PID.h"
 
 
 void Error_Handler(void);
-//I2C_HandleTypeDef hi2c1;
-//MPU6050_Data sensor_data;
-//MPU6050_ConvertedData converted_data;
-//double MPU6050_Angle = 0;
+I2C_HandleTypeDef hi2c1;
+MPU6050_Data sensor_data;
+MPU6050_ConvertedData converted_data;
+double MPU6050_Angle = 0;
+PID_Controller *PID;
+float Kp = 0, Ki = 0, Kd = 0;
+float dt = 0;
+
+
 
 int main(void){
+  I2C1_Init(&hi2c1);
+  if (MPU6050_Init(&hi2c1) != I2C_OK){
+	  Error_Handler();
+  }
+  MPU6050_CalibGyro();
+
+
+  Motor_Init();
+
   SysTick_Init();
 
-  Motor_ConfigDirectionGPIO();
+  PID_Init(PID, Kp, Ki, Kd);
 
   while(1){
-      Motor_Move(MOTOR_LEFT, MOTOR_DIR_FORWARD);
-      Delay_ms(3000);
-      Motor_Move(MOTOR_LEFT, MOTOR_DIR_STOP);
-      Delay_ms(5000);
-      Motor_Move(MOTOR_LEFT, MOTOR_DIR_BACKWARD);
-      Delay_ms(3000);
+	  if(MPU6050_ReadData(&hi2c1, &sensor_data) == I2C_OK){
+		  MPU6050_ConvertData(&sensor_data, &converted_data);
+		  MPU6050_Angle = MPU6050_GetAngle(&converted_data);
+	  }
+
+	  PID_Compute(PID, 0, MPU6050_Angle);
+
+	  Motor_Control(MOTOR_LEFT, 999);
 
   }
 

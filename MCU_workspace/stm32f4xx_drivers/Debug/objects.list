@@ -12,5 +12,6 @@
 "./HardwareDriver/Src/DCMotor.o"
 "./HardwareDriver/Src/MAX7219.o"
 "./HardwareDriver/Src/MPU6050.o"
+"./HardwareDriver/Src/PID.o"
 "./HardwareDriver/Src/SR05.o"
 "./Startup/startup_stm32f407vgtx.o"

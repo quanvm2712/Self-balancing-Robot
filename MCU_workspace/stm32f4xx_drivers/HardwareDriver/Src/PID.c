@@ -17,18 +17,27 @@ void PID_Init(PID_Controller* pid, float Kp, float Ki, float Kd) {
     pid->prev_error = 0.0f;
 }
 
-float PID_Compute(PID_Controller *pid, float setpoint, float measured, float dt)
+float PID_Compute(PID_Controller *pid, float setpoint, float measured)
 {
-  float error = setpoint - measured;
 
-  pid->integral += error * dt;
+	static float dt = 0.0f, lastTick = 0.0f, currentTick;
 
-  float derivative = (error - pid->prev_error) / dt;
 
-  float output = pid->Kp * error + pid->Ki * pid->integral + pid->Kd * derivative;
+	float error = setpoint - measured;
 
-  pid->prev_error = error;
+	currentTick = getTick();
+	dt = (currentTick - lastTick) / 1000.0f;
+	lastTick = currentTick;
 
-  return output;
+
+	pid->integral += error * dt;
+
+	float derivative = (error - pid->prev_error) / dt;
+
+	float output = pid->Kp * error + pid->Ki * pid->integral + pid->Kd * derivative;
+
+	pid->prev_error = error;
+
+	return output;
 }
 

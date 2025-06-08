@@ -18,6 +18,6 @@ typedef struct
 }PID_Controller;
 
 
-void PID_Init(PID_Controller *pid, float Kp, Ki, Kd);
-float PID_Compute(PID_Controller *pid, float setpoint, folat measured, float dt);
+void PID_Init(PID_Controller *pid, float Kp, float Ki, float Kd);
+float PID_Compute(PID_Controller *pid, float setpoint, float measured);
 #endif /* INC_PID_H_ */

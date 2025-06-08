@@ -1,0 +1,19 @@
+!SESSION 2025-06-08 22:14:43.486 -----------------------------------------------
+eclipse.buildId=Version 1.18.1
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  D:\Project\Self_Balancing_Robot\MCU_workspace\stm32f4xx_drivers\.project
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 D:\Project\Self_Balancing_Robot\MCU_workspace\stm32f4xx_drivers\.project
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-06-08 22:14:51.177
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-06-08 22:14:51.178
+!MESSAGE Log4j2 initialized with config file D:\Project\Self_Balancing_Robot\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-06-08 22:14:54.264
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-06-08 22:14:58.182
+!MESSAGE Indexed 'SelfBalancingRobot' (17 sources, 83 headers) in 1.67 sec: 4,495 declarations; 9,181 references; 4 unresolved inclusions; 1 syntax errors; 304 unresolved names (2.2%)
