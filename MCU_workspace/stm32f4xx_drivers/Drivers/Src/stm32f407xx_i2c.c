@@ -49,6 +49,7 @@ static void I2C_MasterReceive_BTF(I2C_HandleTypeDef *hi2c);
  	GPIO_InitStruct.Init.Pin = GPIO_PIN_6;  //SCL Pin
  	GPIO_InitStruct.Init.Mode = GPIO_MODE_AF;
  	GPIO_InitStruct.Init.Pull = GPIO_PULLUP;
+ 	GPIO_InitStruct.Init.OPType = GPIO_OPTYPE_OD;
  	GPIO_InitStruct.Init.Speed = GPIO_SPEED_FAST;
  	GPIO_InitStruct.Init.Alternate = GPIO_AF4_I2C1;
  	GPIO_Init(&GPIO_InitStruct);

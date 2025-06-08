@@ -11,7 +11,7 @@
 
 void Motor_Init(){
   Motor_ConfigIN_GPIO();
-  Motor_ConfigPWMSource();
+  Motor_ConfigPWMSource();  //PWM at PA0
 
 }
 

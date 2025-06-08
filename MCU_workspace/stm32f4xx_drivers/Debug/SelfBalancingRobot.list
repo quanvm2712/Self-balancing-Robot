@@ -4143,7 +4143,7 @@ void Motor_Init(){
  800201c:	af00      	add	r7, sp, #0
   Motor_ConfigIN_GPIO();
  800201e:	f000 f805 	bl	800202c <Motor_ConfigIN_GPIO>
-  Motor_ConfigPWMSource();
+  Motor_ConfigPWMSource();  //PWM at PA0
  8002022:	f000 f813 	bl	800204c <Motor_ConfigPWMSource>
 
 }

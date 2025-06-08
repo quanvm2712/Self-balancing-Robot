@@ -683,7 +683,7 @@ Discarded input sections
  .text.I2C1_Init
                 0x00000000       0x48 ./Drivers/Src/stm32f407xx_i2c.o
  .text.I2C1_GPIOInits
-                0x00000000       0x40 ./Drivers/Src/stm32f407xx_i2c.o
+                0x00000000       0x44 ./Drivers/Src/stm32f407xx_i2c.o
  .text.I2C2_Init
                 0x00000000       0x40 ./Drivers/Src/stm32f407xx_i2c.o
  .text.I2C2_GPIOInits
@@ -784,7 +784,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x12a ./Drivers/Src/stm32f407xx_i2c.o
  .debug_macro   0x00000000       0x40 ./Drivers/Src/stm32f407xx_i2c.o
  .debug_macro   0x00000000       0x3a ./Drivers/Src/stm32f407xx_i2c.o
- .debug_line    0x00000000     0x10ba ./Drivers/Src/stm32f407xx_i2c.o
+ .debug_line    0x00000000     0x10bd ./Drivers/Src/stm32f407xx_i2c.o
  .debug_str     0x00000000     0xcaeb ./Drivers/Src/stm32f407xx_i2c.o
  .comment       0x00000000       0x44 ./Drivers/Src/stm32f407xx_i2c.o
  .debug_frame   0x00000000      0x4cc ./Drivers/Src/stm32f407xx_i2c.o
