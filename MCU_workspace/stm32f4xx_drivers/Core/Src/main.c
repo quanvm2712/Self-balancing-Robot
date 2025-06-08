@@ -2,15 +2,30 @@
 #include "MPU6050.h"
 #include "DCMotor.h"
 
-#define SystemCoreClock 16000000
 
 void Error_Handler(void);
-I2C_HandleTypeDef hi2c1;
-MPU6050_Data sensor_data;
-MPU6050_ConvertedData converted_data;
-double MPU6050_Angle = 0;
+//I2C_HandleTypeDef hi2c1;
+//MPU6050_Data sensor_data;
+//MPU6050_ConvertedData converted_data;
+//double MPU6050_Angle = 0;
+
+int main(void){
+  SysTick_Init();
+
+  Motor_ConfigDirectionGPIO();
+
+  while(1){
+      Motor_Move(MOTOR_LEFT, MOTOR_DIR_FORWARD);
+      Delay_ms(3000);
+      Motor_Move(MOTOR_LEFT, MOTOR_DIR_STOP);
+      Delay_ms(5000);
+      Motor_Move(MOTOR_LEFT, MOTOR_DIR_BACKWARD);
+      Delay_ms(3000);
+
+  }
 
 
+}
 //int main(void){
 //
 //
@@ -85,27 +100,7 @@ double MPU6050_Angle = 0;
 //  return 0;
 //}
 
-int main(void){
-  SysTick_Init();
 
-//  Motor_ConfigDirectionGPIO();
-  Motor_Init();
-
-  while(1){
-//      Motor_Move(MOTOR_LEFT, MOTOR_DIR_FORWARD);
-//      Delay_ms(3000);
-//      Motor_Move(MOTOR_LEFT, MOTOR_DIR_STOP);
-//      Delay_ms(5000);
-//      Motor_Move(MOTOR_LEFT, MOTOR_DIR_BACKWARD);
-//      Delay_ms(3000);
-
-      Motor_Control(MOTOR_LEFT, 999);
-      Delay_ms(2000);
-
-  }
-
-
-}
 
 void Error_Handler(void)
 {
