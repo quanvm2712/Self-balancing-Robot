@@ -9,11 +9,12 @@ I2C_HandleTypeDef hi2c1;
 MPU6050_Data sensor_data;
 MPU6050_ConvertedData converted_data;
 double MPU6050_Angle = 0;
-PID_Controller *PID;
-float Kp = 0, Ki = 0, Kd = 0;
-float dt = 0;
+PID_Controller PID;
+double Kp =72.0;
+double Ki = 0;
+double Kd = 4.0;
 
-
+double output = 0;
 
 int main(void){
   I2C1_Init(&hi2c1);
@@ -27,7 +28,7 @@ int main(void){
 
   SysTick_Init();
 
-  PID_Init(PID, Kp, Ki, Kd);
+  PID_Init(&PID, Kp, Ki, Kd);
 
   while(1){
 	  if(MPU6050_ReadData(&hi2c1, &sensor_data) == I2C_OK){
@@ -35,9 +36,9 @@ int main(void){
 		  MPU6050_Angle = MPU6050_GetAngle(&converted_data);
 	  }
 
-	  PID_Compute(PID, 0, MPU6050_Angle);
+	 output = PID_Compute(&PID, 0, MPU6050_Angle);
 
-	  Motor_Control(MOTOR_LEFT, 999);
+	  Motor_Control(MOTOR_LEFT, (int16_t)output);
 
   }
 
