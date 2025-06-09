@@ -8,7 +8,7 @@
 #include "PID.h"
 
 
-void PID_Init(PID_Controller* pid, float Kp, float Ki, float Kd) {
+void PID_Init(PID_Controller* pid, double Kp, double Ki, double Kd) {
     pid->Kp = Kp;
     pid->Ki = Ki;
     pid->Kd = Kd;
@@ -17,24 +17,24 @@ void PID_Init(PID_Controller* pid, float Kp, float Ki, float Kd) {
     pid->prev_error = 0.0f;
 }
 
-float PID_Compute(PID_Controller *pid, float setpoint, float measured)
+double PID_Compute(PID_Controller *pid, double setpoint, double measured)
 {
 
-	static float dt = 0.0f, lastTick = 0.0f, currentTick;
+	static uint32_t lastTick = 0;
 
 
-	float error = setpoint - measured;
-
-	currentTick = getTick();
-	dt = (currentTick - lastTick) / 1000.0f;
-	lastTick = currentTick;
-
+	double error = setpoint - measured;
+	 //Calculate dt
+	 uint32_t currentTick = getTick();
+	 double dt = (currentTick - lastTick) / 1000.0;
+	 lastTick = currentTick;
+	 if (dt < 0.001) dt = 0.01;
 
 	pid->integral += error * dt;
 
-	float derivative = (error - pid->prev_error) / dt;
+	double derivative = (error - pid->prev_error) / dt;
 
-	float output = pid->Kp * error + pid->Ki * pid->integral + pid->Kd * derivative;
+	double output = pid->Kp * error + pid->Ki * pid->integral + pid->Kd * derivative;
 
 	pid->prev_error = error;
 

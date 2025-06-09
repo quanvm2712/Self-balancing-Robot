@@ -10,14 +10,14 @@
 
 typedef struct
 {
-  float Kp;
-  float Ki;
-  float Kd;
-  float integral;
-  float prev_error;
+	double Kp;
+	double Ki;
+	double Kd;
+	double integral;
+	double prev_error;
 }PID_Controller;
 
 
-void PID_Init(PID_Controller *pid, float Kp, float Ki, float Kd);
-float PID_Compute(PID_Controller *pid, float setpoint, float measured);
+void PID_Init(PID_Controller *pid, double Kp, double Ki, double Kd);
+double PID_Compute(PID_Controller *pid, double setpoint, double measured);
 #endif /* INC_PID_H_ */
